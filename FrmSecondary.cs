@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 
+
 namespace WinContador
 {
     public partial class FrmSecondary : Form
@@ -48,7 +49,7 @@ namespace WinContador
             lblTimer.Text = "00";
         }
 
-        private void CountdownTimer_Tick(object sender, EventArgs e)
+        private async void CountdownTimer_Tick(object sender, EventArgs e)
         {
             currentCount--;
             lblTimer.Text = currentCount.ToString("00");
@@ -57,11 +58,14 @@ namespace WinContador
             {
                 countdownTimer.Stop();
                 lblTimer.Text = "00";
-                
-                // Emitir sonido de alerta cuando el contador llegue a 00
-                SystemSounds.Beep.Play();
-                SystemSounds.Beep.Play();
-                SystemSounds.Beep.Play();
+
+                SoundPlayer player = new SoundPlayer("alerta.wav");
+
+                player.PlayLooping(); // Reproduce en bucle
+
+                await Task.Delay(3000); // Espera 3 segundos
+
+                player.Stop(); // Detiene el sonido
             }
         }
 

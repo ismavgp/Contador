@@ -51,8 +51,8 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ajustesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alertaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPorcentaje)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -85,10 +85,10 @@
             // txtResultado
             // 
             this.txtResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.txtResultado.Location = new System.Drawing.Point(59, 210);
+            this.txtResultado.Location = new System.Drawing.Point(59, 206);
             this.txtResultado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtResultado.Name = "txtResultado";
-            this.txtResultado.Size = new System.Drawing.Size(417, 58);
+            this.txtResultado.Size = new System.Drawing.Size(417, 60);
             this.txtResultado.TabIndex = 6;
             this.txtResultado.Text = "00";
             this.txtResultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -100,7 +100,7 @@
             this.txtNumero2.Location = new System.Drawing.Point(59, 309);
             this.txtNumero2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNumero2.Name = "txtNumero2";
-            this.txtNumero2.Size = new System.Drawing.Size(416, 51);
+            this.txtNumero2.Size = new System.Drawing.Size(416, 53);
             this.txtNumero2.TabIndex = 7;
             this.txtNumero2.Text = "00";
             this.txtNumero2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -114,7 +114,7 @@
             this.rbSuma.Location = new System.Drawing.Point(60, 271);
             this.rbSuma.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbSuma.Name = "rbSuma";
-            this.rbSuma.Size = new System.Drawing.Size(88, 29);
+            this.rbSuma.Size = new System.Drawing.Size(91, 29);
             this.rbSuma.TabIndex = 8;
             this.rbSuma.TabStop = true;
             this.rbSuma.Text = "Sumar";
@@ -127,7 +127,7 @@
             this.rbResta.Location = new System.Drawing.Point(187, 271);
             this.rbResta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbResta.Name = "rbResta";
-            this.rbResta.Size = new System.Drawing.Size(86, 29);
+            this.rbResta.Size = new System.Drawing.Size(89, 29);
             this.rbResta.TabIndex = 9;
             this.rbResta.Text = "Restar";
             this.rbResta.UseVisualStyleBackColor = true;
@@ -138,7 +138,7 @@
             this.numericUpDown1.Location = new System.Drawing.Point(187, 74);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(108, 44);
+            this.numericUpDown1.Size = new System.Drawing.Size(108, 45);
             this.numericUpDown1.TabIndex = 11;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown1.Value = new decimal(new int[] {
@@ -163,7 +163,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label2.Location = new System.Drawing.Point(52, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 20);
+            this.label2.Size = new System.Drawing.Size(112, 20);
             this.label2.TabIndex = 13;
             this.label2.Text = "Temporizador";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -187,7 +187,7 @@
             this.txtNroJuego.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNroJuego.Name = "txtNroJuego";
             this.txtNroJuego.ReadOnly = true;
-            this.txtNroJuego.Size = new System.Drawing.Size(64, 36);
+            this.txtNroJuego.Size = new System.Drawing.Size(64, 38);
             this.txtNroJuego.TabIndex = 15;
             // 
             // brnGuardarJuego
@@ -217,7 +217,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label3.Location = new System.Drawing.Point(452, 493);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 20);
+            this.label3.Size = new System.Drawing.Size(73, 20);
             this.label3.TabIndex = 18;
             this.label3.Text = "Ganador";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -228,7 +228,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label4.Location = new System.Drawing.Point(114, 493);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(25, 20);
+            this.label4.Size = new System.Drawing.Size(28, 20);
             this.label4.TabIndex = 19;
             this.label4.Text = "N°";
             // 
@@ -239,7 +239,7 @@
             this.label5.ForeColor = System.Drawing.Color.SteelBlue;
             this.label5.Location = new System.Drawing.Point(586, 50);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 20);
+            this.label5.Size = new System.Drawing.Size(103, 20);
             this.label5.TabIndex = 20;
             this.label5.Text = "Ver Historial";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -250,7 +250,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label6.Location = new System.Drawing.Point(199, 493);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 20);
+            this.label6.Size = new System.Drawing.Size(85, 20);
             this.label6.TabIndex = 22;
             this.label6.Text = "% Utilidad";
             // 
@@ -270,7 +270,7 @@
             this.txtPorcentaje.Location = new System.Drawing.Point(204, 523);
             this.txtPorcentaje.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPorcentaje.Name = "txtPorcentaje";
-            this.txtPorcentaje.Size = new System.Drawing.Size(84, 36);
+            this.txtPorcentaje.Size = new System.Drawing.Size(84, 38);
             this.txtPorcentaje.TabIndex = 24;
             this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPorcentaje.ValueChanged += new System.EventHandler(this.txtPorcentaje_ValueChanged);
@@ -305,18 +305,18 @@
             this.ajustesToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
             this.ajustesToolStripMenuItem.Text = "Ajustes";
             // 
+            // alertaToolStripMenuItem
+            // 
+            this.alertaToolStripMenuItem.Name = "alertaToolStripMenuItem";
+            this.alertaToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
+            this.alertaToolStripMenuItem.Text = "Alerta";
+            // 
             // ayudaToolStripMenuItem
             // 
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
-            // 
-            // alertaToolStripMenuItem
-            // 
-            this.alertaToolStripMenuItem.Name = "alertaToolStripMenuItem";
-            this.alertaToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
-            this.alertaToolStripMenuItem.Text = "Alerta";
             // 
             // FrmPrincipal
             // 

@@ -356,6 +356,7 @@ namespace WinContador
         private void LimpiarForm()
         {
             juegoRepository = new JuegoRepository();
+            juegoRepository.CrearBaseSiNoExiste();
             txtNumero2.Text = "0";
             txtResultado.Text = "0";
             rbSuma.Checked = true;

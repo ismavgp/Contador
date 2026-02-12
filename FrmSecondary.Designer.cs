@@ -52,7 +52,7 @@
             this.lblResultado.ForeColor = System.Drawing.Color.Lime;
             this.lblResultado.Location = new System.Drawing.Point(188, 336);
             this.lblResultado.Name = "lblResultado";
-            this.lblResultado.Size = new System.Drawing.Size(510, 130);
+            this.lblResultado.Size = new System.Drawing.Size(533, 135);
             this.lblResultado.TabIndex = 5;
             this.lblResultado.Text = "9999999";
             this.lblResultado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -63,7 +63,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(271, 275);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 30);
+            this.label2.Size = new System.Drawing.Size(148, 31);
             this.label2.TabIndex = 6;
             this.label2.Text = "APUESTA";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -75,7 +75,7 @@
             this.label3.ForeColor = System.Drawing.Color.Lime;
             this.label3.Location = new System.Drawing.Point(12, 336);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(199, 130);
+            this.label3.Size = new System.Drawing.Size(206, 135);
             this.label3.TabIndex = 7;
             this.label3.Text = "S/.";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -88,7 +88,7 @@
             this.lblTimer.ForeColor = System.Drawing.Color.Red;
             this.lblTimer.Location = new System.Drawing.Point(254, 108);
             this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(185, 130);
+            this.lblTimer.Size = new System.Drawing.Size(193, 135);
             this.lblTimer.TabIndex = 8;
             this.lblTimer.Text = "00";
             this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -108,7 +108,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(710, 562);
+            this.ClientSize = new System.Drawing.Size(868, 562);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.label2);
