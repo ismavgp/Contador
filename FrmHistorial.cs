@@ -7,17 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinContador.Data;
+using WinContador.Entity;
+using System.Globalization;
 
 namespace WinContador
 {
     public partial class FrmHistorial : Form
     {
-        private DatabaseHelper dbHelper;
+        //private DatabaseHelper dbHelper;
 
         public FrmHistorial()
         {
             InitializeComponent();
-            dbHelper = new DatabaseHelper();
+            // dbHelper = new DatabaseHelper();
         }
 
         private void FrmHistorial_Load(object sender, EventArgs e)
@@ -32,24 +35,13 @@ namespace WinContador
                 // Limpiar el DataGridView
                 dgHistorico.Rows.Clear();
 
-                // Obtener los datos de los juegos
-                DataTable gamesData = dbHelper.GetGames();
+                var repo = new JuegoRepository();
+                repo.CrearBaseSiNoExiste();
+                List<JuegoEntity> games = repo.ObtenerTodos(dtpFiltro.Value.ToString("dd/MM/yyyy"));
+                dgHistorico.DataSource = games;
 
-                // Llenar el DataGridView con los datos
-                foreach (DataRow row in gamesData.Rows)
-                {
-                    string gameInfo = $"N1:{row["Numero1"]} {row["Operacion"]} N2:{row["Numero2"]} = {row["Resultado"]}";
-                    DateTime fechaHora = DateTime.Parse(row["FechaHora"].ToString());
-                    
-                    dgHistorico.Rows.Add(
-                        row["Id"].ToString(),
-                        fechaHora.ToString("dd/MM/yyyy"),
-                        fechaHora.ToString("HH:mm:ss"),
-                        gameInfo, // Usar el campo "monto" para mostrar la información del juego
-                        $"{row["TiempoContador"]} seg", // Usar el campo "porcentaje" para mostrar el tiempo del contador
-                        row["Resultado"].ToString() // Usar el campo "utilidad" para mostrar el resultado
-                    );
-                }
+
+
             }
             catch (Exception ex)
             {
@@ -57,44 +49,31 @@ namespace WinContador
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
             // Botón Buscar - Filtrar por fecha
             try
             {
-                DateTime selectedDate = dateTimePicker1.Value.Date;
-                
-                // Limpiar el DataGridView
-                dgHistorico.Rows.Clear();
 
-                // Obtener todos los datos
-                DataTable gamesData = dbHelper.GetGames();
 
-                // Filtrar por fecha seleccionada
-                foreach (DataRow row in gamesData.Rows)
-                {
-                    DateTime gameDate = DateTime.Parse(row["FechaHora"].ToString()).Date;
-                    
-                    if (gameDate == selectedDate)
-                    {
-                        string gameInfo = $"N1:{row["Numero1"]} {row["Operacion"]} N2:{row["Numero2"]} = {row["Resultado"]}";
-                        DateTime fechaHora = DateTime.Parse(row["FechaHora"].ToString());
-                        
-                        dgHistorico.Rows.Add(
-                            row["Id"].ToString(),
-                            fechaHora.ToString("dd/MM/yyyy"),
-                            fechaHora.ToString("HH:mm:ss"),
-                            gameInfo,
-                            $"{row["TiempoContador"]} seg",
-                            row["Resultado"].ToString()
-                        );
-                    }
-                }
+                var repo = new JuegoRepository();
+                repo.CrearBaseSiNoExiste();
+
+                var resultados = repo.ObtenerTodos(dtpFiltro.Value.ToString("dd/MM/yyyy"));
+
+                dgHistorico.DataSource = resultados;
+
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al filtrar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

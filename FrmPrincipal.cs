@@ -8,19 +8,62 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using WinContador.Entity;
+using WinContador.Data;
 
 namespace WinContador
 {
     public partial class FrmPrincipal : Form
     {
         private FrmSecondary frmSecondary;
-        private DatabaseHelper dbHelper;
+        // private DatabaseHelper dbHelper;
+        private JuegoRepository juegoRepository;
 
         public FrmPrincipal()
         {
             InitializeComponent();
-            dbHelper = new DatabaseHelper();
+            // dbHelper = new DatabaseHelper();
             SetupTextBoxValidation();
+
+            // Allow the form to capture key presses before controls
+            this.KeyPreview = true;
+            this.KeyDown += FrmPrincipal_KeyDown;
+
+            LimpiarForm();
+        }
+
+        private void FrmPrincipal_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Ctrl+S => siempre suma
+            if (e.Control && e.KeyCode == Keys.S)
+            {
+                try
+                {
+                    rbSuma.Checked = true;
+                    // Ejecutar la misma acción que el botón procesar
+                    btnProcesa.PerformClick();
+                }
+                catch
+                {
+                    // ignorar si no existen los controles en tiempo de diseño
+                }
+                e.Handled = true;
+            }
+
+            // Ctrl+R => siempre resta
+            if (e.Control && e.KeyCode == Keys.R)
+            {
+                try
+                {
+                    rbResta.Checked = true;
+                    btnProcesa.PerformClick();
+                }
+                catch
+                {
+                    // ignorar si no existen los controles en tiempo de diseño
+                }
+                e.Handled = true;
+            }
         }
 
         private void SetupTextBoxValidation()
@@ -63,7 +106,7 @@ namespace WinContador
             }
 
             TextBox textBox = sender as TextBox;
-            
+
             // Solo permitir un punto decimal
             if (e.KeyChar == '.' && textBox.Text.Contains('.'))
             {
@@ -94,16 +137,31 @@ namespace WinContador
 
             // Remover formato anterior para obtener el número puro
             string cleanText = textBox.Text.Replace(",", "");
-            
+
             if (decimal.TryParse(cleanText, out decimal number))
             {
-                // Formatear con separadores de miles y mantener decimales
-                textBox.Text = number.ToString("N", CultureInfo.CurrentCulture);
+                // Formatear con separadores de miles y mantener o quitar decimales según corresponda
+                textBox.Text = FormatDecimal(number);
             }
             else
             {
                 textBox.Text = "0";
             }
+        }
+
+        private string FormatDecimal(decimal value)
+        {
+            // Redondear siempre a 2 decimales
+            decimal rounded = Math.Round(value, 2);
+
+            // Si es entero después del redondeo, mostrar sin decimales
+            if (rounded % 1 == 0)
+            {
+                return rounded.ToString("N0", CultureInfo.CurrentCulture);
+            }
+
+            // Si tiene decimales distintos de .00, mostrar exactamente 2 decimales
+            return rounded.ToString("N2", CultureInfo.CurrentCulture);
         }
 
         private decimal ParseFormattedNumber(string formattedText)
@@ -113,17 +171,17 @@ namespace WinContador
 
             // Remover separadores de miles para parsing
             string cleanText = formattedText.Replace(",", "");
-            
+
             if (decimal.TryParse(cleanText, out decimal result))
                 return result;
-            
+
             return 0;
         }
 
         private void btnProcesa_Click(object sender, EventArgs e)
         {
-            decimal numero1 = ParseFormattedNumber(txtResultado.Text); 
-            decimal numero2 = ParseFormattedNumber(txtNumero2.Text);   
+            decimal numero1 = ParseFormattedNumber(txtResultado.Text);
+            decimal numero2 = ParseFormattedNumber(txtNumero2.Text);
             decimal resultado;
 
             if (rbSuma.Checked)
@@ -136,13 +194,15 @@ namespace WinContador
             }
 
             // Actualizar el resultado en el formulario principal
-            txtResultado.Text = resultado.ToString("N", CultureInfo.CurrentCulture);
+            txtResultado.Text = FormatDecimal(resultado);
 
             // Actualizar el resultado en el formulario secundario
             if (frmSecondary != null)
             {
-                frmSecondary.UpdateResult((int)resultado);
+                frmSecondary.UpdateResult(FormatDecimal(resultado));
             }
+
+            calcularUtilidad();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -153,9 +213,10 @@ namespace WinContador
                 // Asegurarse de que el formulario esté visible
                 if (!frmSecondary.Visible)
                 {
+                    frmSecondary = new FrmSecondary();
                     frmSecondary.Show();
                 }
-                
+
                 // Iniciar el countdown
                 frmSecondary.SetCountdown((int)numericUpDown1.Value);
             }
@@ -169,7 +230,7 @@ namespace WinContador
         {
             frmSecondary = new FrmSecondary();
             frmSecondary.Show();
-            
+
             // Establecer valores iniciales formateados
             FormatNumberInTextBox(txtResultado);
             FormatNumberInTextBox(txtNumero2);
@@ -182,12 +243,22 @@ namespace WinContador
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
+            //verificar que el resultado no sea 0 antes de iniciar el countdown
+            var resultado = ParseFormattedNumber(txtResultado.Text);
+            if (resultado <= 0)
+            {
+                MessageBox.Show("El Monto debe ser mayor a 0", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
             // Verificar que frmSecondary no sea null
             if (frmSecondary != null)
             {
                 // Asegurarse de que el formulario esté visible
                 if (!frmSecondary.Visible)
                 {
+                    frmSecondary = new FrmSecondary();
                     frmSecondary.Show();
                 }
 
@@ -208,6 +279,7 @@ namespace WinContador
 
         private void label5_Click(object sender, EventArgs e)
         {
+            return;
             FrmHistorial frmHistorial = new FrmHistorial();
             frmHistorial.ShowDialog();
         }
@@ -223,45 +295,39 @@ namespace WinContador
             if (frmSecondary != null && !string.IsNullOrWhiteSpace(txtResultado.Text))
             {
                 decimal resultado = ParseFormattedNumber(txtResultado.Text);
-                frmSecondary.UpdateResult((int)resultado);
+                frmSecondary.UpdateResult(FormatDecimal(resultado));
             }
+            calcularUtilidad();
         }
 
         private void brnGuardarJuego_Click(object sender, EventArgs e)
         {
+
+            return;
             try
             {
                 // Obtener los valores actuales
-                if (string.IsNullOrWhiteSpace(txtResultado.Text) || string.IsNullOrWhiteSpace(txtNumero2.Text))
+                JuegoEntity entity = new JuegoEntity()
                 {
-                    MessageBox.Show("Por favor, complete los campos antes de guardar.", "Campos Requeridos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                    Id = 0,
+                    Fecha = DateTime.Now,
+                    Hora = DateTime.Now.ToString("HH:mm:ss"),
+                    Monto = ParseFormattedNumber(txtResultado.Text),
+                    PorcentajeUtilidad = txtPorcentaje.Value.ToString(),
+                    Utilidad = ParseFormattedNumber(txtResultado.Text) * (txtPorcentaje.Value / 100)
 
-                decimal numero1 = ParseFormattedNumber(txtResultado.Text);
-                decimal numero2 = ParseFormattedNumber(txtNumero2.Text);
-                decimal resultado;
 
-                // Determinar la operación y calcular el resultado
-                string operacion;
-                if (rbSuma.Checked)
-                {
-                    operacion = "Suma";
-                    resultado = numero1 + numero2;
-                }
-                else
-                {
-                    operacion = "Resta";
-                    resultado = numero1 - numero2;
-                }
+                };
+                // Guardar en la base de datos
 
-                // Obtener el tiempo del contador desde el NumericUpDown
-                int tiempoContador = (int)numericUpDown1.Value;
+                var repo = new JuegoRepository();
 
-                // Guardar en la base de datos (convertir a int para compatibilidad)
-                bool guardadoExitoso = dbHelper.SaveGame((int)numero1, (int)numero2, (int)resultado, operacion, tiempoContador);
+                repo.CrearBaseSiNoExiste();
 
-                if (guardadoExitoso)
+
+
+
+                if (repo.Insertar(entity))
                 {
                     MessageBox.Show("Juego guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -269,6 +335,7 @@ namespace WinContador
                 {
                     MessageBox.Show("Error al guardar el juego.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
             }
             catch (FormatException)
             {
@@ -278,6 +345,50 @@ namespace WinContador
             {
                 MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            LimpiarForm();
+        }
+
+
+        private void LimpiarForm()
+        {
+            juegoRepository = new JuegoRepository();
+            txtNumero2.Text = "0";
+            txtResultado.Text = "0";
+            rbSuma.Checked = true;
+            txtNroJuego.Text = juegoRepository.ObtenerSiguienteId();
+            txtUtilidad.Text = "0";
+            txtPorcentaje.Value = 0;
+
+        }
+
+        private void txtPorcentaje_ValueChanged(object sender, EventArgs e)
+        {
+            calcularUtilidad();
+        }
+
+        private void calcularUtilidad()
+        {
+            //calcular la utilidad cada vez que cambie el porcentaje
+            decimal monto = ParseFormattedNumber(txtResultado.Text);
+            if (monto > 0)
+            {
+                decimal utilidad = monto * (txtPorcentaje.Value / 100);
+                txtUtilidad.Text = FormatDecimal(utilidad);
+            }
+            else
+            {
+                txtUtilidad.Text = "0";
+            }
+        }
+
+        private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmHelp frm = new FrmHelp();
+            frm.ShowDialog();
         }
     }
 }
