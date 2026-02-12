@@ -13,9 +13,17 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                // Liberar fuentes creadas
+                originalTimerFont?.Dispose();
+                originalResultFont?.Dispose();
+                originalLabelFont?.Dispose();
+                
+                if (components != null)
+                {
+                    components.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
@@ -44,6 +52,7 @@
             this.lblResultado.Size = new System.Drawing.Size(298, 76);
             this.lblResultado.TabIndex = 5;
             this.lblResultado.Text = "9999999";
+            this.lblResultado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -54,16 +63,19 @@
             this.label2.Size = new System.Drawing.Size(148, 31);
             this.label2.TabIndex = 6;
             this.label2.Text = "APUESTA";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
+            this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.Lime;
             this.label3.Location = new System.Drawing.Point(57, 222);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 78);
+            this.label3.Size = new System.Drawing.Size(118, 76);
             this.label3.TabIndex = 7;
             this.label3.Text = "S/.";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // lblTimer
@@ -76,19 +88,26 @@
             this.lblTimer.Size = new System.Drawing.Size(204, 151);
             this.lblTimer.TabIndex = 8;
             this.lblTimer.Text = "00";
+            this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FrmSecondary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(574, 398);
             this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblResultado);
             this.Controls.Add(this.label3);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = true;
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "FrmSecondary";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Contador Secundario";
             this.ResumeLayout(false);
             this.PerformLayout();
 
