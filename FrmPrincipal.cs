@@ -279,7 +279,6 @@ namespace WinContador
 
         private void label5_Click(object sender, EventArgs e)
         {
-            return;
             FrmHistorial frmHistorial = new FrmHistorial();
             frmHistorial.ShowDialog();
         }
@@ -302,8 +301,6 @@ namespace WinContador
 
         private void brnGuardarJuego_Click(object sender, EventArgs e)
         {
-
-            return;
             try
             {
                 // Obtener los valores actuales
