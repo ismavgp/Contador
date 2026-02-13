@@ -391,5 +391,11 @@ namespace WinContador
             FrmHelp frm = new FrmHelp();
             frm.ShowDialog();
         }
+
+        private void ajustesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmSettings frmSettings = new FrmSettings();
+            frmSettings.ShowDialog();
+        }
     }
 }

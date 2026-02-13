@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.3.11505.172 d18.3
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36930.0 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinContador", "WinContador.csproj", "{6C1ECC93-6350-48A8-9F50-79C4BEE5CB91}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupContador", "SetupContador\SetupContador.vdproj", "{DE025EB8-A1FF-4F2D-3471-D746D4AAB289}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +15,6 @@ Global
 		{6C1ECC93-6350-48A8-9F50-79C4BEE5CB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C1ECC93-6350-48A8-9F50-79C4BEE5CB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C1ECC93-6350-48A8-9F50-79C4BEE5CB91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE025EB8-A1FF-4F2D-3471-D746D4AAB289}.Debug|Any CPU.ActiveCfg = Debug
-		{DE025EB8-A1FF-4F2D-3471-D746D4AAB289}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

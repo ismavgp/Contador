@@ -1,13 +1,16 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Media;
+using NAudio.Wave;
+using System.IO;
 
 
 namespace WinContador
@@ -59,13 +62,30 @@ namespace WinContador
                 countdownTimer.Stop();
                 lblTimer.Text = "00";
 
-                SoundPlayer player = new SoundPlayer("alerta.wav");
+                //mostrar la ruta donde se ejecuta y donde busca el mp3
+                string rutaBase = Application.StartupPath;
+                string rutaArchivo = Path.Combine(rutaBase, "alerta2.mp3");
 
-                player.PlayLooping(); // Reproduce en bucle
+                // Mostrar desde dónde se ejecuta y qué archivo intenta abrir
+                MessageBox.Show($"Ruta de ejecución:\n{rutaBase}\n\nArchivo buscado:\n{rutaArchivo}");
 
-                await Task.Delay(3000); // Espera 3 segundos
+                if (!File.Exists(rutaArchivo))
+                {
+                    MessageBox.Show("No se encontró el archivo MP3.");
+                    return;
+                }
 
-                player.Stop(); // Detiene el sonido
+                using (var audioFile = new AudioFileReader("alerta2.mp3"))
+                {
+                    var outputDevice = new WaveOutEvent();
+
+                    outputDevice.Init(audioFile);
+                    outputDevice.Play();
+
+                    await Task.Delay(3000);
+
+                    outputDevice.Stop();
+                }
             }
         }
 
