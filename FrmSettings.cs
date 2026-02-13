@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinContador.Data;
 
 namespace WinContador
 {
@@ -40,7 +41,12 @@ namespace WinContador
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            //cargar lista de sonidos desde los resources
+            ConfigRepository repo = new ConfigRepository();
+            repo.CrearBaseSiNoExiste();
+
+            repo.Guardar("SonidoAlerta", cboSonido.SelectedItem.ToString());
+            this.Close();
+
         }
 
         private async Task ReproducirMp3(string nombreRecurso)
@@ -56,6 +62,24 @@ namespace WinContador
                 output.Play();
 
                 await Task.Delay(3000); // o esperar PlaybackStopped
+            }
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            _ = ReproducirMp3(cboSonido.SelectedItem.ToString());
+        }
+
+        private void FrmSettings_Load(object sender, EventArgs e)
+        {
+            ConfigRepository repo = new ConfigRepository();
+            repo.CrearBaseSiNoExiste();
+            
+
+            string valor = repo.Obtener("SonidoAlerta");
+            if (valor != null)
+            {
+                cboSonido.SelectedItem = valor;
             }
         }
     }

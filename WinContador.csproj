@@ -89,6 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ConfigRepository.cs" />
     <Compile Include="Data\JuegoRepository.cs" />
     <Compile Include="Entity\JuegoEntity.cs" />
     <Compile Include="FrmHelp.cs">

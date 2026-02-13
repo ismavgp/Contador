@@ -31,6 +31,7 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.cboSonido = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnPlay = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGuardar
@@ -61,11 +62,22 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Sonido";
             // 
+            // btnPlay
+            // 
+            this.btnPlay.Location = new System.Drawing.Point(224, 45);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(25, 23);
+            this.btnPlay.TabIndex = 3;
+            this.btnPlay.Text = ">";
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 154);
+            this.ClientSize = new System.Drawing.Size(342, 154);
+            this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboSonido);
             this.Controls.Add(this.btnGuardar);
@@ -73,6 +85,7 @@
             this.Name = "FrmSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configuración";
+            this.Load += new System.EventHandler(this.FrmSettings_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -83,5 +96,6 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cboSonido;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnPlay;
     }
 }
