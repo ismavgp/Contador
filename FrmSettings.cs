@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinContador.Data;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinContador
 {
@@ -81,6 +82,25 @@ namespace WinContador
             {
                 cboSonido.SelectedItem = valor;
             }
+        }
+
+        private void cboSonido_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            // Si el ítem está seleccionado, usamos verde
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e.Graphics.FillRectangle(Brushes.Green, e.Bounds);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(Brushes.Black, e.Bounds);
+            }
+
+            // Dibujar el texto
+            e.Graphics.DrawString(cboSonido.Items[e.Index].ToString(),
+                e.Font, Brushes.White, e.Bounds);
         }
     }
 }

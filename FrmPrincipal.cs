@@ -22,7 +22,6 @@ namespace WinContador
         public FrmPrincipal()
         {
             InitializeComponent();
-            // dbHelper = new DatabaseHelper();
             SetupTextBoxValidation();
 
             // Allow the form to capture key presses before controls
@@ -34,8 +33,8 @@ namespace WinContador
 
         private void FrmPrincipal_KeyDown(object sender, KeyEventArgs e)
         {
-            // Ctrl+S => siempre suma
-            if (e.Control && e.KeyCode == Keys.S)
+            // + => siempre suma
+            if (e.KeyCode == Keys.Add)
             {
                 try
                 {
@@ -50,8 +49,8 @@ namespace WinContador
                 e.Handled = true;
             }
 
-            // Ctrl+R => siempre resta
-            if (e.Control && e.KeyCode == Keys.R)
+            // - => siempre resta
+            if (e.KeyCode == Keys.Subtract || e.KeyCode == Keys.OemMinus)
             {
                 try
                 {
@@ -63,6 +62,12 @@ namespace WinContador
                     // ignorar si no existen los controles en tiempo de diseño
                 }
                 e.Handled = true;
+            }
+
+            // con enter procesar
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnProcesa.PerformClick();
             }
         }
 
@@ -234,6 +239,35 @@ namespace WinContador
             // Establecer valores iniciales formateados
             FormatNumberInTextBox(txtResultado);
             FormatNumberInTextBox(txtNumero2);
+
+
+            //dar formato al menu desplegable
+
+            // Aplicamos el renderizador personalizado
+            menuStrip1.Renderer = new MyMenuRenderer();
+
+            // Cambiamos el color de la barra principal y el texto
+            menuStrip1.BackColor = Color.FromArgb(30, 30, 30);
+            menuStrip1.ForeColor = Color.White;
+
+            // Cambiar recursivamente el color de texto de todos los sub-ítems
+            foreach (ToolStripMenuItem item in menuStrip1.Items)
+            {
+                SetBlackThemeToMenu(item);
+            }
+        }
+
+        private void SetBlackThemeToMenu(ToolStripMenuItem item)
+        {
+            item.ForeColor = Color.White;
+            foreach (ToolStripItem subItem in item.DropDownItems)
+            {
+                if (subItem is ToolStripMenuItem)
+                {
+                    subItem.ForeColor = Color.White;
+                    SetBlackThemeToMenu((ToolStripMenuItem)subItem);
+                }
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -301,6 +335,26 @@ namespace WinContador
 
         private void brnGuardarJuego_Click(object sender, EventArgs e)
         {
+
+
+            //validar que no sea 0
+
+            decimal res = decimal.Parse(txtResultado.Text);
+            if (res < 0)
+            {
+                MessageBox.Show("No se puede guardar un juego");
+                return;
+            }
+
+            //validar porcentaje utilidad
+            int porcent = Convert.ToInt32(txtPorcentaje.Text);
+            if (porcent < 0)
+            {
+                MessageBox.Show("No se puede guardar un juego");
+                return;
+            }
+
+
             try
             {
                 // Obtener los valores actuales
@@ -315,23 +369,31 @@ namespace WinContador
 
 
                 };
-                // Guardar en la base de datos
 
                 var repo = new JuegoRepository();
-
                 repo.CrearBaseSiNoExiste();
 
 
+                //validar si existe
 
-
-                if (repo.Insertar(entity))
+               if(!repo.ExisteId(int.Parse(txtNroJuego.Text)))
                 {
-                    MessageBox.Show("Juego guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (!repo.Insertar(entity))
+                    {
+                        MessageBox.Show("Error al guardar el juego.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error al guardar el juego.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    entity.Id = int.Parse(txtNroJuego.Text);
+                    if (!repo.Actualizar(entity))
+                    {
+                        MessageBox.Show("Error al guardar el juego.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
+
+
+
 
             }
             catch (FormatException)
@@ -391,8 +453,53 @@ namespace WinContador
 
         private void ajustesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void FrmPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Form frmSecondary = Application.OpenForms["FrmSecondary"];
+
+            if (frmSecondary != null)
+            {
+                frmSecondary.Close();
+            }
+
+            FrmLogin frmLogin = new FrmLogin();
+            frmLogin.Show();
+        }
+
+        private void alertaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             FrmSettings frmSettings = new FrmSettings();
             frmSettings.ShowDialog();
         }
+
+        private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmChangePassword frmChangePassword = new FrmChangePassword();
+            frmChangePassword.ShowDialog();
+        }
+    }
+
+    public class MyMenuRenderer : ToolStripProfessionalRenderer
+    {
+        public MyMenuRenderer() : base(new MyColorTable()) { }
+    }
+
+    public class MyColorTable : ProfessionalColorTable
+    {
+        // Color de fondo del menú desplegable
+        public override Color ToolStripDropDownBackground => Color.FromArgb(20, 20, 20);
+
+        // Color del borde del menú
+        public override Color MenuBorder => Color.FromArgb(50, 50, 50);
+
+        // Color del ítem cuando pasas el mouse (Hover)
+        public override Color MenuItemSelected => Color.FromArgb(0, 120, 0); // Verde Fiera
+
+        // Color del borde del ítem seleccionado
+        public override Color MenuItemSelectedGradientBegin => Color.FromArgb(0, 120, 0);
+        public override Color MenuItemSelectedGradientEnd => Color.FromArgb(0, 120, 0);
     }
 }

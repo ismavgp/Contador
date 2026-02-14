@@ -36,47 +36,64 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(12, 84);
+            this.btnGuardar.BackgroundImage = global::WinContador.Properties.Resources.btnGuardar;
+            this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.Location = new System.Drawing.Point(108, 91);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(141, 43);
+            this.btnGuardar.Size = new System.Drawing.Size(141, 32);
             this.btnGuardar.TabIndex = 0;
-            this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // cboSonido
             // 
+            this.cboSonido.BackColor = System.Drawing.Color.Black;
+            this.cboSonido.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cboSonido.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSonido.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboSonido.ForeColor = System.Drawing.Color.White;
             this.cboSonido.FormattingEnabled = true;
             this.cboSonido.Location = new System.Drawing.Point(12, 45);
             this.cboSonido.Name = "cboSonido";
-            this.cboSonido.Size = new System.Drawing.Size(206, 24);
+            this.cboSonido.Size = new System.Drawing.Size(206, 30);
             this.cboSonido.TabIndex = 1;
+            this.cboSonido.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cboSonido_DrawItem);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 26);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(13, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 16);
+            this.label1.Size = new System.Drawing.Size(62, 21);
             this.label1.TabIndex = 2;
             this.label1.Text = "Sonido";
             // 
             // btnPlay
             // 
-            this.btnPlay.Location = new System.Drawing.Point(224, 45);
+            this.btnPlay.BackColor = System.Drawing.Color.Transparent;
+            this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPlay.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlay.ForeColor = System.Drawing.Color.White;
+            this.btnPlay.Location = new System.Drawing.Point(224, 46);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(25, 23);
+            this.btnPlay.Size = new System.Drawing.Size(25, 29);
             this.btnPlay.TabIndex = 3;
             this.btnPlay.Text = ">";
-            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.UseVisualStyleBackColor = false;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(342, 154);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImage = global::WinContador.Properties.Resources.FondoForm;
+            this.ClientSize = new System.Drawing.Size(296, 143);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboSonido);

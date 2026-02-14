@@ -28,20 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHistorial));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dgHistorico = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.dtpFiltro = new System.Windows.Forms.DateTimePicker();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnExportar = new System.Windows.Forms.Button();
+            this.txtPorcentajeAcumulado = new System.Windows.Forms.TextBox();
+            this.txtUtilidadAcumulada = new System.Windows.Forms.TextBox();
+            this.txtMontoAcumulado = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.utilidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.dtpFiltro = new System.Windows.Forms.DateTimePicker();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnExportar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgHistorico)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -51,10 +56,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::WinContador.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(11, 11);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 14);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(244, 144);
+            this.pictureBox1.Size = new System.Drawing.Size(274, 189);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -63,6 +67,10 @@
             // 
             this.dgHistorico.AllowUserToAddRows = false;
             this.dgHistorico.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.dgHistorico.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgHistorico.BackgroundColor = System.Drawing.Color.Black;
             this.dgHistorico.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgHistorico.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -71,16 +79,133 @@
             this.monto,
             this.porcentaje,
             this.utilidad});
-            this.dgHistorico.Location = new System.Drawing.Point(11, 176);
-            this.dgHistorico.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgHistorico.Location = new System.Drawing.Point(12, 204);
             this.dgHistorico.MultiSelect = false;
             this.dgHistorico.Name = "dgHistorico";
             this.dgHistorico.ReadOnly = true;
             this.dgHistorico.RowHeadersVisible = false;
             this.dgHistorico.RowHeadersWidth = 62;
             this.dgHistorico.RowTemplate.Height = 28;
-            this.dgHistorico.Size = new System.Drawing.Size(1141, 332);
+            this.dgHistorico.Size = new System.Drawing.Size(788, 447);
             this.dgHistorico.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox1.BackgroundImage = global::WinContador.Properties.Resources.fondoCabecera;
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox1.Controls.Add(this.btnBuscar);
+            this.groupBox1.Controls.Add(this.dtpFiltro);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.Location = new System.Drawing.Point(294, 33);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(503, 77);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Filtros";
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.Transparent;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.Location = new System.Drawing.Point(171, 29);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(71, 35);
+            this.btnBuscar.TabIndex = 1;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // dtpFiltro
+            // 
+            this.dtpFiltro.CalendarForeColor = System.Drawing.Color.White;
+            this.dtpFiltro.CalendarMonthBackground = System.Drawing.Color.Black;
+            this.dtpFiltro.CalendarTitleBackColor = System.Drawing.Color.DarkGreen;
+            this.dtpFiltro.CalendarTitleForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.dtpFiltro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFiltro.Location = new System.Drawing.Point(7, 29);
+            this.dtpFiltro.Name = "dtpFiltro";
+            this.dtpFiltro.Size = new System.Drawing.Size(158, 29);
+            this.dtpFiltro.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.BackgroundImage = global::WinContador.Properties.Resources.fondoCabecera;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.btnExportar);
+            this.panel1.Location = new System.Drawing.Point(294, 149);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(506, 51);
+            this.panel1.TabIndex = 3;
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.BackColor = System.Drawing.Color.Transparent;
+            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportar.ForeColor = System.Drawing.Color.White;
+            this.btnExportar.Location = new System.Drawing.Point(396, 3);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(107, 45);
+            this.btnExportar.TabIndex = 0;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.UseVisualStyleBackColor = false;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // txtPorcentajeAcumulado
+            // 
+            this.txtPorcentajeAcumulado.BackColor = System.Drawing.Color.Black;
+            this.txtPorcentajeAcumulado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPorcentajeAcumulado.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPorcentajeAcumulado.ForeColor = System.Drawing.Color.White;
+            this.txtPorcentajeAcumulado.Location = new System.Drawing.Point(535, 658);
+            this.txtPorcentajeAcumulado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtPorcentajeAcumulado.Name = "txtPorcentajeAcumulado";
+            this.txtPorcentajeAcumulado.ReadOnly = true;
+            this.txtPorcentajeAcumulado.Size = new System.Drawing.Size(102, 29);
+            this.txtPorcentajeAcumulado.TabIndex = 4;
+            this.txtPorcentajeAcumulado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtUtilidadAcumulada
+            // 
+            this.txtUtilidadAcumulada.BackColor = System.Drawing.Color.Black;
+            this.txtUtilidadAcumulada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUtilidadAcumulada.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUtilidadAcumulada.ForeColor = System.Drawing.Color.White;
+            this.txtUtilidadAcumulada.Location = new System.Drawing.Point(649, 658);
+            this.txtUtilidadAcumulada.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtUtilidadAcumulada.Name = "txtUtilidadAcumulada";
+            this.txtUtilidadAcumulada.ReadOnly = true;
+            this.txtUtilidadAcumulada.Size = new System.Drawing.Size(102, 29);
+            this.txtUtilidadAcumulada.TabIndex = 4;
+            this.txtUtilidadAcumulada.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtMontoAcumulado
+            // 
+            this.txtMontoAcumulado.BackColor = System.Drawing.Color.Black;
+            this.txtMontoAcumulado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMontoAcumulado.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoAcumulado.ForeColor = System.Drawing.Color.White;
+            this.txtMontoAcumulado.Location = new System.Drawing.Point(356, 658);
+            this.txtMontoAcumulado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtMontoAcumulado.Name = "txtMontoAcumulado";
+            this.txtMontoAcumulado.ReadOnly = true;
+            this.txtMontoAcumulado.Size = new System.Drawing.Size(172, 29);
+            this.txtMontoAcumulado.TabIndex = 4;
+            this.txtMontoAcumulado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(244, 658);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 21);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "SUMA TOTAL";
             // 
             // Id
             // 
@@ -90,7 +215,7 @@
             this.Id.MinimumWidth = 8;
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
-            this.Id.Width = 150;
+            this.Id.Width = 70;
             // 
             // fecha
             // 
@@ -99,16 +224,16 @@
             this.fecha.MinimumWidth = 8;
             this.fecha.Name = "fecha";
             this.fecha.ReadOnly = true;
-            this.fecha.Width = 150;
+            this.fecha.Width = 120;
             // 
             // hora
             // 
             this.hora.DataPropertyName = "Hora";
-            this.hora.HeaderText = "Hora";
+            this.hora.HeaderText = "HORA";
             this.hora.MinimumWidth = 8;
             this.hora.Name = "hora";
             this.hora.ReadOnly = true;
-            this.hora.Width = 150;
+            this.hora.Width = 120;
             // 
             // monto
             // 
@@ -117,7 +242,7 @@
             this.monto.MinimumWidth = 8;
             this.monto.Name = "monto";
             this.monto.ReadOnly = true;
-            this.monto.Width = 300;
+            this.monto.Width = 200;
             // 
             // porcentaje
             // 
@@ -126,7 +251,7 @@
             this.porcentaje.MinimumWidth = 8;
             this.porcentaje.Name = "porcentaje";
             this.porcentaje.ReadOnly = true;
-            this.porcentaje.Width = 150;
+            this.porcentaje.Width = 130;
             // 
             // utilidad
             // 
@@ -135,74 +260,26 @@
             this.utilidad.MinimumWidth = 8;
             this.utilidad.Name = "utilidad";
             this.utilidad.ReadOnly = true;
-            this.utilidad.Width = 150;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox1.Controls.Add(this.btnBuscar);
-            this.groupBox1.Controls.Add(this.dtpFiltro);
-            this.groupBox1.Location = new System.Drawing.Point(261, 25);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(572, 59);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filtros";
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(267, 18);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(72, 27);
-            this.btnBuscar.TabIndex = 1;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // dtpFiltro
-            // 
-            this.dtpFiltro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFiltro.Location = new System.Drawing.Point(93, 20);
-            this.dtpFiltro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dtpFiltro.Name = "dtpFiltro";
-            this.dtpFiltro.Size = new System.Drawing.Size(141, 22);
-            this.dtpFiltro.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel1.Controls.Add(this.btnExportar);
-            this.panel1.Location = new System.Drawing.Point(261, 107);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(891, 48);
-            this.panel1.TabIndex = 3;
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Location = new System.Drawing.Point(773, 6);
-            this.btnExportar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(95, 34);
-            this.btnExportar.TabIndex = 0;
-            this.btnExportar.Text = "Exportar";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            this.utilidad.Width = 120;
             // 
             // FrmHistorial
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1163, 604);
+            this.BackgroundImage = global::WinContador.Properties.Resources.FondoForm;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(837, 695);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtUtilidadAcumulada);
+            this.Controls.Add(this.txtMontoAcumulado);
+            this.Controls.Add(this.txtPorcentajeAcumulado);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgHistorico);
             this.Controls.Add(this.pictureBox1);
+            this.DoubleBuffered = true;
+            this.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmHistorial";
             this.Text = "                     ";
             this.Load += new System.EventHandler(this.FrmHistorial_Load);
@@ -211,6 +288,7 @@
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -223,6 +301,10 @@
         private System.Windows.Forms.DateTimePicker dtpFiltro;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.TextBox txtPorcentajeAcumulado;
+        private System.Windows.Forms.TextBox txtUtilidadAcumulada;
+        private System.Windows.Forms.TextBox txtMontoAcumulado;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn hora;

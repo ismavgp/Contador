@@ -9,8 +9,8 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using NAudio.Wave;
 using System.IO;
+using WinContador.Data;
 
 
 namespace WinContador
@@ -19,9 +19,6 @@ namespace WinContador
     {
         private Timer countdownTimer;
         private int currentCount;
-        private Font originalTimerFont;
-        private Font originalResultFont;
-        private Font originalLabelFont;
 
         public FrmSecondary()
         {
@@ -62,12 +59,16 @@ namespace WinContador
                 countdownTimer.Stop();
                 lblTimer.Text = "00";
 
+                ConfigRepository configRepository = new ConfigRepository();
+                configRepository.CrearBaseSiNoExiste();
+               string alerta = configRepository.Obtener("SonidoAlerta");
+
                 //mostrar la ruta donde se ejecuta y donde busca el mp3
                 string rutaBase = Application.StartupPath;
-                string rutaArchivo = Path.Combine(rutaBase, "alerta2.mp3");
+                string rutaArchivo = Path.Combine(rutaBase, alerta+".mp3");
 
                 // Mostrar desde dónde se ejecuta y qué archivo intenta abrir
-                MessageBox.Show($"Ruta de ejecución:\n{rutaBase}\n\nArchivo buscado:\n{rutaArchivo}");
+                //MessageBox.Show($"Ruta de ejecución:\n{rutaBase}\n\nArchivo buscado:\n{rutaArchivo}");
 
                 if (!File.Exists(rutaArchivo))
                 {
@@ -75,17 +76,7 @@ namespace WinContador
                     return;
                 }
 
-                using (var audioFile = new AudioFileReader("alerta2.mp3"))
-                {
-                    var outputDevice = new WaveOutEvent();
-
-                    outputDevice.Init(audioFile);
-                    outputDevice.Play();
-
-                    await Task.Delay(3000);
-
-                    outputDevice.Stop();
-                }
+                _= ReproducirMp3(alerta);
             }
         }
 
@@ -125,18 +116,18 @@ namespace WinContador
                 // If after rounding the value is an integer, show without decimals
                 if (rounded % 1 == 0)
                 {
-                    lblResultado.Text = rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text = "S./ "+ rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
                 }
                 else
                 {
                     // Show exactly two decimals
-                    lblResultado.Text = rounded.ToString("N2", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text = "S./ " + rounded.ToString("N2", System.Globalization.CultureInfo.CurrentCulture);
                 }
             }
             else
             {
                 // Fallback: show the original text if parsing fails
-                lblResultado.Text = resultado;
+                lblResultado.Text = "S./ " + resultado;
             }
         }
 
@@ -145,5 +136,25 @@ namespace WinContador
 
         }
 
+        private async Task ReproducirMp3(string nombreRecurso)
+        {
+            var bytes = (byte[])Properties.Resources
+                .ResourceManager.GetObject(nombreRecurso);
+
+            using (var ms = new MemoryStream(bytes))
+            using (var reader = new Mp3FileReader(ms))
+            using (var output = new WaveOutEvent())
+            {
+                output.Init(reader);
+                output.Play();
+
+                await Task.Delay(3000); // o esperar PlaybackStopped
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
