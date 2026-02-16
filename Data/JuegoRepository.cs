@@ -97,6 +97,46 @@ namespace WinContador.Data
             return lista;
         }
 
+
+        public List<JuegoResultEntity> ObtenerPorRango( string fechaInicio, string fechaFin)
+        {
+            var lista = new List<JuegoResultEntity>();
+
+            using (var conn = new SQLiteConnection(_connectionString))
+            {
+                conn.Open();
+
+                string sql = "SELECT * FROM Juegos WHERE Fecha >= @FechaInicio AND Fecha <= @FechaFin";
+
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                    cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            decimal monto = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
+                            decimal utilidad = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
+
+                            lista.Add(new JuegoResultEntity
+                            {
+                                Id = reader["Id"].ToString(),
+                                Fecha = reader["Fecha"]?.ToString(),
+                                Hora = reader["Hora"]?.ToString(),
+                                Monto = FormatoNumerico.FormatDecimal(monto),
+                                PorcentajeUtilidad = reader["PorcentajeUtilidad"]?.ToString(),
+                                Utilidad = FormatoNumerico.FormatDecimal(utilidad)
+                            });
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
+
         public string ObtenerSiguienteId()
         {
             using (var conn = new SQLiteConnection(_connectionString))

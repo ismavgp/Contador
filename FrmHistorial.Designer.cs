@@ -32,6 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHistorial));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dgHistorico = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.utilidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dtpFiltro = new System.Windows.Forms.DateTimePicker();
@@ -41,12 +47,9 @@
             this.txtUtilidadAcumulada = new System.Windows.Forms.TextBox();
             this.txtMontoAcumulado = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.utilidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cboMeses = new System.Windows.Forms.ComboBox();
+            this.rbDiario = new System.Windows.Forms.RadioButton();
+            this.rbMensual = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgHistorico)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -86,126 +89,8 @@
             this.dgHistorico.RowHeadersVisible = false;
             this.dgHistorico.RowHeadersWidth = 62;
             this.dgHistorico.RowTemplate.Height = 28;
-            this.dgHistorico.Size = new System.Drawing.Size(788, 447);
+            this.dgHistorico.Size = new System.Drawing.Size(788, 244);
             this.dgHistorico.TabIndex = 1;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox1.BackgroundImage = global::WinContador.Properties.Resources.fondoCabecera;
-            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.groupBox1.Controls.Add(this.btnBuscar);
-            this.groupBox1.Controls.Add(this.dtpFiltro);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(294, 33);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(503, 77);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filtros";
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.BackColor = System.Drawing.Color.Transparent;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.Location = new System.Drawing.Point(171, 29);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(71, 35);
-            this.btnBuscar.TabIndex = 1;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // dtpFiltro
-            // 
-            this.dtpFiltro.CalendarForeColor = System.Drawing.Color.White;
-            this.dtpFiltro.CalendarMonthBackground = System.Drawing.Color.Black;
-            this.dtpFiltro.CalendarTitleBackColor = System.Drawing.Color.DarkGreen;
-            this.dtpFiltro.CalendarTitleForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.dtpFiltro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFiltro.Location = new System.Drawing.Point(7, 29);
-            this.dtpFiltro.Name = "dtpFiltro";
-            this.dtpFiltro.Size = new System.Drawing.Size(158, 29);
-            this.dtpFiltro.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel1.BackgroundImage = global::WinContador.Properties.Resources.fondoCabecera;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.btnExportar);
-            this.panel1.Location = new System.Drawing.Point(294, 149);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(506, 51);
-            this.panel1.TabIndex = 3;
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.BackColor = System.Drawing.Color.Transparent;
-            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportar.ForeColor = System.Drawing.Color.White;
-            this.btnExportar.Location = new System.Drawing.Point(396, 3);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(107, 45);
-            this.btnExportar.TabIndex = 0;
-            this.btnExportar.Text = "Exportar";
-            this.btnExportar.UseVisualStyleBackColor = false;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            // 
-            // txtPorcentajeAcumulado
-            // 
-            this.txtPorcentajeAcumulado.BackColor = System.Drawing.Color.Black;
-            this.txtPorcentajeAcumulado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPorcentajeAcumulado.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPorcentajeAcumulado.ForeColor = System.Drawing.Color.White;
-            this.txtPorcentajeAcumulado.Location = new System.Drawing.Point(535, 658);
-            this.txtPorcentajeAcumulado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPorcentajeAcumulado.Name = "txtPorcentajeAcumulado";
-            this.txtPorcentajeAcumulado.ReadOnly = true;
-            this.txtPorcentajeAcumulado.Size = new System.Drawing.Size(102, 29);
-            this.txtPorcentajeAcumulado.TabIndex = 4;
-            this.txtPorcentajeAcumulado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtUtilidadAcumulada
-            // 
-            this.txtUtilidadAcumulada.BackColor = System.Drawing.Color.Black;
-            this.txtUtilidadAcumulada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUtilidadAcumulada.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUtilidadAcumulada.ForeColor = System.Drawing.Color.White;
-            this.txtUtilidadAcumulada.Location = new System.Drawing.Point(649, 658);
-            this.txtUtilidadAcumulada.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtUtilidadAcumulada.Name = "txtUtilidadAcumulada";
-            this.txtUtilidadAcumulada.ReadOnly = true;
-            this.txtUtilidadAcumulada.Size = new System.Drawing.Size(102, 29);
-            this.txtUtilidadAcumulada.TabIndex = 4;
-            this.txtUtilidadAcumulada.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtMontoAcumulado
-            // 
-            this.txtMontoAcumulado.BackColor = System.Drawing.Color.Black;
-            this.txtMontoAcumulado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMontoAcumulado.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMontoAcumulado.ForeColor = System.Drawing.Color.White;
-            this.txtMontoAcumulado.Location = new System.Drawing.Point(356, 658);
-            this.txtMontoAcumulado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtMontoAcumulado.Name = "txtMontoAcumulado";
-            this.txtMontoAcumulado.ReadOnly = true;
-            this.txtMontoAcumulado.Size = new System.Drawing.Size(172, 29);
-            this.txtMontoAcumulado.TabIndex = 4;
-            this.txtMontoAcumulado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(244, 658);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 21);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "SUMA TOTAL";
             // 
             // Id
             // 
@@ -262,13 +147,180 @@
             this.utilidad.ReadOnly = true;
             this.utilidad.Width = 120;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox1.BackgroundImage = global::WinContador.Properties.Resources.fondoCabecera;
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox1.Controls.Add(this.rbMensual);
+            this.groupBox1.Controls.Add(this.rbDiario);
+            this.groupBox1.Controls.Add(this.cboMeses);
+            this.groupBox1.Controls.Add(this.btnBuscar);
+            this.groupBox1.Controls.Add(this.dtpFiltro);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.Location = new System.Drawing.Point(294, 33);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(503, 100);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Filtros";
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.Transparent;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.Location = new System.Drawing.Point(426, 50);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(71, 35);
+            this.btnBuscar.TabIndex = 1;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // dtpFiltro
+            // 
+            this.dtpFiltro.CalendarForeColor = System.Drawing.Color.White;
+            this.dtpFiltro.CalendarMonthBackground = System.Drawing.Color.Black;
+            this.dtpFiltro.CalendarTitleBackColor = System.Drawing.Color.DarkGreen;
+            this.dtpFiltro.CalendarTitleForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.dtpFiltro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFiltro.Location = new System.Drawing.Point(6, 56);
+            this.dtpFiltro.Name = "dtpFiltro";
+            this.dtpFiltro.Size = new System.Drawing.Size(158, 29);
+            this.dtpFiltro.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.BackgroundImage = global::WinContador.Properties.Resources.fondoCabecera;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.btnExportar);
+            this.panel1.Location = new System.Drawing.Point(294, 149);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(506, 51);
+            this.panel1.TabIndex = 3;
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.BackColor = System.Drawing.Color.Transparent;
+            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportar.ForeColor = System.Drawing.Color.White;
+            this.btnExportar.Location = new System.Drawing.Point(396, 3);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(107, 45);
+            this.btnExportar.TabIndex = 0;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.UseVisualStyleBackColor = false;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // txtPorcentajeAcumulado
+            // 
+            this.txtPorcentajeAcumulado.BackColor = System.Drawing.Color.Black;
+            this.txtPorcentajeAcumulado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPorcentajeAcumulado.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPorcentajeAcumulado.ForeColor = System.Drawing.Color.White;
+            this.txtPorcentajeAcumulado.Location = new System.Drawing.Point(581, 455);
+            this.txtPorcentajeAcumulado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtPorcentajeAcumulado.Name = "txtPorcentajeAcumulado";
+            this.txtPorcentajeAcumulado.ReadOnly = true;
+            this.txtPorcentajeAcumulado.Size = new System.Drawing.Size(102, 29);
+            this.txtPorcentajeAcumulado.TabIndex = 4;
+            this.txtPorcentajeAcumulado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtUtilidadAcumulada
+            // 
+            this.txtUtilidadAcumulada.BackColor = System.Drawing.Color.Black;
+            this.txtUtilidadAcumulada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUtilidadAcumulada.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUtilidadAcumulada.ForeColor = System.Drawing.Color.White;
+            this.txtUtilidadAcumulada.Location = new System.Drawing.Point(695, 455);
+            this.txtUtilidadAcumulada.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtUtilidadAcumulada.Name = "txtUtilidadAcumulada";
+            this.txtUtilidadAcumulada.ReadOnly = true;
+            this.txtUtilidadAcumulada.Size = new System.Drawing.Size(102, 29);
+            this.txtUtilidadAcumulada.TabIndex = 4;
+            this.txtUtilidadAcumulada.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtMontoAcumulado
+            // 
+            this.txtMontoAcumulado.BackColor = System.Drawing.Color.Black;
+            this.txtMontoAcumulado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMontoAcumulado.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMontoAcumulado.ForeColor = System.Drawing.Color.White;
+            this.txtMontoAcumulado.Location = new System.Drawing.Point(402, 455);
+            this.txtMontoAcumulado.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtMontoAcumulado.Name = "txtMontoAcumulado";
+            this.txtMontoAcumulado.ReadOnly = true;
+            this.txtMontoAcumulado.Size = new System.Drawing.Size(172, 29);
+            this.txtMontoAcumulado.TabIndex = 4;
+            this.txtMontoAcumulado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(290, 455);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 21);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "SUMA TOTAL";
+            // 
+            // cboMeses
+            // 
+            this.cboMeses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMeses.FormattingEnabled = true;
+            this.cboMeses.Items.AddRange(new object[] {
+            "ENERO",
+            "FEBRERO",
+            "MARZO",
+            "ABRIL",
+            "MAYO",
+            "JUNIO",
+            "JULIO",
+            "AGOSTO",
+            "SETIEMBRE",
+            "OCTUBRE",
+            "NOVIEMBRE",
+            "DICIEMBRE"});
+            this.cboMeses.Location = new System.Drawing.Point(201, 56);
+            this.cboMeses.Name = "cboMeses";
+            this.cboMeses.Size = new System.Drawing.Size(201, 29);
+            this.cboMeses.TabIndex = 2;
+            // 
+            // rbDiario
+            // 
+            this.rbDiario.AutoSize = true;
+            this.rbDiario.BackColor = System.Drawing.Color.Transparent;
+            this.rbDiario.Location = new System.Drawing.Point(6, 28);
+            this.rbDiario.Name = "rbDiario";
+            this.rbDiario.Size = new System.Drawing.Size(71, 25);
+            this.rbDiario.TabIndex = 3;
+            this.rbDiario.TabStop = true;
+            this.rbDiario.Text = "Diario";
+            this.rbDiario.UseVisualStyleBackColor = false;
+            // 
+            // rbMensual
+            // 
+            this.rbMensual.AutoSize = true;
+            this.rbMensual.BackColor = System.Drawing.Color.Transparent;
+            this.rbMensual.Location = new System.Drawing.Point(201, 23);
+            this.rbMensual.Name = "rbMensual";
+            this.rbMensual.Size = new System.Drawing.Size(89, 25);
+            this.rbMensual.TabIndex = 3;
+            this.rbMensual.TabStop = true;
+            this.rbMensual.Text = "Mensual";
+            this.rbMensual.UseVisualStyleBackColor = false;
+            // 
             // FrmHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::WinContador.Properties.Resources.FondoForm;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(837, 695);
+            this.ClientSize = new System.Drawing.Size(837, 497);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUtilidadAcumulada);
             this.Controls.Add(this.txtMontoAcumulado);
@@ -286,6 +338,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgHistorico)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -311,5 +364,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn monto;
         private System.Windows.Forms.DataGridViewTextBoxColumn porcentaje;
         private System.Windows.Forms.DataGridViewTextBoxColumn utilidad;
+        private System.Windows.Forms.RadioButton rbMensual;
+        private System.Windows.Forms.RadioButton rbDiario;
+        private System.Windows.Forms.ComboBox cboMeses;
     }
 }

@@ -26,11 +26,24 @@ namespace WinContador
 
         private void FrmHistorial_Load(object sender, EventArgs e)
         {
+            rbDiario.Checked = true;
+
+            CargarMeses(cboMeses);
+
+
+
+
+
+
+
+
+
+
             dgHistorico.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgHistorico.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgHistorico.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dgHistorico.Columns[3].DefaultCellStyle.Alignment =    DataGridViewContentAlignment.MiddleRight;
+            dgHistorico.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgHistorico.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgHistorico.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -78,10 +91,23 @@ namespace WinContador
 
                 var repo = new JuegoRepository();
                 repo.CrearBaseSiNoExiste();
-                List<JuegoResultEntity> games = repo.ObtenerTodos(dtpFiltro.Value.ToString("dd/MM/yyyy"));
-                dgHistorico.DataSource = games;
+                List<JuegoResultEntity> games;
 
-                decimal totalMonto = games.Sum(x =>    decimal.TryParse(x.Monto, out var monto) ? monto : 0);
+                if (rbDiario.Checked)
+                {
+                    games = repo.ObtenerTodos(dtpFiltro.Value.ToString("dd/MM/yyyy"));
+                }
+                else
+                {
+                    var rango = ObtenerRangoMes(cboMeses.SelectedItem.ToString());
+                    games = repo.ObtenerPorRango(rango.fechaInicio, rango.fechaFin);
+
+                }
+
+
+                dgHistorico.DataSource =    games;
+
+                decimal totalMonto = games.Sum(x => decimal.TryParse(x.Monto, out var monto) ? monto : 0);
 
                 decimal porcentaje = games.Sum(x => decimal.TryParse(x.PorcentajeUtilidad, out var porce) ? porce : 0);
                 decimal utilidad = games.Sum(x => decimal.TryParse(x.Utilidad, out var util) ? util : 0);
@@ -98,6 +124,47 @@ namespace WinContador
             }
         }
 
+        public (string fechaInicio, string fechaFin) ObtenerRangoMes(string nombreMes)
+        {
+            var cultura = new CultureInfo("es-ES");
+
+            // Obtener número del mes desde el nombre
+            int numeroMes = DateTime.ParseExact(nombreMes, "MMMM", cultura).Month;
+
+            int anioActual = DateTime.Now.Year;
+
+            DateTime fechaInicio = new DateTime(anioActual, numeroMes, 1);
+            DateTime fechaFin = fechaInicio.AddMonths(1).AddDays(-1);
+
+            return (
+                fechaInicio.ToString("dd/MM/yyyy"),
+                fechaFin.ToString("dd/MM/yyyy")
+            );
+        }   
+        public void CargarMeses(ComboBox combo)
+        {
+            combo.Items.Clear();
+
+            // Obtener nombres de los meses en español
+            var cultura = new CultureInfo("es-ES");
+            string[] meses = cultura.DateTimeFormat.MonthNames;
+
+            foreach (var mes in meses)
+            {
+                if (!string.IsNullOrEmpty(mes))
+                {
+                    // Capitalizar primera letra
+                    string mesFormateado = cultura.TextInfo.ToTitleCase(mes);
+                    combo.Items.Add(mesFormateado);
+                }
+            }
+
+            // Seleccionar mes actual
+            int mesActual = DateTime.Now.Month; // 1-12
+            combo.SelectedIndex = mesActual - 1;
+        }
+
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             LoadGameHistory();
@@ -105,7 +172,7 @@ namespace WinContador
 
         private void btnExportar_Click(object sender, EventArgs e)
         {
-            if (dgHistorico.RowCount <1)
+            if (dgHistorico.RowCount < 1)
             {
                 MessageBox.Show("No se puede exportar sin cargar la información", "Validación Exportar Excel");
                 return;
