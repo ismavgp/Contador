@@ -19,6 +19,7 @@ namespace WinContador
     {
         private Timer countdownTimer;
         private int currentCount;
+        private bool isPaused;
 
         public FrmSecondary()
         {
@@ -92,14 +93,39 @@ namespace WinContador
 
         public void StartCountdown()
         {
+            isPaused = false;
             countdownTimer.Start();
         }
 
         public void StopCountdown()
         {
             countdownTimer.Stop();
+            isPaused = false;
             currentCount = 0;
             lblTimer.Text = "00";
+        }
+
+        public void PauseCountdown()
+        {
+            if (countdownTimer.Enabled)
+            {
+                countdownTimer.Stop();
+                isPaused = true;
+            }
+        }
+
+        public void ResumeCountdown()
+        {
+            if (isPaused && currentCount > 0)
+            {
+                countdownTimer.Start();
+                isPaused = false;
+            }
+        }
+
+        public bool IsPaused
+        {
+            get { return isPaused; }
         }
 
         public void UpdateResult(string resultado)

@@ -19,6 +19,7 @@ namespace WinContador
         // private DatabaseHelper dbHelper;
         private JuegoRepository juegoRepository;
         private bool _limpiarAlEscribir = false;
+        private Timer _clearTimer;
 
         public FrmPrincipal()
         {
@@ -29,7 +30,23 @@ namespace WinContador
             this.KeyPreview = true;
             this.KeyDown += FrmPrincipal_KeyDown;
 
+            // Initialize the clear timer
+            _clearTimer = new Timer();
+            _clearTimer.Interval = 50; // 50ms delay
+            _clearTimer.Tick += ClearTimer_Tick;
+
             LimpiarForm();
+        }
+
+        private void ClearTimer_Tick(object sender, EventArgs e)
+        {
+            _clearTimer.Stop();
+            if (_limpiarAlEscribir)
+            {
+                txtNumero2.Clear();
+                txtNumero2.Focus();
+                _limpiarAlEscribir = false;
+            }
         }
 
         private void FrmPrincipal_KeyDown(object sender, KeyEventArgs e)
@@ -39,6 +56,7 @@ namespace WinContador
             {
                 try
                 {
+                    rbSuma.Focus();
                     rbSuma.Checked = true;
                     // Ejecutar la misma acción que el botón procesar
                     //btnProcesa.PerformClick();
@@ -55,6 +73,7 @@ namespace WinContador
             {
                 try
                 {
+                    rbResta.Focus();
                     rbResta.Checked = true;
                    // btnProcesa.PerformClick();
                 }
@@ -68,24 +87,31 @@ namespace WinContador
             // con enter procesar
             if (e.KeyCode == Keys.Enter)
             {
+
+                btnProcesa.Focus();
                 btnProcesa.PerformClick();
             }
-
 
             //Con i iniciar
             if (e.KeyCode == Keys.I)
             {
+                btnIniciar.Focus();
                 btnIniciar.PerformClick();
             }
 
-            //Con r iniciar
+            //Con r resetear
             if (e.KeyCode == Keys.R)
             {
+                btnReset.Focus();
                 btnReset.PerformClick();
             }
 
-
-
+            //Con p pausar/reanudar
+            if (e.KeyCode == Keys.P)
+            {
+                btnPausa.Focus();
+                btnPausa.PerformClick();
+            }
         }
 
         private void SetupTextBoxValidation()
@@ -244,6 +270,8 @@ namespace WinContador
 
                 // Iniciar el countdown
                 frmSecondary.SetCountdown((int)numericUpDown1.Value);
+                btnPausa.Text = "Pausar";
+                btnPausa.Enabled = false;
             }
             else
             {
@@ -277,6 +305,10 @@ namespace WinContador
             {
                 SetBlackThemeToMenu(item);
             }
+
+
+            btnPausa.Enabled = false;
+
         }
 
         private void SetBlackThemeToMenu(ToolStripMenuItem item)
@@ -321,6 +353,7 @@ namespace WinContador
                 // Iniciar el countdown
                 frmSecondary.SetCountdown((int)numericUpDown1.Value);
                 frmSecondary.StartCountdown();
+                btnPausa.Enabled = true;
             }
             else
             {
@@ -506,7 +539,8 @@ namespace WinContador
 
         private void txtNumero2_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (_limpiarAlEscribir)
+            // Si está marcado para limpiar al escribir y se está escribiendo un número
+            if (_limpiarAlEscribir && char.IsDigit(e.KeyChar))
             {
                 txtNumero2.Clear();
                 _limpiarAlEscribir = false;
@@ -521,8 +555,36 @@ namespace WinContador
 
         private void btnPausa_Click(object sender, EventArgs e)
         {
-            //pausar el timer del temporizador el frmSecondary
+            // Verificar que frmSecondary no sea null
+            if (frmSecondary != null)
+            {
+                // Si está pausado, reanudar; si no está pausado, pausar
+                if (frmSecondary.IsPaused)
+                {
+                    frmSecondary.ResumeCountdown();
+                    btnPausa.Text = "Pausar";
+                }
+                else
+                {
+                    frmSecondary.PauseCountdown();
+                    btnPausa.Text = "Reanudar";
+                }
+            }
+            else
+            {
+                MessageBox.Show("FrmSecondary es null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void txtNumero2_Enter(object sender, EventArgs e)
+        {
+            btnProcesa.PerformClick();
+            
+            // Start timer to clear the field after processing
+            if (_limpiarAlEscribir)
+            {
+                _clearTimer.Start();
+            }
         }
     }
 
