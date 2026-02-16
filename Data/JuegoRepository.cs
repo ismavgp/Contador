@@ -48,7 +48,7 @@ namespace WinContador.Data
 
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Fecha", juego.Fecha.ToString("dd/MM/yyyy"));
+                    cmd.Parameters.AddWithValue("@Fecha", juego.Fecha.ToString("yyyy-MM-dd"));
                     cmd.Parameters.AddWithValue("@Hora", juego.Hora);
                     cmd.Parameters.AddWithValue("@Monto", juego.Monto);
                     cmd.Parameters.AddWithValue("@PorcentajeUtilidad", juego.PorcentajeUtilidad);

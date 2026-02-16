@@ -24,7 +24,7 @@ namespace WinContador
         public FrmPrincipal()
         {
             InitializeComponent();
-            SetupTextBoxValidation();
+            //SetupTextBoxValidation();
 
             // Allow the form to capture key presses before controls
             this.KeyPreview = true;
@@ -75,7 +75,7 @@ namespace WinContador
                 {
                     rbResta.Focus();
                     rbResta.Checked = true;
-                   // btnProcesa.PerformClick();
+                    // btnProcesa.PerformClick();
                 }
                 catch
                 {
@@ -112,18 +112,41 @@ namespace WinContador
                 btnPausa.Focus();
                 btnPausa.PerformClick();
             }
+
+            //guardar con g
+            if (e.KeyCode == Keys.G)
+            {
+                brnGuardarJuego.Focus();
+                brnGuardarJuego.PerformClick();
+            }
+            //nuevo con n
+            if (e.KeyCode == Keys.N)
+            {
+                btnNuevo.Focus();
+                btnNuevo.PerformClick();
+            }
+
+            //historial con h
+            if (e.KeyCode == Keys.H)
+            {
+                FrmHistorial frmHistorial = new FrmHistorial();
+                frmHistorial.ShowDialog();
+            }
+
+
+ 
         }
 
-        private void SetupTextBoxValidation()
-        {
-            // Configurar eventos de validación para los TextBoxes
-            txtResultado.KeyPress += TextBox_KeyPress;
-            txtNumero2.KeyPress += TextBox_KeyPress;
-            txtResultado.Leave += TextBox_Leave;
-            txtNumero2.Leave += TextBox_Leave;
-            txtResultado.Enter += TextBox_Enter;
-            txtNumero2.Enter += TextBox_Enter;
-        }
+        //private void SetupTextBoxValidation()
+        //{
+        //    // Configurar eventos de validación para los TextBoxes
+        //    txtResultado.KeyPress += TextBox_KeyPress;
+        //    txtNumero2.KeyPress += TextBox_KeyPress;
+        //    txtResultado.Leave += TextBox_Leave;
+        //    txtNumero2.Leave += TextBox_Leave;
+        //    txtResultado.Enter += TextBox_Enter;
+        //    txtNumero2.Enter += TextBox_Enter;
+        //}
 
         private void TextBox_Enter(object sender, EventArgs e)
         {
@@ -228,7 +251,7 @@ namespace WinContador
 
         private void btnProcesa_Click(object sender, EventArgs e)
         {
-            
+
             decimal numero1 = ParseFormattedNumber(txtResultado.Text);
             decimal numero2 = ParseFormattedNumber(txtNumero2.Text);
             decimal resultado;
@@ -288,7 +311,7 @@ namespace WinContador
             FormatNumberInTextBox(txtResultado);
             FormatNumberInTextBox(txtNumero2);
 
-           // txtNumero2.Value = 00;
+            // txtNumero2.Value = 00;
 
 
             //dar formato al menu desplegable
@@ -372,10 +395,6 @@ namespace WinContador
             frmHistorial.ShowDialog();
         }
 
-        private void txtNumero2_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
 
         private void txtResultado_TextChanged(object sender, EventArgs e)
         {
@@ -431,7 +450,7 @@ namespace WinContador
 
                 //validar si existe
 
-               if(!repo.ExisteId(int.Parse(txtNroJuego.Text)))
+                if (!repo.ExisteId(int.Parse(txtNroJuego.Text)))
                 {
                     if (!repo.Insertar(entity))
                     {
@@ -539,18 +558,18 @@ namespace WinContador
 
         private void txtNumero2_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            // Si está marcado para limpiar al escribir y se está escribiendo un número
-            if (_limpiarAlEscribir && char.IsDigit(e.KeyChar))
-            {
-                txtNumero2.Clear();
-                _limpiarAlEscribir = false;
-            }
+            //// Si está marcado para limpiar al escribir y se está escribiendo un número
+            //if (_limpiarAlEscribir && char.IsDigit(e.KeyChar))
+            //{
+            //    txtNumero2.Clear();
+            //    _limpiarAlEscribir = false;
+            //}
 
-            // Validar solo números
-            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+            //// Validar solo números
+            //if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            //{
+            //    e.Handled = true;
+            //}
         }
 
         private void btnPausa_Click(object sender, EventArgs e)
@@ -578,12 +597,33 @@ namespace WinContador
 
         private void txtNumero2_Enter(object sender, EventArgs e)
         {
-            btnProcesa.PerformClick();
-            
             // Start timer to clear the field after processing
             if (_limpiarAlEscribir)
             {
                 _clearTimer.Start();
+            }
+        }
+
+        private void FrmPrincipal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                // Si el control activo NO es un TextBox
+                if (!(this.ActiveControl is TextBox))
+                {
+                    txtNumero2.Focus();
+
+                    if (_limpiarAlEscribir)
+                    {
+                        txtNumero2.Clear();
+                        _limpiarAlEscribir = false;
+                    }
+
+                    txtNumero2.AppendText(e.KeyChar.ToString());
+                    e.Handled = true; // Evita que la tecla se procese dos veces
+                }
+                // Si ya está en un TextBox, no hacemos nada.
+                // Deja que el sistema escriba normalmente.
             }
         }
     }

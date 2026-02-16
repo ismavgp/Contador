@@ -30,14 +30,13 @@ namespace WinContador
 
             CargarMeses(cboMeses);
 
+            // Add event handlers for radio buttons and combo box
+            rbDiario.CheckedChanged += RbFiltro_CheckedChanged;
+            rbMensual.CheckedChanged += RbFiltro_CheckedChanged;
+            cboMeses.SelectedIndexChanged += CboMeses_SelectedIndexChanged;
 
-
-
-
-
-
-
-
+            // Initially hide/show appropriate controls
+            UpdateControlsVisibility();
 
             dgHistorico.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgHistorico.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -87,36 +86,42 @@ namespace WinContador
         {
             try
             {
-
-
                 var repo = new JuegoRepository();
                 repo.CrearBaseSiNoExiste();
                 List<JuegoResultEntity> games;
 
                 if (rbDiario.Checked)
                 {
-                    games = repo.ObtenerTodos(dtpFiltro.Value.ToString("dd/MM/yyyy"));
+                    games = repo.ObtenerTodos(dtpFiltro.Value.ToString("yyyy-MM-dd"));
+                }
+                else if (rbMensual.Checked)
+                {
+                    if (cboMeses.SelectedItem != null)
+                    {
+                        var rango = ObtenerRangoMes(cboMeses.SelectedItem.ToString());
+                        games = repo.ObtenerPorRango(rango.fechaInicio, rango.fechaFin);
+                    }
+                    else
+                    {
+                        // Si no hay mes seleccionado, mostrar array vacío
+                        games = new List<JuegoResultEntity>();
+                    }
                 }
                 else
                 {
-                    var rango = ObtenerRangoMes(cboMeses.SelectedItem.ToString());
-                    games = repo.ObtenerPorRango(rango.fechaInicio, rango.fechaFin);
-
+                    games = new List<JuegoResultEntity>();
                 }
 
+                dgHistorico.DataSource = games;
 
-                dgHistorico.DataSource =    games;
-
-                decimal totalMonto = games.Sum(x => decimal.TryParse(x.Monto, out var monto) ? monto : 0);
-
+                // Calcular totales
+                decimal totalMonto = games.Sum(x => decimal.TryParse(x.Monto?.Replace(",", ""), out var monto) ? monto : 0);
                 decimal porcentaje = games.Sum(x => decimal.TryParse(x.PorcentajeUtilidad, out var porce) ? porce : 0);
-                decimal utilidad = games.Sum(x => decimal.TryParse(x.Utilidad, out var util) ? util : 0);
+                decimal utilidad = games.Sum(x => decimal.TryParse(x.Utilidad?.Replace(",", ""), out var util) ? util : 0);
 
                 txtMontoAcumulado.Text = FormatoNumerico.FormatDecimal(totalMonto);
                 txtPorcentajeAcumulado.Text = FormatoNumerico.FormatDecimal(porcentaje);
                 txtUtilidadAcumulada.Text = FormatoNumerico.FormatDecimal(utilidad);
-
-
             }
             catch (Exception ex)
             {
@@ -137,8 +142,8 @@ namespace WinContador
             DateTime fechaFin = fechaInicio.AddMonths(1).AddDays(-1);
 
             return (
-                fechaInicio.ToString("dd/MM/yyyy"),
-                fechaFin.ToString("dd/MM/yyyy")
+                fechaInicio.ToString("yyyy-MM-dd"),
+                fechaFin.ToString("yyyy-MM-dd")
             );
         }   
         public void CargarMeses(ComboBox combo)
@@ -176,16 +181,58 @@ namespace WinContador
             {
                 MessageBox.Show("No se puede exportar sin cargar la información", "Validación Exportar Excel");
                 return;
-
             }
 
             var repo = new JuegoRepository();
+            List<JuegoResultEntity> games;
+            string filtroTexto = "";
 
-            List<JuegoResultEntity> games = repo.ObtenerTodos(dtpFiltro.Value.ToString("dd/MM/yyyy"));
+            if (rbDiario.Checked)
+            {
+                games = repo.ObtenerTodos(dtpFiltro.Value.ToString("dd/MM/yyyy"));
+                filtroTexto = dtpFiltro.Value.ToString("dd/MM/yyyy");
+            }
+            else if (rbMensual.Checked && cboMeses.SelectedItem != null)
+            {
+                var rango = ObtenerRangoMes(cboMeses.SelectedItem.ToString());
+                games = repo.ObtenerPorRango(rango.fechaInicio, rango.fechaFin);
+                filtroTexto = $"{cboMeses.SelectedItem} {DateTime.Now.Year}";
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un filtro válido para exportar", "Validación Exportar Excel");
+                return;
+            }
 
+            Exportar.Excel(games, filtroTexto);
+        }
 
-            Exportar.Excel(games, dtpFiltro.Value.ToString("dd/MM/yyyy"));
+        private void RbFiltro_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateControlsVisibility();
+            LoadGameHistory();
+        }
 
+        private void CboMeses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (rbMensual.Checked)
+            {
+                LoadGameHistory();
+            }
+        }
+
+        private void UpdateControlsVisibility()
+        {
+            if (rbDiario.Checked)
+            {
+                dtpFiltro.Visible = true;
+                cboMeses.Visible = false;
+            }
+            else if (rbMensual.Checked)
+            {
+                dtpFiltro.Visible = false;
+                cboMeses.Visible = true;
+            }
         }
     }
 }
