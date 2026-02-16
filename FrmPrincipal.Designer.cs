@@ -50,6 +50,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnPausa = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ajustesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alertaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,10 +81,10 @@
             this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnReset.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReset.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnReset.Location = new System.Drawing.Point(161, 89);
+            this.btnReset.Location = new System.Drawing.Point(203, 94);
             this.btnReset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(116, 35);
+            this.btnReset.Size = new System.Drawing.Size(75, 31);
             this.btnReset.TabIndex = 4;
             this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
@@ -132,6 +133,7 @@
             this.txtNumero2.Text = "00";
             this.txtNumero2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtNumero2.TextChanged += new System.EventHandler(this.txtNumero2_TextChanged);
+            this.txtNumero2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumero2_KeyPress_1);
             // 
             // rbSuma
             // 
@@ -195,16 +197,17 @@
             // btnIniciar
             // 
             this.btnIniciar.BackColor = System.Drawing.Color.Transparent;
-            this.btnIniciar.BackgroundImage = global::WinContador.Properties.Resources.btnIniciar;
+            this.btnIniciar.BackgroundImage = global::WinContador.Properties.Resources.fondoBTN;
             this.btnIniciar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnIniciar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnIniciar.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIniciar.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIniciar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnIniciar.Location = new System.Drawing.Point(22, 89);
+            this.btnIniciar.Location = new System.Drawing.Point(25, 94);
             this.btnIniciar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnIniciar.Name = "btnIniciar";
-            this.btnIniciar.Size = new System.Drawing.Size(116, 35);
+            this.btnIniciar.Size = new System.Drawing.Size(75, 31);
             this.btnIniciar.TabIndex = 14;
+            this.btnIniciar.Text = "Iniciar";
             this.btnIniciar.UseVisualStyleBackColor = false;
             this.btnIniciar.Click += new System.EventHandler(this.btnIniciar_Click);
             // 
@@ -339,6 +342,7 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.numericUpDown1);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.btnPausa);
             this.panel1.Controls.Add(this.btnIniciar);
             this.panel1.Controls.Add(this.btnReset);
             this.panel1.Location = new System.Drawing.Point(12, 100);
@@ -368,6 +372,23 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "TIEMPO";
             this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // btnPausa
+            // 
+            this.btnPausa.BackColor = System.Drawing.Color.Transparent;
+            this.btnPausa.BackgroundImage = global::WinContador.Properties.Resources.fondoBTN;
+            this.btnPausa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPausa.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPausa.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPausa.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnPausa.Location = new System.Drawing.Point(106, 94);
+            this.btnPausa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPausa.Name = "btnPausa";
+            this.btnPausa.Size = new System.Drawing.Size(75, 31);
+            this.btnPausa.TabIndex = 14;
+            this.btnPausa.Text = "Pausa";
+            this.btnPausa.UseVisualStyleBackColor = false;
+            this.btnPausa.Click += new System.EventHandler(this.btnPausa_Click);
             // 
             // menuStrip1
             // 
@@ -579,6 +600,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnPausa;
     }
 }
 

@@ -212,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <None Include="Resources\fondoBTN.png" />
     <None Include="Resources\btnLogin.png" />
     <None Include="Resources\btnGuardar.png" />
     <None Include="Resources\btnProcesar.png" />

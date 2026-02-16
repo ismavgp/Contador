@@ -18,6 +18,7 @@ namespace WinContador
         private FrmSecondary frmSecondary;
         // private DatabaseHelper dbHelper;
         private JuegoRepository juegoRepository;
+        private bool _limpiarAlEscribir = false;
 
         public FrmPrincipal()
         {
@@ -40,7 +41,7 @@ namespace WinContador
                 {
                     rbSuma.Checked = true;
                     // Ejecutar la misma acción que el botón procesar
-                    btnProcesa.PerformClick();
+                    //btnProcesa.PerformClick();
                 }
                 catch
                 {
@@ -55,7 +56,7 @@ namespace WinContador
                 try
                 {
                     rbResta.Checked = true;
-                    btnProcesa.PerformClick();
+                   // btnProcesa.PerformClick();
                 }
                 catch
                 {
@@ -69,6 +70,22 @@ namespace WinContador
             {
                 btnProcesa.PerformClick();
             }
+
+
+            //Con i iniciar
+            if (e.KeyCode == Keys.I)
+            {
+                btnIniciar.PerformClick();
+            }
+
+            //Con r iniciar
+            if (e.KeyCode == Keys.R)
+            {
+                btnReset.PerformClick();
+            }
+
+
+
         }
 
         private void SetupTextBoxValidation()
@@ -185,6 +202,7 @@ namespace WinContador
 
         private void btnProcesa_Click(object sender, EventArgs e)
         {
+            
             decimal numero1 = ParseFormattedNumber(txtResultado.Text);
             decimal numero2 = ParseFormattedNumber(txtNumero2.Text);
             decimal resultado;
@@ -208,6 +226,8 @@ namespace WinContador
             }
 
             calcularUtilidad();
+
+            _limpiarAlEscribir = true;
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -239,6 +259,8 @@ namespace WinContador
             // Establecer valores iniciales formateados
             FormatNumberInTextBox(txtResultado);
             FormatNumberInTextBox(txtNumero2);
+
+           // txtNumero2.Value = 00;
 
 
             //dar formato al menu desplegable
@@ -278,12 +300,12 @@ namespace WinContador
         private void btnIniciar_Click(object sender, EventArgs e)
         {
             //verificar que el resultado no sea 0 antes de iniciar el countdown
-            var resultado = ParseFormattedNumber(txtResultado.Text);
-            if (resultado <= 0)
-            {
-                MessageBox.Show("El Monto debe ser mayor a 0", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //var resultado = ParseFormattedNumber(txtResultado.Text);
+            //if (resultado <= 0)
+            //{
+            //    MessageBox.Show("El Monto debe ser mayor a 0", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
 
             // Verificar que frmSecondary no sea null
@@ -319,7 +341,7 @@ namespace WinContador
 
         private void txtNumero2_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void txtResultado_TextChanged(object sender, EventArgs e)
@@ -479,6 +501,28 @@ namespace WinContador
         {
             FrmChangePassword frmChangePassword = new FrmChangePassword();
             frmChangePassword.ShowDialog();
+        }
+
+
+        private void txtNumero2_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (_limpiarAlEscribir)
+            {
+                txtNumero2.Clear();
+                _limpiarAlEscribir = false;
+            }
+
+            // Validar solo números
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnPausa_Click(object sender, EventArgs e)
+        {
+            //pausar el timer del temporizador el frmSecondary
+
         }
     }
 

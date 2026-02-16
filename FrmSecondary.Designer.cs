@@ -44,7 +44,7 @@
             this.lblResultado.BackColor = System.Drawing.Color.Transparent;
             this.lblResultado.Font = new System.Drawing.Font("DS-Digital", 36.31305F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResultado.ForeColor = System.Drawing.Color.Lime;
-            this.lblResultado.Location = new System.Drawing.Point(12, 483);
+            this.lblResultado.Location = new System.Drawing.Point(122, 316);
             this.lblResultado.Name = "lblResultado";
             this.lblResultado.Size = new System.Drawing.Size(439, 81);
             this.lblResultado.TabIndex = 5;
@@ -57,7 +57,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("DS-Digital", 16.27826F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(191, 446);
+            this.label2.Location = new System.Drawing.Point(307, 258);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 25);
             this.label2.TabIndex = 6;
@@ -70,7 +70,7 @@
             this.lblTimer.BackColor = System.Drawing.Color.Transparent;
             this.lblTimer.Font = new System.Drawing.Font("DS-Digital", 72F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimer.ForeColor = System.Drawing.Color.Red;
-            this.lblTimer.Location = new System.Drawing.Point(96, 320);
+            this.lblTimer.Location = new System.Drawing.Point(222, 130);
             this.lblTimer.Name = "lblTimer";
             this.lblTimer.Size = new System.Drawing.Size(166, 114);
             this.lblTimer.TabIndex = 8;
@@ -83,9 +83,9 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("DS-Digital", 36.31305F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(236, 349);
+            this.label1.Location = new System.Drawing.Point(378, 159);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 57);
+            this.label1.Size = new System.Drawing.Size(115, 58);
             this.label1.TabIndex = 10;
             this.label1.Text = "SEG";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -96,9 +96,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.BackgroundImage = global::WinContador.Properties.Resources.fondoSecondary;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(476, 586);
+            this.ClientSize = new System.Drawing.Size(631, 547);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.label2);

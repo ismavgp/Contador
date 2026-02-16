@@ -116,18 +116,18 @@ namespace WinContador
                 // If after rounding the value is an integer, show without decimals
                 if (rounded % 1 == 0)
                 {
-                    lblResultado.Text = "S./ "+ rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text = "S/ "+ rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
                 }
                 else
                 {
                     // Show exactly two decimals
-                    lblResultado.Text = "S./ " + rounded.ToString("N2", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text = "S/ " + rounded.ToString("N2", System.Globalization.CultureInfo.CurrentCulture);
                 }
             }
             else
             {
                 // Fallback: show the original text if parsing fails
-                lblResultado.Text = "S./ " + resultado;
+                lblResultado.Text = "S/ " + resultado;
             }
         }
 
