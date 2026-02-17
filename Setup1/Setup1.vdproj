@@ -39,18 +39,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_23749B2A11DA525A6C435DDDAFE1FBAB"
-        "OwnerKey" = "8:_1A9E7F0A2B384CCD8F1134829A55FC4D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_23749B2A11DA525A6C435DDDAFE1FBAB"
-        "OwnerKey" = "8:_4159F9DA63733F13FD2AF9A2E704E0E2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_25A2C9A8DC087D8B63E2DCB92BCA5410"
         "OwnerKey" = "8:_A0803CEE21C39AA1DF07D72059A8062A"
         "MsmSig" = "8:_UNDEFINED"
@@ -63,14 +51,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4159F9DA63733F13FD2AF9A2E704E0E2"
+        "MsmKey" = "8:_3C4A3BA8FA2A4E1E8890F4E4F3FBCFE3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_49820DA0AD50C3533D031531096260B1"
         "OwnerKey" = "8:_1A9E7F0A2B384CCD8F1134829A55FC4D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4F392E315817365B50C9DBCB6390EFF4"
-        "OwnerKey" = "8:_1A9E7F0A2B384CCD8F1134829A55FC4D"
+        "MsmKey" = "8:_49820DA0AD50C3533D031531096260B1"
+        "OwnerKey" = "8:_60CA23D9CB9763963FA495D83E97A4F5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -81,14 +75,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_730EE1F5711C399D66D38414B9DBC349"
+        "MsmKey" = "8:_60CA23D9CB9763963FA495D83E97A4F5"
         "OwnerKey" = "8:_1A9E7F0A2B384CCD8F1134829A55FC4D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_730EE1F5711C399D66D38414B9DBC349"
-        "OwnerKey" = "8:_4159F9DA63733F13FD2AF9A2E704E0E2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -136,7 +124,7 @@
         "Entry"
         {
         "MsmKey" = "8:_8A64F53B7ED008EE5E9F889D1E4A9EB3"
-        "OwnerKey" = "8:_4159F9DA63733F13FD2AF9A2E704E0E2"
+        "OwnerKey" = "8:_60CA23D9CB9763963FA495D83E97A4F5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -251,6 +239,24 @@
         {
         "MsmKey" = "8:_A0803CEE21C39AA1DF07D72059A8062A"
         "OwnerKey" = "8:_8A64F53B7ED008EE5E9F889D1E4A9EB3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A2D064B5564149453BA05C810D89889B"
+        "OwnerKey" = "8:_1A9E7F0A2B384CCD8F1134829A55FC4D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A2D064B5564149453BA05C810D89889B"
+        "OwnerKey" = "8:_60CA23D9CB9763963FA495D83E97A4F5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A2D064B5564149453BA05C810D89889B"
+        "OwnerKey" = "8:_49820DA0AD50C3533D031531096260B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -370,12 +376,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4F392E315817365B50C9DBCB6390EFF4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9DEF9A290881A353E2EE66119E453739"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -412,7 +412,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4159F9DA63733F13FD2AF9A2E704E0E2"
+        "OwnerKey" = "8:_60CA23D9CB9763963FA495D83E97A4F5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -442,13 +442,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_730EE1F5711C399D66D38414B9DBC349"
+        "OwnerKey" = "8:_49820DA0AD50C3533D031531096260B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23749B2A11DA525A6C435DDDAFE1FBAB"
+        "OwnerKey" = "8:_A2D064B5564149453BA05C810D89889B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -627,37 +627,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_23749B2A11DA525A6C435DDDAFE1FBAB"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_23749B2A11DA525A6C435DDDAFE1FBAB"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_0B01A047673241DD8620134AE582B89A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_25A2C9A8DC087D8B63E2DCB92BCA5410"
             {
             "AssemblyRegister" = "3:1"
@@ -709,21 +678,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4159F9DA63733F13FD2AF9A2E704E0E2"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3C4A3BA8FA2A4E1E8890F4E4F3FBCFE3"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:EPPlus, Version=8.4.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_4159F9DA63733F13FD2AF9A2E704E0E2"
-                    {
-                    "Name" = "8:EPPlus.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:EPPlus.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\bin\\x86\\Release\\contador.db"
+            "TargetName" = "8:contador.db"
             "Tag" = "8:"
             "Folder" = "8:_0B01A047673241DD8620134AE582B89A"
             "Condition" = "8:"
@@ -737,23 +695,23 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4F392E315817365B50C9DBCB6390EFF4"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_49820DA0AD50C3533D031531096260B1"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Security.Cryptography.Xml, Version=8.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:EPPlus.System.Drawing, Version=7.7.0.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_4F392E315817365B50C9DBCB6390EFF4"
+                    "_49820DA0AD50C3533D031531096260B1"
                     {
-                    "Name" = "8:System.Security.Cryptography.Xml.dll"
+                    "Name" = "8:EPPlus.System.Drawing.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Security.Cryptography.Xml.dll"
+            "SourcePath" = "8:EPPlus.System.Drawing.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0B01A047673241DD8620134AE582B89A"
@@ -802,20 +760,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_730EE1F5711C399D66D38414B9DBC349"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_60CA23D9CB9763963FA495D83E97A4F5"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:EPPlus.Interfaces, Version=8.4.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:EPPlus, Version=7.7.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_730EE1F5711C399D66D38414B9DBC349"
+                    "_60CA23D9CB9763963FA495D83E97A4F5"
                     {
-                    "Name" = "8:EPPlus.Interfaces.dll"
+                    "Name" = "8:EPPlus.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:EPPlus.Interfaces.dll"
+            "SourcePath" = "8:EPPlus.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0B01A047673241DD8620134AE582B89A"
@@ -1095,6 +1053,37 @@
                     }
                 }
             "SourcePath" = "8:netstandard.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0B01A047673241DD8620134AE582B89A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A2D064B5564149453BA05C810D89889B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:EPPlus.Interfaces, Version=7.7.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A2D064B5564149453BA05C810D89889B"
+                    {
+                    "Name" = "8:EPPlus.Interfaces.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:EPPlus.Interfaces.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0B01A047673241DD8620134AE582B89A"
@@ -2088,7 +2077,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1A9E7F0A2B384CCD8F1134829A55FC4D"
             {
-            "SourcePath" = "8:..\\obj\\x86\\Debug\\WinContador.exe"
+            "SourcePath" = "8:..\\obj\\x86\\Release\\WinContador.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0B01A047673241DD8620134AE582B89A"

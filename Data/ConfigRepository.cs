@@ -1,43 +1,94 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.IO;
 
 namespace WinContador.Data
 {
     public class ConfigRepository
     {
-        private readonly string _connectionString =
-            "Data Source=contador.db;Version=3;";
+        private readonly string _dbPath;
+        private readonly string _connectionString;
+        private readonly string _logPath;
+
+        public ConfigRepository()
+        {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            string appDataPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "WinContador");
+
+            Directory.CreateDirectory(appDataPath);
+
+            _dbPath = Path.Combine(appDataPath, "contador.db");
+            _logPath = Path.Combine(basePath, "app.log");
+
+            _connectionString = $"Data Source={_dbPath};Version=3;";
+        }
 
         public void CrearBaseSiNoExiste()
         {
-            using (var conn = new SQLiteConnection(_connectionString))
+            try
             {
-                conn.Open();
+                Log("=== Inicio CrearBaseSiNoExiste ===");
 
-                string sql = @"
+                if (!File.Exists(_dbPath))
+                {
+                    Log("Base de datos no existe. Creando archivo...");
+                    SQLiteConnection.CreateFile(_dbPath);
+                    Log("Archivo contador.db creado correctamente.");
+                }
+                else
+                {
+                    Log("Base de datos ya existe.");
+                }
+
+                using (var conn = new SQLiteConnection(_connectionString))
+                {
+                    conn.Open();
+                    Log("Conexión abierta correctamente.");
+
+                    string sql = @"
                     CREATE TABLE IF NOT EXISTS Configuracion (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Clave TEXT UNIQUE,
                         Valor TEXT
                     );";
 
-                using (var cmd = new SQLiteCommand(sql, conn))
-                {
-                    cmd.ExecuteNonQuery();
-                }
+                    using (var cmd = new SQLiteCommand(sql, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                        Log("Tabla Configuracion verificada/creada.");
+                    }
 
-                string insertSql = @"
+                    string insertSql = @"
                     INSERT INTO Configuracion (Clave, Valor)
                     VALUES (@Clave, @Valor)
                     ON CONFLICT(Clave) DO NOTHING;";
 
-                using (var cmd = new SQLiteCommand(insertSql, conn))
-                {
-                    InsertarDefault(cmd, "SonidoAlerta", "alerta");
-                    InsertarDefault(cmd, "USER", "sadmin");
-                    InsertarDefault(cmd, "PASSWORD", "12345678");
+                    using (var cmd = new SQLiteCommand(insertSql, conn))
+                    {
+                        InsertarDefault(cmd, "SonidoAlerta", "alerta");
+                        InsertarDefault(cmd, "USER", "sadmin");
+                        InsertarDefault(cmd, "PASSWORD", "12345678");
+                    }
+
+                    Log("Valores por defecto verificados.");
                 }
+
+                Log("=== Fin CrearBaseSiNoExiste ===");
             }
+            catch (Exception ex)
+            {
+                Log("ERROR: " + ex.Message);
+                Log("STACKTRACE: " + ex.StackTrace);
+                throw; // relanza para que puedas detectar el error si ocurre
+            }
+        }
+        private void Log(string mensaje)
+        {
+            File.AppendAllText(_logPath,
+                $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {mensaje}{Environment.NewLine}");
         }
 
         private void InsertarDefault(SQLiteCommand cmd, string clave, string valor)

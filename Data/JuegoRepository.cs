@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 using WinContador.Entity;
 using WinContador.Utils;
 
@@ -8,16 +9,45 @@ namespace WinContador.Data
 {
     public class JuegoRepository
     {
-        private readonly string _connectionString =
-            "Data Source=contador.db;";
+        private readonly string _dbPath;
+        private readonly string _connectionString;
+        private readonly string _logPath;
+
+        public JuegoRepository()
+        {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            string appDataPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "WinContador");
+
+            Directory.CreateDirectory(appDataPath);
+
+            _dbPath = Path.Combine(appDataPath, "contador.db");
+            _logPath = Path.Combine(basePath, "app.log");
+
+            _connectionString = $"Data Source={_dbPath};Version=3;";
+        }
 
         public void CrearBaseSiNoExiste()
         {
-            using (var conn = new SQLiteConnection(_connectionString))
+            try
             {
-                conn.Open();
+                Log("=== Inicio CrearBaseSiNoExiste (Juegos) ===");
 
-                string sql = @"
+                if (!File.Exists(_dbPath))
+                {
+                    Log("Base de datos no encontrada. Creando archivo...");
+                    SQLiteConnection.CreateFile(_dbPath);
+                    Log("Archivo contador.db creado correctamente.");
+                }
+
+                using (var conn = new SQLiteConnection(_connectionString))
+                {
+                    conn.Open();
+                    Log("Conexión SQLite abierta correctamente.");
+
+                    string sql = @"
                 CREATE TABLE IF NOT EXISTS Juegos (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Fecha TEXT,
@@ -27,11 +57,27 @@ namespace WinContador.Data
                     Utilidad REAL
                 );";
 
-                using (var cmd = new SQLiteCommand(sql, conn))
-                {
-                    cmd.ExecuteNonQuery();
+                    using (var cmd = new SQLiteCommand(sql, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                        Log("Tabla Juegos verificada/creada correctamente.");
+                    }
                 }
+
+                Log("=== Fin CrearBaseSiNoExiste (Juegos) ===");
             }
+            catch (Exception ex)
+            {
+                Log("ERROR: " + ex.Message);
+                Log("STACKTRACE: " + ex.StackTrace);
+                throw;
+            }
+        }
+
+        private void Log(string mensaje)
+        {
+            File.AppendAllText(_logPath,
+                $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {mensaje}{Environment.NewLine}");
         }
 
         public bool Insertar(JuegoEntity juego)
@@ -83,7 +129,9 @@ namespace WinContador.Data
                             lista.Add(new JuegoResultEntity
                             {
                                 Id = reader["Id"].ToString(),
-                                Fecha = reader["Fecha"]?.ToString(),
+                                Fecha = reader["Fecha"] != DBNull.Value
+    ? DateTime.Parse(reader["Fecha"].ToString()).ToString("dd/MM/yyyy")
+    : "",
                                 Hora = reader["Hora"]?.ToString(),
                                 Monto = FormatoNumerico.FormatDecimal(monto),
                                 PorcentajeUtilidad = reader["PorcentajeUtilidad"]?.ToString(),
@@ -98,7 +146,7 @@ namespace WinContador.Data
         }
 
 
-        public List<JuegoResultEntity> ObtenerPorRango( string fechaInicio, string fechaFin)
+        public List<JuegoResultEntity> ObtenerPorRango(string fechaInicio, string fechaFin)
         {
             var lista = new List<JuegoResultEntity>();
 
@@ -123,7 +171,9 @@ namespace WinContador.Data
                             lista.Add(new JuegoResultEntity
                             {
                                 Id = reader["Id"].ToString(),
-                                Fecha = reader["Fecha"]?.ToString(),
+                                Fecha = reader["Fecha"] != DBNull.Value
+    ? DateTime.Parse(reader["Fecha"].ToString()).ToString("dd/MM/yyyy")
+    : "",
                                 Hora = reader["Hora"]?.ToString(),
                                 Monto = FormatoNumerico.FormatDecimal(monto),
                                 PorcentajeUtilidad = reader["PorcentajeUtilidad"]?.ToString(),

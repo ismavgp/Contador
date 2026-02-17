@@ -39,6 +39,9 @@
             this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.utilidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbMensual = new System.Windows.Forms.RadioButton();
+            this.rbDiario = new System.Windows.Forms.RadioButton();
+            this.cboMeses = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dtpFiltro = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -47,9 +50,6 @@
             this.txtUtilidadAcumulada = new System.Windows.Forms.TextBox();
             this.txtMontoAcumulado = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cboMeses = new System.Windows.Forms.ComboBox();
-            this.rbDiario = new System.Windows.Forms.RadioButton();
-            this.rbMensual = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgHistorico)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -166,6 +166,52 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
             // 
+            // rbMensual
+            // 
+            this.rbMensual.AutoSize = true;
+            this.rbMensual.BackColor = System.Drawing.Color.Transparent;
+            this.rbMensual.Location = new System.Drawing.Point(201, 23);
+            this.rbMensual.Name = "rbMensual";
+            this.rbMensual.Size = new System.Drawing.Size(89, 25);
+            this.rbMensual.TabIndex = 3;
+            this.rbMensual.TabStop = true;
+            this.rbMensual.Text = "Mensual";
+            this.rbMensual.UseVisualStyleBackColor = false;
+            // 
+            // rbDiario
+            // 
+            this.rbDiario.AutoSize = true;
+            this.rbDiario.BackColor = System.Drawing.Color.Transparent;
+            this.rbDiario.Location = new System.Drawing.Point(6, 28);
+            this.rbDiario.Name = "rbDiario";
+            this.rbDiario.Size = new System.Drawing.Size(71, 25);
+            this.rbDiario.TabIndex = 3;
+            this.rbDiario.TabStop = true;
+            this.rbDiario.Text = "Diario";
+            this.rbDiario.UseVisualStyleBackColor = false;
+            // 
+            // cboMeses
+            // 
+            this.cboMeses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMeses.FormattingEnabled = true;
+            this.cboMeses.Items.AddRange(new object[] {
+            "ENERO",
+            "FEBRERO",
+            "MARZO",
+            "ABRIL",
+            "MAYO",
+            "JUNIO",
+            "JULIO",
+            "AGOSTO",
+            "SETIEMBRE",
+            "OCTUBRE",
+            "NOVIEMBRE",
+            "DICIEMBRE"});
+            this.cboMeses.Location = new System.Drawing.Point(201, 56);
+            this.cboMeses.Name = "cboMeses";
+            this.cboMeses.Size = new System.Drawing.Size(201, 29);
+            this.cboMeses.TabIndex = 2;
+            // 
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.Color.Transparent;
@@ -268,52 +314,6 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "SUMA TOTAL";
             // 
-            // cboMeses
-            // 
-            this.cboMeses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMeses.FormattingEnabled = true;
-            this.cboMeses.Items.AddRange(new object[] {
-            "ENERO",
-            "FEBRERO",
-            "MARZO",
-            "ABRIL",
-            "MAYO",
-            "JUNIO",
-            "JULIO",
-            "AGOSTO",
-            "SETIEMBRE",
-            "OCTUBRE",
-            "NOVIEMBRE",
-            "DICIEMBRE"});
-            this.cboMeses.Location = new System.Drawing.Point(201, 56);
-            this.cboMeses.Name = "cboMeses";
-            this.cboMeses.Size = new System.Drawing.Size(201, 29);
-            this.cboMeses.TabIndex = 2;
-            // 
-            // rbDiario
-            // 
-            this.rbDiario.AutoSize = true;
-            this.rbDiario.BackColor = System.Drawing.Color.Transparent;
-            this.rbDiario.Location = new System.Drawing.Point(6, 28);
-            this.rbDiario.Name = "rbDiario";
-            this.rbDiario.Size = new System.Drawing.Size(71, 25);
-            this.rbDiario.TabIndex = 3;
-            this.rbDiario.TabStop = true;
-            this.rbDiario.Text = "Diario";
-            this.rbDiario.UseVisualStyleBackColor = false;
-            // 
-            // rbMensual
-            // 
-            this.rbMensual.AutoSize = true;
-            this.rbMensual.BackColor = System.Drawing.Color.Transparent;
-            this.rbMensual.Location = new System.Drawing.Point(201, 23);
-            this.rbMensual.Name = "rbMensual";
-            this.rbMensual.Size = new System.Drawing.Size(89, 25);
-            this.rbMensual.TabIndex = 3;
-            this.rbMensual.TabStop = true;
-            this.rbMensual.Text = "Mensual";
-            this.rbMensual.UseVisualStyleBackColor = false;
-            // 
             // FrmHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -331,8 +331,12 @@
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmHistorial";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "                     ";
             this.Load += new System.EventHandler(this.FrmHistorial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

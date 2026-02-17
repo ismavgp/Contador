@@ -307,6 +307,8 @@ namespace WinContador
             frmSecondary = new FrmSecondary();
             frmSecondary.Show();
 
+            _limpiarAlEscribir=true;
+
             // Establecer valores iniciales formateados
             FormatNumberInTextBox(txtResultado);
             FormatNumberInTextBox(txtNumero2);
@@ -495,7 +497,14 @@ namespace WinContador
             rbSuma.Checked = true;
             txtNroJuego.Text = juegoRepository.ObtenerSiguienteId();
             txtUtilidad.Text = "0";
-            txtPorcentaje.Value = 0;
+            txtPorcentaje.Value = 5;
+
+            //Tiempo
+            numericUpDown1.Value = 20;
+            btnPausa.Enabled = false;
+            btnPausa.Text = "Pausar";
+
+            _limpiarAlEscribir = true;
 
         }
 
