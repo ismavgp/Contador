@@ -38,6 +38,59 @@ namespace WinContador
             LimpiarForm();
         }
 
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                ProcesarOperacion();
+                return true; // 🔥 Bloquea el comportamiento normal del Enter
+            }
+
+            if (keyData == Keys.Add)
+            {
+                rbSuma.Checked = true;
+                return true;
+            }
+
+            if (keyData == Keys.Subtract || keyData == Keys.OemMinus)
+            {
+                rbResta.Checked = true;
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void ProcesarOperacion()
+        {
+            decimal numero1 = ParseFormattedNumber(txtResultado.Text);
+            decimal numero2 = ParseFormattedNumber(txtNumero2.Text);
+            decimal resultado;
+
+            if (rbSuma.Checked)
+            {
+                resultado = numero1 + numero2;
+            }
+            else
+            {
+                resultado = numero1 - numero2;
+            }
+
+            // Actualizar el resultado en el formulario principal
+            txtResultado.Text = FormatDecimal(resultado);
+
+            // Actualizar el resultado en el formulario secundario
+            if (frmSecondary != null)
+            {
+                frmSecondary.UpdateResult(FormatDecimal(resultado));
+            }
+
+            calcularUtilidad();
+
+            _limpiarAlEscribir = true;
+        }
+
         private void ClearTimer_Tick(object sender, EventArgs e)
         {
             _clearTimer.Stop();
@@ -87,6 +140,8 @@ namespace WinContador
             // con enter procesar
             if (e.KeyCode == Keys.Enter)
             {
+                e.Handled = true;
+                e.SuppressKeyPress = true; // 🔥 CLAVE: evita que el botón procese el Enter
 
                 btnProcesa.Focus();
                 btnProcesa.PerformClick();
@@ -252,31 +307,7 @@ namespace WinContador
         private void btnProcesa_Click(object sender, EventArgs e)
         {
 
-            decimal numero1 = ParseFormattedNumber(txtResultado.Text);
-            decimal numero2 = ParseFormattedNumber(txtNumero2.Text);
-            decimal resultado;
-
-            if (rbSuma.Checked)
-            {
-                resultado = numero1 + numero2;
-            }
-            else
-            {
-                resultado = numero1 - numero2;
-            }
-
-            // Actualizar el resultado en el formulario principal
-            txtResultado.Text = FormatDecimal(resultado);
-
-            // Actualizar el resultado en el formulario secundario
-            if (frmSecondary != null)
-            {
-                frmSecondary.UpdateResult(FormatDecimal(resultado));
-            }
-
-            calcularUtilidad();
-
-            _limpiarAlEscribir = true;
+            ProcesarOperacion();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -400,6 +431,8 @@ namespace WinContador
 
         private void txtResultado_TextChanged(object sender, EventArgs e)
         {
+
+
             // Actualizar el resultado en el formulario secundario
             if (frmSecondary != null && !string.IsNullOrWhiteSpace(txtResultado.Text))
             {
@@ -579,6 +612,16 @@ namespace WinContador
             //{
             //    e.Handled = true;
             //}
+
+            if (char.IsControl(e.KeyChar))
+                return;
+
+            // Permitir solo dígitos
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void btnPausa_Click(object sender, EventArgs e)
@@ -634,6 +677,19 @@ namespace WinContador
                 // Si ya está en un TextBox, no hacemos nada.
                 // Deja que el sistema escriba normalmente.
             }
+        }
+
+        private void txtResultado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsControl(e.KeyChar))
+                return;
+
+            // Permitir solo dígitos
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
         }
     }
 

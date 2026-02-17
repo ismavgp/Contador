@@ -40,26 +40,27 @@
             // 
             this.txtUsuario.BackColor = System.Drawing.Color.Black;
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUsuario.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsuario.Font = new System.Drawing.Font("Segoe UI Semibold", 16.01739F, System.Drawing.FontStyle.Bold);
             this.txtUsuario.ForeColor = System.Drawing.Color.White;
-            this.txtUsuario.Location = new System.Drawing.Point(164, 296);
+            this.txtUsuario.Location = new System.Drawing.Point(230, 295);
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(141, 29);
+            this.txtUsuario.Size = new System.Drawing.Size(186, 42);
             this.txtUsuario.TabIndex = 0;
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
             // 
             // txtContrasena
             // 
             this.txtContrasena.BackColor = System.Drawing.Color.Black;
             this.txtContrasena.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtContrasena.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContrasena.Font = new System.Drawing.Font("Segoe UI Semibold", 16.01739F, System.Drawing.FontStyle.Bold);
             this.txtContrasena.ForeColor = System.Drawing.Color.White;
-            this.txtContrasena.Location = new System.Drawing.Point(164, 330);
+            this.txtContrasena.Location = new System.Drawing.Point(230, 353);
             this.txtContrasena.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.PasswordChar = '*';
-            this.txtContrasena.Size = new System.Drawing.Size(141, 29);
+            this.txtContrasena.Size = new System.Drawing.Size(186, 42);
             this.txtContrasena.TabIndex = 1;
             this.txtContrasena.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -67,11 +68,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 16.01739F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(94, 301);
+            this.label1.Location = new System.Drawing.Point(97, 295);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 21);
+            this.label1.Size = new System.Drawing.Size(112, 36);
             this.label1.TabIndex = 3;
             this.label1.Text = "Usuario:";
             // 
@@ -79,11 +80,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 16.01739F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(69, 335);
+            this.label2.Location = new System.Drawing.Point(69, 353);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 21);
+            this.label2.Size = new System.Drawing.Size(155, 36);
             this.label2.TabIndex = 4;
             this.label2.Text = "Contraseña:";
             // 
@@ -94,10 +95,10 @@
             this.btnEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEntrar.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntrar.ForeColor = System.Drawing.Color.White;
-            this.btnEntrar.Location = new System.Drawing.Point(163, 367);
+            this.btnEntrar.Location = new System.Drawing.Point(198, 414);
             this.btnEntrar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnEntrar.Name = "btnEntrar";
-            this.btnEntrar.Size = new System.Drawing.Size(142, 39);
+            this.btnEntrar.Size = new System.Drawing.Size(174, 57);
             this.btnEntrar.TabIndex = 2;
             this.btnEntrar.UseVisualStyleBackColor = true;
             this.btnEntrar.Click += new System.EventHandler(this.btnEntrar_Click);
@@ -109,7 +110,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::WinContador.Properties.Resources.fondoSecondary;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(390, 444);
+            this.ClientSize = new System.Drawing.Size(525, 514);
             this.Controls.Add(this.btnEntrar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
