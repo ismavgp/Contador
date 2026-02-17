@@ -31,6 +31,9 @@ namespace WinContador
             InitializeTimer();
             InitializeScaling();
             SetupKeyboardShortcuts();
+            
+            // Aplicar tamaños de fuente duplicados
+            SetSpecificFontSizes();
         }
 
         private void InitializeScaling()
@@ -169,6 +172,18 @@ namespace WinContador
                 ResetToOriginalSize();
                 e.Handled = true;
             }
+            // Ctrl + D: Duplicar tamaño de fuente
+            else if (e.Control && e.KeyCode == Keys.D)
+            {
+                DoubleFontSize();
+                e.Handled = true;
+            }
+            // Ctrl + R: Restaurar fuentes duplicadas específicas
+            else if (e.Control && e.KeyCode == Keys.R)
+            {
+                SetSpecificFontSizes();
+                e.Handled = true;
+            }
             // F11: Alternar pantalla completa
             else if (e.KeyCode == Keys.F11)
             {
@@ -272,6 +287,64 @@ namespace WinContador
             );
             
             this.CenterToScreen();
+        }
+
+        // Método para duplicar el tamaño del texto
+        public void DoubleFontSize()
+        {
+            ApplyFontScaleToAllControls(2.0f);
+        }
+
+        // Método para aplicar un factor de escala específico a todas las fuentes
+        public void ApplyFontScaleToAllControls(float scaleFactor)
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control.Font != null)
+                {
+                    try
+                    {
+                        float newSize = Math.Max(8f, control.Font.Size * scaleFactor);
+                        Font newFont = new Font(control.Font.FontFamily, newSize, control.Font.Style);
+                        control.Font = newFont;
+                    }
+                    catch
+                    {
+                        // En caso de error, usar fuente por defecto
+                        try
+                        {
+                            float newSize = Math.Max(8f, control.Font.Size * scaleFactor);
+                            control.Font = new Font("Microsoft Sans Serif", newSize, control.Font.Style);
+                        }
+                        catch
+                        {
+                            // Si también falla, usar Arial como respaldo final
+                            control.Font = new Font("Arial", 24f, FontStyle.Regular);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Método para resetear fuentes a tamaños específicos
+        public void SetSpecificFontSizes()
+        {
+            try
+            {
+                // Aplicar tamaños específicos duplicados
+                lblTimer.Font = new Font("DS-Digital", 144F, FontStyle.Bold | FontStyle.Italic);
+                lblResultado.Font = new Font("Digital-7", 144.62608F, FontStyle.Bold);
+                label1.Font = new Font("Digital-7 Italic", 72.62608F, FontStyle.Bold | FontStyle.Italic);
+                label2.Font = new Font("Digital-7 Italic", 32.55652F, FontStyle.Bold | FontStyle.Italic);
+            }
+            catch
+            {
+                // Fallback con fuentes estándar
+                lblTimer.Font = new Font("Arial", 144F, FontStyle.Bold);
+                lblResultado.Font = new Font("Arial", 144F, FontStyle.Bold);
+                label1.Font = new Font("Arial", 72F, FontStyle.Bold);
+                label2.Font = new Font("Arial", 32F, FontStyle.Bold);
+            }
         }
 
         private void FrmSecondary_Load(object sender, EventArgs e)
