@@ -188,8 +188,43 @@ namespace WinContador
                 frmHistorial.ShowDialog();
             }
 
-
- 
+            // Controles para el formulario secundario (FrmSecondary)
+            // Ctrl + Shift + Plus: Aumentar tamaño del formulario secundario
+            if (e.Control && e.Shift && (e.KeyCode == Keys.Add || e.KeyCode == Keys.Oemplus))
+            {
+                if (frmSecondary != null && frmSecondary.Visible)
+                {
+                    frmSecondary.ApplyCustomScale(1.1f);
+                }
+                e.Handled = true;
+            }
+            // Ctrl + Shift + Minus: Disminuir tamaño del formulario secundario
+            else if (e.Control && e.Shift && (e.KeyCode == Keys.Subtract || e.KeyCode == Keys.OemMinus))
+            {
+                if (frmSecondary != null && frmSecondary.Visible)
+                {
+                    frmSecondary.ApplyCustomScale(0.9f);
+                }
+                e.Handled = true;
+            }
+            // Ctrl + Shift + 0: Resetear tamaño original del formulario secundario
+            else if (e.Control && e.Shift && e.KeyCode == Keys.D0)
+            {
+                if (frmSecondary != null && frmSecondary.Visible)
+                {
+                    frmSecondary.ResetToOriginalSize();
+                }
+                e.Handled = true;
+            }
+            // F12: Ajustar formulario secundario al 80% de la pantalla
+            else if (e.KeyCode == Keys.F12)
+            {
+                if (frmSecondary != null && frmSecondary.Visible)
+                {
+                    frmSecondary.FitToScreenPercentage(0.8f);
+                }
+                e.Handled = true;
+            }
         }
 
         //private void SetupTextBoxValidation()
@@ -365,6 +400,8 @@ namespace WinContador
 
             btnPausa.Enabled = false;
 
+            // Configurar tooltip para informar sobre los atajos de escalado
+            ConfigurarTooltipsEscalado();
         }
 
         private void SetBlackThemeToMenu(ToolStripMenuItem item)
@@ -690,6 +727,36 @@ namespace WinContador
                 e.Handled = true;
             }
 
+        }
+
+        private void ConfigurarTooltipsEscalado()
+        {
+            // Crear tooltip para informar sobre las funciones de escalado
+            ToolTip tooltipEscalado = new ToolTip();
+            tooltipEscalado.IsBalloon = true;
+            tooltipEscalado.ToolTipTitle = "💡 Funciones de Escalado";
+            
+            string tooltipText = "🖥️ CONTROLES DEL FORMULARIO SECUNDARIO:\n\n" +
+                                "📏 Desde Formulario Principal:\n" +
+                                "• Ctrl+Shift++: Aumentar tamaño\n" +
+                                "• Ctrl+Shift+-: Disminuir tamaño\n" +
+                                "• Ctrl+Shift+0: Tamaño original\n" +
+                                "• F12: 80% de pantalla\n\n" +
+                                "📏 Desde Formulario Secundario:\n" +
+                                "• Ctrl++: Aumentar tamaño\n" +
+                                "• Ctrl+-: Disminuir tamaño\n" +
+                                "• Ctrl+0: Tamaño original\n" +
+                                "• F11: Pantalla completa\n" +
+                                "• ESC: Salir pantalla completa\n\n" +
+                                "🔄 El texto se ajusta automáticamente\n" +
+                                "al cambiar el tamaño del formulario";
+            
+            // Aplicar tooltip al formulario principal
+            tooltipEscalado.SetToolTip(this, tooltipText);
+            
+            // También aplicar a algunos controles principales
+            tooltipEscalado.SetToolTip(btnIniciar, "Iniciar juego (I)\n\n" + tooltipText);
+            tooltipEscalado.SetToolTip(btnPausa, "Pausar/Reanudar (P)\n\n" + tooltipText);
         }
     }
 

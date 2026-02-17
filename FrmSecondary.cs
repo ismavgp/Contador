@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using System.IO;
 using WinContador.Data;
 
-
 namespace WinContador
 {
     public partial class FrmSecondary : Form
@@ -21,14 +20,259 @@ namespace WinContador
         private int currentCount;
         private bool isPaused;
 
+        // Variables para el escalado de fuentes y controles
+        private Size _originalFormSize;
+        private Dictionary<Control, Font> _originalFonts;
+        private Dictionary<Control, Rectangle> _originalBounds;
+
         public FrmSecondary()
         {
             InitializeComponent();
             InitializeTimer();
+            InitializeScaling();
+            SetupKeyboardShortcuts();
         }
 
+        private void InitializeScaling()
+        {
+            // Guardar el tamaño original del formulario
+            _originalFormSize = this.Size;
 
+            // Inicializar diccionarios para guardar valores originales
+            _originalFonts = new Dictionary<Control, Font>();
+            _originalBounds = new Dictionary<Control, Rectangle>();
 
+            // Guardar fuentes y posiciones originales de todos los controles
+            SaveOriginalControlProperties(this);
+
+            // Suscribirse al evento de redimensionamiento
+            this.Resize += FrmSecondary_ResizeHandler;
+        }
+
+        private void SaveOriginalControlProperties(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                // Guardar fuente original
+                if (control.Font != null)
+                {
+                    _originalFonts[control] = new Font(control.Font.FontFamily, control.Font.Size, control.Font.Style);
+                }
+
+                // Guardar bounds originales
+                _originalBounds[control] = control.Bounds;
+
+                // Procesar controles hijos recursivamente
+                if (control.HasChildren)
+                {
+                    SaveOriginalControlProperties(control);
+                }
+            }
+        }
+
+        private void FrmSecondary_ResizeHandler(object sender, EventArgs e)
+        {
+            ScaleControlsAndFonts();
+        }
+
+        private void ScaleControlsAndFonts()
+        {
+            if (_originalFormSize.Width == 0 || _originalFormSize.Height == 0)
+                return;
+
+            // Calcular factores de escala
+            float scaleFactorX = (float)this.Width / _originalFormSize.Width;
+            float scaleFactorY = (float)this.Height / _originalFormSize.Height;
+
+            // Usar el menor factor para mantener proporciones uniformes
+            float uniformScaleFactor = Math.Min(scaleFactorX, scaleFactorY);
+
+            // Aplicar escalado a todos los controles
+            ScaleControls(this, uniformScaleFactor, scaleFactorX, scaleFactorY);
+        }
+
+        private void ScaleControls(Control parent, float fontScaleFactor, float scaleFactorX, float scaleFactorY)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                // Escalar fuente manteniendo proporciones
+                if (_originalFonts.ContainsKey(control))
+                {
+                    Font originalFont = _originalFonts[control];
+                    float newSize = Math.Max(8f, originalFont.Size * fontScaleFactor); // Tamaño mínimo de 8pt
+                    
+                    try
+                    {
+                        Font newFont = new Font(originalFont.FontFamily, newSize, originalFont.Style);
+                        control.Font = newFont;
+                    }
+                    catch
+                    {
+                        // En caso de error con la fuente, usar fuente por defecto
+                        try
+                        {
+                            control.Font = new Font("Microsoft Sans Serif", newSize, originalFont.Style);
+                        }
+                        catch
+                        {
+                            // Si también falla, usar Arial como respaldo final
+                            control.Font = new Font("Arial", newSize, FontStyle.Regular);
+                        }
+                    }
+                }
+
+                // Escalar posición y tamaño del control
+                if (_originalBounds.ContainsKey(control))
+                {
+                    Rectangle originalBounds = _originalBounds[control];
+                    
+                    int newX = (int)(originalBounds.X * scaleFactorX);
+                    int newY = (int)(originalBounds.Y * scaleFactorY);
+                    int newWidth = (int)(originalBounds.Width * scaleFactorX);
+                    int newHeight = (int)(originalBounds.Height * scaleFactorY);
+
+                    control.SetBounds(newX, newY, newWidth, newHeight);
+                }
+
+                // Procesar controles hijos recursivamente
+                if (control.HasChildren)
+                {
+                    ScaleControls(control, fontScaleFactor, scaleFactorX, scaleFactorY);
+                }
+            }
+        }
+
+        private void SetupKeyboardShortcuts()
+        {
+            // Habilitar preview de teclas para atajos de teclado
+            this.KeyPreview = true;
+            this.KeyDown += FrmSecondary_KeyDown;
+        }
+
+        private void FrmSecondary_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Ctrl + Plus o Ctrl + Add: Aumentar tamaño
+            if (e.Control && (e.KeyCode == Keys.Add || e.KeyCode == Keys.Oemplus))
+            {
+                ApplyCustomScale(1.1f);
+                e.Handled = true;
+            }
+            // Ctrl + Minus o Ctrl + Subtract: Disminuir tamaño
+            else if (e.Control && (e.KeyCode == Keys.Subtract || e.KeyCode == Keys.OemMinus))
+            {
+                ApplyCustomScale(0.9f);
+                e.Handled = true;
+            }
+            // Ctrl + 0: Resetear a tamaño original
+            else if (e.Control && e.KeyCode == Keys.D0)
+            {
+                ResetToOriginalSize();
+                e.Handled = true;
+            }
+            // F11: Alternar pantalla completa
+            else if (e.KeyCode == Keys.F11)
+            {
+                ToggleFullscreen();
+                e.Handled = true;
+            }
+            // Escape: Salir de pantalla completa
+            else if (e.KeyCode == Keys.Escape && this.FormBorderStyle == FormBorderStyle.None)
+            {
+                ExitFullscreen();
+                e.Handled = true;
+            }
+        }
+
+        private void ToggleFullscreen()
+        {
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                EnterFullscreen();
+            }
+            else
+            {
+                ExitFullscreen();
+            }
+        }
+
+        private void EnterFullscreen()
+        {
+            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.TopMost = true;
+        }
+
+        private void ExitFullscreen()
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            this.TopMost = false;
+        }
+
+        // Método para resetear a tamaño original
+        public void ResetToOriginalSize()
+        {
+            this.Size = _originalFormSize;
+            this.WindowState = FormWindowState.Normal;
+            this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            this.TopMost = false;
+        }
+
+        // Método mejorado para aplicar escala personalizada
+        public void ApplyCustomScale(float scaleFactor)
+        {
+            Size currentSize = this.Size;
+            Size newSize = new Size(
+                Math.Max(this.MinimumSize.Width, (int)(currentSize.Width * scaleFactor)),
+                Math.Max(this.MinimumSize.Height, (int)(currentSize.Height * scaleFactor))
+            );
+            
+            // Verificar que no exceda el tamaño de la pantalla
+            Screen currentScreen = Screen.FromControl(this);
+            Rectangle workingArea = currentScreen.WorkingArea;
+            
+            if (newSize.Width > workingArea.Width * 0.95)
+                newSize.Width = (int)(workingArea.Width * 0.95);
+            if (newSize.Height > workingArea.Height * 0.95)
+                newSize.Height = (int)(workingArea.Height * 0.95);
+                
+            this.Size = newSize;
+            
+            // Centrar si es necesario
+            if (this.Location.X + this.Width > workingArea.Width || 
+                this.Location.Y + this.Height > workingArea.Height)
+            {
+                this.CenterToScreen();
+            }
+        }
+
+        // Método para ajustar el formulario a un porcentaje del tamaño de la pantalla
+        public void FitToScreenPercentage(float percentage)
+        {
+            Screen currentScreen = Screen.FromControl(this);
+            Rectangle workingArea = currentScreen.WorkingArea;
+            
+            int newWidth = (int)(workingArea.Width * percentage);
+            int newHeight = (int)(workingArea.Height * percentage);
+            
+            // Mantener proporciones del formulario original
+            float aspectRatio = (float)_originalFormSize.Width / _originalFormSize.Height;
+            if (newWidth / aspectRatio > newHeight)
+            {
+                newWidth = (int)(newHeight * aspectRatio);
+            }
+            else
+            {
+                newHeight = (int)(newWidth / aspectRatio);
+            }
+            
+            this.Size = new Size(
+                Math.Max(this.MinimumSize.Width, newWidth),
+                Math.Max(this.MinimumSize.Height, newHeight)
+            );
+            
+            this.CenterToScreen();
+        }
 
         private void FrmSecondary_Load(object sender, EventArgs e)
         {
@@ -39,7 +283,6 @@ namespace WinContador
         {
 
         }
-
 
         private void InitializeTimer()
         {
@@ -62,11 +305,11 @@ namespace WinContador
 
                 ConfigRepository configRepository = new ConfigRepository();
                 configRepository.CrearBaseSiNoExiste();
-               string alerta = configRepository.Obtener("SonidoAlerta");
+                string alerta = configRepository.Obtener("SonidoAlerta");
 
                 //mostrar la ruta donde se ejecuta y donde busca el mp3
                 string rutaBase = Application.StartupPath;
-                string rutaArchivo = Path.Combine(rutaBase, alerta+".mp3");
+                string rutaArchivo = Path.Combine(rutaBase, alerta + ".mp3");
 
                 // Mostrar desde dónde se ejecuta y qué archivo intenta abrir
                 //MessageBox.Show($"Ruta de ejecución:\n{rutaBase}\n\nArchivo buscado:\n{rutaArchivo}");
@@ -77,7 +320,7 @@ namespace WinContador
                     return;
                 }
 
-                _= ReproducirMp3(alerta);
+                _ = ReproducirMp3(alerta);
             }
         }
 
@@ -85,7 +328,7 @@ namespace WinContador
         {
             // Detener el timer si ya está corriendo
             countdownTimer.Stop();
-            
+
             // Configurar el contador inicial
             currentCount = contador;
             lblTimer.Text = currentCount.ToString("00");
@@ -142,7 +385,7 @@ namespace WinContador
                 // If after rounding the value is an integer, show without decimals
                 if (rounded % 1 == 0)
                 {
-                    lblResultado.Text = "S/ "+ rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text = "S/ " + rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
                 }
                 else
                 {
