@@ -43,11 +43,11 @@
             // 
             this.lblResultado.AutoSize = true;
             this.lblResultado.BackColor = System.Drawing.Color.Transparent;
-            this.lblResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 144.6261F, System.Drawing.FontStyle.Bold);
+            this.lblResultado.Font = new System.Drawing.Font("Digital-7", 145.2522F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResultado.ForeColor = System.Drawing.Color.Lime;
-            this.lblResultado.Location = new System.Drawing.Point(12, 467);
+            this.lblResultado.Location = new System.Drawing.Point(12, 260);
             this.lblResultado.Name = "lblResultado";
-            this.lblResultado.Size = new System.Drawing.Size(387, 274);
+            this.lblResultado.Size = new System.Drawing.Size(322, 238);
             this.lblResultado.TabIndex = 5;
             this.lblResultado.Text = "00";
             this.lblResultado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -56,11 +56,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.55652F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Digital-7 Italic", 33.18261F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(431, 359);
+            this.label2.Location = new System.Drawing.Point(252, 218);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(293, 63);
+            this.label2.Size = new System.Drawing.Size(204, 55);
             this.label2.TabIndex = 6;
             this.label2.Text = "APUESTA";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -69,24 +69,24 @@
             // 
             this.lblTimer.AutoSize = true;
             this.lblTimer.BackColor = System.Drawing.Color.Transparent;
-            this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 144F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimer.Font = new System.Drawing.Font("Digital-7 Italic", 144F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimer.ForeColor = System.Drawing.Color.Red;
-            this.lblTimer.Location = new System.Drawing.Point(225, 36);
+            this.lblTimer.Location = new System.Drawing.Point(64, 9);
             this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(382, 272);
+            this.lblTimer.Size = new System.Drawing.Size(429, 235);
             this.lblTimer.TabIndex = 8;
-            this.lblTimer.Text = "00";
-            this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTimer.Text = "000";
+            this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 72.62608F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Digital-7 Italic", 73.25217F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(656, 118);
+            this.label1.Location = new System.Drawing.Point(445, 66);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(318, 138);
+            this.label1.Size = new System.Drawing.Size(214, 120);
             this.label1.TabIndex = 10;
             this.label1.Text = "SEG";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -94,20 +94,20 @@
             // 
             // FrmSecondary
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1350, 875);
+            this.ClientSize = new System.Drawing.Size(752, 523);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblResultado);
-            this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblTimer);
+            this.Controls.Add(this.lblResultado);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MinimumSize = new System.Drawing.Size(673, 551);
+            this.MinimumSize = new System.Drawing.Size(600, 450);
             this.Name = "FrmSecondary";
             this.Text = "..........:::::::::::::::Juego::::::::::::::::::..............";
             this.ResumeLayout(false);
