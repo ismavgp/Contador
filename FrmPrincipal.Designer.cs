@@ -113,7 +113,7 @@
             this.txtResultado.Location = new System.Drawing.Point(84, 59);
             this.txtResultado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtResultado.Name = "txtResultado";
-            this.txtResultado.Size = new System.Drawing.Size(229, 35);
+            this.txtResultado.Size = new System.Drawing.Size(229, 37);
             this.txtResultado.TabIndex = 0;
             this.txtResultado.Text = "00";
             this.txtResultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -130,7 +130,7 @@
             this.rbSuma.Location = new System.Drawing.Point(84, 111);
             this.rbSuma.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbSuma.Name = "rbSuma";
-            this.rbSuma.Size = new System.Drawing.Size(106, 40);
+            this.rbSuma.Size = new System.Drawing.Size(117, 42);
             this.rbSuma.TabIndex = 8;
             this.rbSuma.TabStop = true;
             this.rbSuma.Text = "Sumar";
@@ -145,7 +145,7 @@
             this.rbResta.Location = new System.Drawing.Point(209, 111);
             this.rbResta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbResta.Name = "rbResta";
-            this.rbResta.Size = new System.Drawing.Size(104, 40);
+            this.rbResta.Size = new System.Drawing.Size(114, 42);
             this.rbResta.TabIndex = 9;
             this.rbResta.Text = "Restar";
             this.rbResta.UseVisualStyleBackColor = false;
@@ -157,8 +157,13 @@
             this.numericUpDown1.ForeColor = System.Drawing.Color.White;
             this.numericUpDown1.Location = new System.Drawing.Point(44, 61);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(123, 42);
+            this.numericUpDown1.Size = new System.Drawing.Size(123, 44);
             this.numericUpDown1.TabIndex = 3;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown1.Value = new decimal(new int[] {
@@ -175,7 +180,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(173, 61);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 36);
+            this.label1.Size = new System.Drawing.Size(71, 38);
             this.label1.TabIndex = 12;
             this.label1.Text = "SEG.";
             // 
@@ -206,7 +211,7 @@
             this.txtNroJuego.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNroJuego.Name = "txtNroJuego";
             this.txtNroJuego.ReadOnly = true;
-            this.txtNroJuego.Size = new System.Drawing.Size(143, 35);
+            this.txtNroJuego.Size = new System.Drawing.Size(143, 37);
             this.txtNroJuego.TabIndex = 15;
             this.txtNroJuego.Text = "0";
             this.txtNroJuego.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -234,7 +239,7 @@
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(86, 107);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 36);
+            this.label4.Size = new System.Drawing.Size(130, 38);
             this.label4.TabIndex = 19;
             this.label4.Text = "N° Juego";
             // 
@@ -247,7 +252,7 @@
             this.label5.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label5.Location = new System.Drawing.Point(166, 395);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(152, 36);
+            this.label5.Size = new System.Drawing.Size(167, 38);
             this.label5.TabIndex = 20;
             this.label5.Text = "Ver Historial";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -260,7 +265,7 @@
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(74, 167);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(131, 36);
+            this.label6.Size = new System.Drawing.Size(143, 38);
             this.label6.TabIndex = 22;
             this.label6.Text = "% Utilidad";
             // 
@@ -274,7 +279,7 @@
             this.txtUtilidad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtUtilidad.Name = "txtUtilidad";
             this.txtUtilidad.ReadOnly = true;
-            this.txtUtilidad.Size = new System.Drawing.Size(143, 35);
+            this.txtUtilidad.Size = new System.Drawing.Size(143, 37);
             this.txtUtilidad.TabIndex = 23;
             this.txtUtilidad.Text = "00";
             this.txtUtilidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -288,7 +293,7 @@
             this.txtPorcentaje.Location = new System.Drawing.Point(241, 166);
             this.txtPorcentaje.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPorcentaje.Name = "txtPorcentaje";
-            this.txtPorcentaje.Size = new System.Drawing.Size(143, 38);
+            this.txtPorcentaje.Size = new System.Drawing.Size(143, 40);
             this.txtPorcentaje.TabIndex = 24;
             this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPorcentaje.Value = new decimal(new int[] {
@@ -320,7 +325,7 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(118, 227);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 36);
+            this.label3.Size = new System.Drawing.Size(112, 38);
             this.label3.TabIndex = 27;
             this.label3.Text = "Utilidad";
             // 
@@ -359,7 +364,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(3, 2);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 36);
+            this.label2.Size = new System.Drawing.Size(115, 38);
             this.label2.TabIndex = 13;
             this.label2.Text = "TIEMPO";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -395,7 +400,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.menuStrip1.Size = new System.Drawing.Size(1088, 44);
+            this.menuStrip1.Size = new System.Drawing.Size(1088, 45);
             this.menuStrip1.TabIndex = 26;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -407,7 +412,7 @@
             this.ajustesToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.ajustesToolStripMenuItem.Image = global::WinContador.Properties.Resources.IcoSetting;
             this.ajustesToolStripMenuItem.Name = "ajustesToolStripMenuItem";
-            this.ajustesToolStripMenuItem.Size = new System.Drawing.Size(131, 40);
+            this.ajustesToolStripMenuItem.Size = new System.Drawing.Size(134, 41);
             this.ajustesToolStripMenuItem.Text = "Ajustes";
             this.ajustesToolStripMenuItem.Click += new System.EventHandler(this.ajustesToolStripMenuItem_Click);
             // 
@@ -415,7 +420,7 @@
             // 
             this.alertaToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.alertaToolStripMenuItem.Name = "alertaToolStripMenuItem";
-            this.alertaToolStripMenuItem.Size = new System.Drawing.Size(334, 40);
+            this.alertaToolStripMenuItem.Size = new System.Drawing.Size(349, 42);
             this.alertaToolStripMenuItem.Text = "&Alerta";
             this.alertaToolStripMenuItem.Click += new System.EventHandler(this.alertaToolStripMenuItem_Click);
             // 
@@ -423,7 +428,7 @@
             // 
             this.cambiarContraseñaToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.cambiarContraseñaToolStripMenuItem.Name = "cambiarContraseñaToolStripMenuItem";
-            this.cambiarContraseñaToolStripMenuItem.Size = new System.Drawing.Size(334, 40);
+            this.cambiarContraseñaToolStripMenuItem.Size = new System.Drawing.Size(349, 42);
             this.cambiarContraseñaToolStripMenuItem.Text = "&Cambiar Contraseña";
             this.cambiarContraseñaToolStripMenuItem.Click += new System.EventHandler(this.cambiarContraseñaToolStripMenuItem_Click);
             // 
@@ -432,7 +437,7 @@
             this.ayudaToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.ayudaToolStripMenuItem.Image = global::WinContador.Properties.Resources.IcoHelp;
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(120, 40);
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(124, 41);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
             // 
@@ -471,7 +476,7 @@
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(3, 2);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(128, 36);
+            this.label7.Size = new System.Drawing.Size(135, 37);
             this.label7.TabIndex = 13;
             this.label7.Text = "APUESTA";
             // 
@@ -484,7 +489,7 @@
             this.txtNumero2.Location = new System.Drawing.Point(84, 168);
             this.txtNumero2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNumero2.Name = "txtNumero2";
-            this.txtNumero2.Size = new System.Drawing.Size(229, 35);
+            this.txtNumero2.Size = new System.Drawing.Size(229, 37);
             this.txtNumero2.TabIndex = 7;
             this.txtNumero2.Text = "00";
             this.txtNumero2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -528,7 +533,7 @@
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(161, 36);
+            this.label8.Size = new System.Drawing.Size(169, 37);
             this.label8.TabIndex = 13;
             this.label8.Text = "RESULTADO";
             // 
