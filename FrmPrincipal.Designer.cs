@@ -118,7 +118,7 @@
             this.txtResultado.Text = "00";
             this.txtResultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtResultado.TextChanged += new System.EventHandler(this.txtResultado_TextChanged);
-            this.txtResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtResultado_KeyPress);
+           // this.txtResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtResultado_KeyPress);
             // 
             // rbSuma
             // 

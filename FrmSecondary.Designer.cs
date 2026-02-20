@@ -40,22 +40,21 @@
             this.pnSuperiorDerecha = new System.Windows.Forms.Panel();
             this.pnSuperiorIzquierda = new System.Windows.Forms.Panel();
             this.pnInferior = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pnInferiorArriba = new System.Windows.Forms.Panel();
             this.pnInferiorAbajo = new System.Windows.Forms.Panel();
+            this.pnInferiorArriba = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.pnSuperior.SuspendLayout();
             this.pnSuperiorDerecha.SuspendLayout();
             this.pnSuperiorIzquierda.SuspendLayout();
             this.pnInferior.SuspendLayout();
-            this.pnInferiorArriba.SuspendLayout();
             this.pnInferiorAbajo.SuspendLayout();
+            this.pnInferiorArriba.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblResultado
             // 
-            this.lblResultado.AutoSize = false;
             this.lblResultado.BackColor = System.Drawing.Color.Transparent;
-            this.lblResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.lblResultado.Font = new System.Drawing.Font("Digital-7", 50F);
             this.lblResultado.ForeColor = System.Drawing.Color.Lime;
             this.lblResultado.Location = new System.Drawing.Point(5, 5);
             this.lblResultado.Name = "lblResultado";
@@ -66,33 +65,31 @@
             // 
             // lblTimer
             // 
-            this.lblTimer.AutoSize = false;
             this.lblTimer.BackColor = System.Drawing.Color.Transparent;
-            this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 80F);
+            this.lblTimer.Font = new System.Drawing.Font("Digital-7", 80F);
             this.lblTimer.ForeColor = System.Drawing.Color.Red;
             this.lblTimer.Location = new System.Drawing.Point(5, 5);
             this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(539, 158);
+            this.lblTimer.Size = new System.Drawing.Size(400, 158);
             this.lblTimer.TabIndex = 8;
             this.lblTimer.Text = "000";
-            this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
-            this.label1.AutoSize = false;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.label1.Font = new System.Drawing.Font("Digital-7", 28F);
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(5, 5);
+            this.label1.Location = new System.Drawing.Point(0, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(225, 158);
+            this.label1.Size = new System.Drawing.Size(373, 158);
             this.label1.TabIndex = 10;
             this.label1.Text = "SEG";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pnSuperior
             // 
-            this.pnSuperior.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pnSuperior.BackColor = System.Drawing.Color.Black;
             this.pnSuperior.Controls.Add(this.pnSuperiorDerecha);
             this.pnSuperior.Controls.Add(this.pnSuperiorIzquierda);
             this.pnSuperior.Dock = System.Windows.Forms.DockStyle.Top;
@@ -106,55 +103,34 @@
             // 
             this.pnSuperiorDerecha.Controls.Add(this.label1);
             this.pnSuperiorDerecha.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnSuperiorDerecha.Location = new System.Drawing.Point(549, 0);
+            this.pnSuperiorDerecha.Location = new System.Drawing.Point(411, 0);
             this.pnSuperiorDerecha.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnSuperiorDerecha.Name = "pnSuperiorDerecha";
-            this.pnSuperiorDerecha.Size = new System.Drawing.Size(235, 168);
+            this.pnSuperiorDerecha.Size = new System.Drawing.Size(373, 168);
             this.pnSuperiorDerecha.TabIndex = 1;
             // 
             // pnSuperiorIzquierda
             // 
+            this.pnSuperiorIzquierda.BackColor = System.Drawing.Color.Black;
             this.pnSuperiorIzquierda.Controls.Add(this.lblTimer);
             this.pnSuperiorIzquierda.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnSuperiorIzquierda.Location = new System.Drawing.Point(0, 0);
             this.pnSuperiorIzquierda.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnSuperiorIzquierda.Name = "pnSuperiorIzquierda";
-            this.pnSuperiorIzquierda.Size = new System.Drawing.Size(549, 168);
+            this.pnSuperiorIzquierda.Size = new System.Drawing.Size(411, 168);
             this.pnSuperiorIzquierda.TabIndex = 0;
             // 
             // pnInferior
             // 
-            this.pnInferior.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pnInferior.BackColor = System.Drawing.Color.Black;
             this.pnInferior.Controls.Add(this.pnInferiorAbajo);
             this.pnInferior.Controls.Add(this.pnInferiorArriba);
             this.pnInferior.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnInferior.Location = new System.Drawing.Point(0, 172);
+            this.pnInferior.Location = new System.Drawing.Point(0, 174);
             this.pnInferior.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnInferior.Name = "pnInferior";
             this.pnInferior.Size = new System.Drawing.Size(784, 231);
             this.pnInferior.TabIndex = 12;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = false;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(5, 2);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(774, 44);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "APUESTA";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnInferiorArriba
-            // 
-            this.pnInferiorArriba.Controls.Add(this.label3);
-            this.pnInferiorArriba.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnInferiorArriba.Location = new System.Drawing.Point(0, 0);
-            this.pnInferiorArriba.Name = "pnInferiorArriba";
-            this.pnInferiorArriba.Size = new System.Drawing.Size(784, 48);
-            this.pnInferiorArriba.TabIndex = 8;
             // 
             // pnInferiorAbajo
             // 
@@ -165,13 +141,34 @@
             this.pnInferiorAbajo.Size = new System.Drawing.Size(784, 177);
             this.pnInferiorAbajo.TabIndex = 9;
             // 
+            // pnInferiorArriba
+            // 
+            this.pnInferiorArriba.Controls.Add(this.label3);
+            this.pnInferiorArriba.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnInferiorArriba.Location = new System.Drawing.Point(0, 0);
+            this.pnInferiorArriba.Name = "pnInferiorArriba";
+            this.pnInferiorArriba.Size = new System.Drawing.Size(784, 48);
+            this.pnInferiorArriba.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Digital-7", 24F);
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(5, 2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(774, 44);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "APUESTA";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FrmSecondary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(784, 403);
+            this.ClientSize = new System.Drawing.Size(784, 405);
             this.Controls.Add(this.pnInferior);
             this.Controls.Add(this.pnSuperior);
             this.DoubleBuffered = true;
@@ -185,8 +182,8 @@
             this.pnSuperiorDerecha.ResumeLayout(false);
             this.pnSuperiorIzquierda.ResumeLayout(false);
             this.pnInferior.ResumeLayout(false);
-            this.pnInferiorArriba.ResumeLayout(false);
             this.pnInferiorAbajo.ResumeLayout(false);
+            this.pnInferiorArriba.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

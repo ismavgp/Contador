@@ -228,18 +228,20 @@ namespace WinContador
                 // 1. Distribuir paneles principales (4:2 vertical = 66.6% : 33.3%)
                 DistribuirVertical(this, pnSuperior, 4, pnInferior, 2);
 
-                // 2. Distribuir paneles superiores con proporción inteligente según tamaño de pantalla
-                bool isPantallaPequena = DetectarPantallaPequena();
-                if (isPantallaPequena)
-                {
-                    // Pantallas pequeñas: 70% : 30% (más espacio para SEG)
-                    DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 7, pnSuperiorDerecha, 3);
-                }
-                else
-                {
-                    // Pantallas grandes: 80% : 20% (timer más prominente)
-                    DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 8, pnSuperiorDerecha, 2);
-                }
+                //// 2. Distribuir paneles superiores con proporción inteligente según tamaño de pantalla
+                //bool isPantallaPequena = DetectarPantallaPequena();
+                //if (isPantallaPequena)
+                //{
+                //    // Pantallas pequeñas: 70% : 30% (más espacio para SEG)
+                //    DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 7, pnSuperiorDerecha, 3);
+                //}
+                //else
+                //{
+                //    // Pantallas grandes: 80% : 20% (timer más prominente)
+                //    DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 8, pnSuperiorDerecha, 2);
+                //}
+
+                DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 5, pnSuperiorDerecha, 4);
 
                 // 3. Distribuir paneles inferiores (1:4 vertical = 20% : 80%)
                 DistribuirVertical(pnInferior, pnInferiorArriba, 1, pnInferiorAbajo, 4);
@@ -538,10 +540,10 @@ namespace WinContador
             ConfigurarTamanos();
 
             // Centrar timer en panel izquierdo superior
-            CentrarEnContenedor(lblTimer, pnSuperiorIzquierda);
+            CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleRight);
 
             // Centrar "SEG" en panel derecho superior
-            CentrarEnContenedor(label1, pnSuperiorDerecha);
+            CentrarEnContenedor(label1, pnSuperiorDerecha, ContentAlignment.MiddleLeft);
 
             // Centrar "APUESTA" en panel inferior arriba
             CentrarEnContenedor(label3, pnInferiorArriba);
@@ -589,7 +591,7 @@ namespace WinContador
             }
         }
 
-        private void CentrarEnContenedor(Control control, Control contenedor)
+        private void CentrarEnContenedor(Control control, Control contenedor, ContentAlignment alignment = ContentAlignment.MiddleCenter)
         {
             if (control == null || contenedor == null) return;
 
@@ -601,7 +603,7 @@ namespace WinContador
             // Asegurar que el texto esté centrado dentro del control
             if (control is Label label)
             {
-                label.TextAlign = ContentAlignment.MiddleCenter;
+                label.TextAlign = alignment;
             }
         }
 
@@ -720,8 +722,8 @@ namespace WinContador
 
                 // Reposicionar controles
                 ConfigurarTamanos();
-                CentrarEnContenedor(lblTimer, pnSuperiorIzquierda);
-                CentrarEnContenedor(label1, pnSuperiorDerecha);
+                CentrarEnContenedor(lblTimer, pnSuperiorIzquierda,ContentAlignment.TopRight);
+                CentrarEnContenedor(label1, pnSuperiorDerecha, ContentAlignment.MiddleLeft);
 
             }
             finally

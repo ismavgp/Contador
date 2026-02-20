@@ -38,59 +38,6 @@ namespace WinContador
             LimpiarForm();
         }
 
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Enter)
-            {
-                ProcesarOperacion();
-                return true; // 🔥 Bloquea el comportamiento normal del Enter
-            }
-
-            if (keyData == Keys.Add)
-            {
-                rbSuma.Checked = true;
-                return true;
-            }
-
-            if (keyData == Keys.Subtract || keyData == Keys.OemMinus)
-            {
-                rbResta.Checked = true;
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void ProcesarOperacion()
-        {
-            decimal numero1 = ParseFormattedNumber(txtResultado.Text);
-            decimal numero2 = ParseFormattedNumber(txtNumero2.Text);
-            decimal resultado;
-
-            if (rbSuma.Checked)
-            {
-                resultado = numero1 + numero2;
-            }
-            else
-            {
-                resultado = numero1 - numero2;
-            }
-
-            // Actualizar el resultado en el formulario principal
-            txtResultado.Text = FormatDecimal(resultado);
-
-            // Actualizar el resultado en el formulario secundario
-            if (frmSecondary != null)
-            {
-                frmSecondary.UpdateResult(FormatDecimal(resultado));
-            }
-
-            calcularUtilidad();
-
-            _limpiarAlEscribir = true;
-        }
-
         private void ClearTimer_Tick(object sender, EventArgs e)
         {
             _clearTimer.Stop();
@@ -140,8 +87,6 @@ namespace WinContador
             // con enter procesar
             if (e.KeyCode == Keys.Enter)
             {
-                e.Handled = true;
-                e.SuppressKeyPress = true; // 🔥 CLAVE: evita que el botón procese el Enter
 
                 btnProcesa.Focus();
                 btnProcesa.PerformClick();
@@ -188,52 +133,8 @@ namespace WinContador
                 frmHistorial.ShowDialog();
             }
 
-            // Controles para el formulario secundario (FrmSecondary)
-            // Ctrl + Shift + Plus: Aumentar tamaño del formulario secundario
-            //if (e.Control && e.Shift && (e.KeyCode == Keys.Add || e.KeyCode == Keys.Oemplus))
-            //{
-            //    if (frmSecondary != null && frmSecondary.Visible)
-            //    {
-            //        frmSecondary.ApplyCustomScale(1.1f);
-            //    }
-            //    e.Handled = true;
-            //}
-            //// Ctrl + Shift + Minus: Disminuir tamaño del formulario secundario
-            //else if (e.Control && e.Shift && (e.KeyCode == Keys.Subtract || e.KeyCode == Keys.OemMinus))
-            //{
-            //    if (frmSecondary != null && frmSecondary.Visible)
-            //    {
-            //        frmSecondary.ApplyCustomScale(0.9f);
-            //    }
-            //    e.Handled = true;
-            //}
-            //// Ctrl + Shift + 0: Resetear tamaño original del formulario secundario
-            //else if (e.Control && e.Shift && e.KeyCode == Keys.D0)
-            //{
-            //    if (frmSecondary != null && frmSecondary.Visible)
-            //    {
-            //        frmSecondary.ResetToOriginalSize();
-            //    }
-            //    e.Handled = true;
-            //}
-            //// F12: Ajustar formulario secundario al 80% de la pantalla
-            //else if (e.KeyCode == Keys.F12)
-            //{
-            //    if (frmSecondary != null && frmSecondary.Visible)
-            //    {
-            //        frmSecondary.FitToScreenPercentage(0.8f);
-            //    }
-            //    e.Handled = true;
-            //}
-            //// Ctrl + Shift + C: Centrar controles del formulario secundario
-            //else if (e.Control && e.Shift && e.KeyCode == Keys.C)
-            //{
-            //    if (frmSecondary != null && frmSecondary.Visible)
-            //    {
-            //        frmSecondary.CenterControlsManually();
-            //    }
-            //    e.Handled = true;
-            //}
+
+
         }
 
         //private void SetupTextBoxValidation()
@@ -351,7 +252,31 @@ namespace WinContador
         private void btnProcesa_Click(object sender, EventArgs e)
         {
 
-            ProcesarOperacion();
+            decimal numero1 = ParseFormattedNumber(txtResultado.Text);
+            decimal numero2 = ParseFormattedNumber(txtNumero2.Text);
+            decimal resultado;
+
+            if (rbSuma.Checked)
+            {
+                resultado = numero1 + numero2;
+            }
+            else
+            {
+                resultado = numero1 - numero2;
+            }
+
+            // Actualizar el resultado en el formulario principal
+            txtResultado.Text = FormatDecimal(resultado);
+
+            // Actualizar el resultado en el formulario secundario
+            if (frmSecondary != null)
+            {
+                frmSecondary.UpdateResult(FormatDecimal(resultado));
+            }
+
+            calcularUtilidad();
+
+            _limpiarAlEscribir = true;
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -382,7 +307,7 @@ namespace WinContador
             frmSecondary = new FrmSecondary();
             frmSecondary.Show();
 
-            _limpiarAlEscribir=true;
+            _limpiarAlEscribir = true;
 
             // Establecer valores iniciales formateados
             FormatNumberInTextBox(txtResultado);
@@ -409,8 +334,6 @@ namespace WinContador
 
             btnPausa.Enabled = false;
 
-            // Configurar tooltip para informar sobre los atajos de escalado
-            ConfigurarTooltipsEscalado();
         }
 
         private void SetBlackThemeToMenu(ToolStripMenuItem item)
@@ -477,8 +400,6 @@ namespace WinContador
 
         private void txtResultado_TextChanged(object sender, EventArgs e)
         {
-
-
             // Actualizar el resultado en el formulario secundario
             if (frmSecondary != null && !string.IsNullOrWhiteSpace(txtResultado.Text))
             {
@@ -658,16 +579,6 @@ namespace WinContador
             //{
             //    e.Handled = true;
             //}
-
-            if (char.IsControl(e.KeyChar))
-                return;
-
-            // Permitir solo dígitos
-            if (!char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-
         }
 
         private void btnPausa_Click(object sender, EventArgs e)
@@ -723,55 +634,6 @@ namespace WinContador
                 // Si ya está en un TextBox, no hacemos nada.
                 // Deja que el sistema escriba normalmente.
             }
-        }
-
-        private void txtResultado_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsControl(e.KeyChar))
-                return;
-
-            // Permitir solo dígitos
-            if (!char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-
-        }
-
-        private void ConfigurarTooltipsEscalado()
-        {
-            // Crear tooltip para informar sobre las funciones de escalado
-            ToolTip tooltipEscalado = new ToolTip();
-            tooltipEscalado.IsBalloon = true;
-            tooltipEscalado.ToolTipTitle = "💡 Funciones de Escalado y Centrado";
-            
-            string tooltipText = "🖥️ CONTROLES DEL FORMULARIO SECUNDARIO:\n\n" +
-                                "📏 Desde Formulario Principal:\n" +
-                                "• Ctrl+Shift++: Aumentar tamaño\n" +
-                                "• Ctrl+Shift+-: Disminuir tamaño\n" +
-                                "• Ctrl+Shift+0: Tamaño original\n" +
-                                "• Ctrl+Shift+C: Centrar controles\n" +
-                                "• F12: 80% de pantalla\n\n" +
-                                "📏 Desde Formulario Secundario:\n" +
-                                "• Ctrl++: Aumentar tamaño\n" +
-                                "• Ctrl+-: Disminuir tamaño\n" +
-                                "• Ctrl+0: Tamaño original\n" +
-                                "• Ctrl+C: Centrar controles\n" +
-                                "• Ctrl+D: Duplicar fuentes\n" +
-                                "• Ctrl+R: Restaurar fuentes\n" +
-                                "• F11: Pantalla completa\n" +
-                                "• ESC: Salir pantalla completa\n\n" +
-                                "🔄 El texto se ajusta automáticamente\n" +
-                                "al cambiar el tamaño del formulario\n\n" +
-                                "🎯 APUESTA siempre centrada\n" +
-                                "⏱️ Timer y SEG centrados juntos";
-            
-            // Aplicar tooltip al formulario principal
-            tooltipEscalado.SetToolTip(this, tooltipText);
-            
-            // También aplicar a algunos controles principales
-            tooltipEscalado.SetToolTip(btnIniciar, "Iniciar juego (I)\n\n" + tooltipText);
-            tooltipEscalado.SetToolTip(btnPausa, "Pausar/Reanudar (P)\n\n" + tooltipText);
         }
     }
 
