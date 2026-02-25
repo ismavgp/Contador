@@ -226,7 +226,7 @@ namespace WinContador
                 this.SuspendLayout();
 
                 // 1. Distribuir paneles principales (4:2 vertical = 66.6% : 33.3%)
-                DistribuirVertical(this, pnSuperior, 4, pnInferior, 2);
+                //DistribuirVertical(this, pnSuperior, 4, pnInferior, 2);
 
                 //// 2. Distribuir paneles superiores con proporción inteligente según tamaño de pantalla
                 //bool isPantallaPequena = DetectarPantallaPequena();
@@ -244,7 +244,7 @@ namespace WinContador
                 DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 5, pnSuperiorDerecha, 4);
 
                 // 3. Distribuir paneles inferiores (1:4 vertical = 20% : 80%)
-                DistribuirVertical(pnInferior, pnInferiorArriba, 1, pnInferiorAbajo, 4);
+               // DistribuirVertical(pnInferior, pnInferiorArriba, 1, pnInferiorAbajo, 4);
 
                 // 4. Ajustar fuentes de forma adaptativa y mejorada
                 AjustarFuentesInteligente();
@@ -316,9 +316,9 @@ namespace WinContador
             float segFactor = isPantallaPequena ? 0.08f : 0.06f;   // Aumentar SEG en pantallas pequeñas
 
             AjustarFuenteConAjusteAutomatico(lblTimer, pnSuperiorIzquierda, factorEscala * timerFactor, FontStyle.Bold, 20f, 400f);
-            AjustarFuenteConAjusteAutomatico(label1, pnSuperiorDerecha, factorEscala * segFactor, FontStyle.Bold, 10f, 120f);
-            AjustarFuenteConAjusteAutomatico(label3, pnInferiorArriba, factorEscala * 0.06f, FontStyle.Bold, 10f, 80f);
-            AjustarFuenteConAjusteAutomatico(lblResultado, pnInferiorAbajo, factorEscala * 0.15f, FontStyle.Bold, 16f, 300f);
+           // AjustarFuenteConAjusteAutomatico(label1, pnSuperiorDerecha, factorEscala * segFactor, FontStyle.Bold, 10f, 120f);
+           // AjustarFuenteConAjusteAutomatico(label3, pnInferiorArriba, factorEscala * 0.06f, FontStyle.Bold, 10f, 80f);
+           // AjustarFuenteConAjusteAutomatico(lblResultado, pnInferiorAbajo, factorEscala * 0.15f, FontStyle.Bold, 16f, 300f);
         }
 
         private bool DetectarPantallaPequena()
@@ -543,13 +543,13 @@ namespace WinContador
             CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleRight);
 
             // Centrar "SEG" en panel derecho superior
-            CentrarEnContenedor(label1, pnSuperiorDerecha, ContentAlignment.MiddleLeft);
+            //CentrarEnContenedor(label1, pnSuperiorDerecha, ContentAlignment.MiddleLeft);
 
             // Centrar "APUESTA" en panel inferior arriba
-            CentrarEnContenedor(label3, pnInferiorArriba);
+          //  CentrarEnContenedor(label3, pnInferiorArriba);
 
             // Centrar resultado en panel inferior abajo
-            CentrarEnContenedor(lblResultado, pnInferiorAbajo);
+           // CentrarEnContenedor(lblResultado, pnInferiorAbajo);
         }
 
         private void ConfigurarTamanos()
@@ -564,31 +564,31 @@ namespace WinContador
             }
 
             // Configurar label1 (SEG) para que ocupe la mayor parte de su contenedor
-            if (label1 != null && pnSuperiorDerecha != null)
-            {
-                label1.Size = new Size(
-                    pnSuperiorDerecha.ClientSize.Width - 10,
-                    pnSuperiorDerecha.ClientSize.Height - 10
-                );
-            }
+            //if (label1 != null && pnSuperiorDerecha != null)
+            //{
+            //    label1.Size = new Size(
+            //        pnSuperiorDerecha.ClientSize.Width - 10,
+            //        pnSuperiorDerecha.ClientSize.Height - 10
+            //    );
+            //}
 
             // Configurar label3 (APUESTA) para que ocupe todo el panel superior del área inferior
-            if (label3 != null && pnInferiorArriba != null)
-            {
-                label3.Size = new Size(
-                    pnInferiorArriba.ClientSize.Width - 10,
-                    pnInferiorArriba.ClientSize.Height - 10
-                );
-            }
+            //if (label3 != null && pnInferiorArriba != null)
+            //{
+            //    label3.Size = new Size(
+            //        pnInferiorArriba.ClientSize.Width - 10,
+            //        pnInferiorArriba.ClientSize.Height - 10
+            //    );
+            //}
 
             // Configurar lblResultado para que ocupe todo el panel inferior del área inferior
-            if (lblResultado != null && pnInferiorAbajo != null)
-            {
-                lblResultado.Size = new Size(
-                    pnInferiorAbajo.ClientSize.Width - 10,
-                    pnInferiorAbajo.ClientSize.Height - 10
-                );
-            }
+            //if (lblResultado != null && pnInferiorAbajo != null)
+            //{
+            //    lblResultado.Size = new Size(
+            //        pnInferiorAbajo.ClientSize.Width - 10,
+            //        pnInferiorAbajo.ClientSize.Height - 10
+            //    );
+            //}
         }
 
         private void CentrarEnContenedor(Control control, Control contenedor, ContentAlignment alignment = ContentAlignment.MiddleCenter)
@@ -625,7 +625,7 @@ namespace WinContador
         {
             // Este método ya no es necesario ya que el resultado tiene su propio panel
             // Mantener por compatibilidad, pero usar CentrarEnContenedor directamente
-            CentrarEnContenedor(lblResultado, pnInferiorAbajo);
+           // CentrarEnContenedor(lblResultado, pnInferiorAbajo);
         }
 
         #endregion
@@ -718,12 +718,12 @@ namespace WinContador
                 float segFactor = Math.Max(0.04f, 0.08f - (timerParts - 4) * 0.005f); // Reducir si timer es más grande
 
                 AjustarFuenteConAjusteAutomatico(lblTimer, pnSuperiorIzquierda, factorEscala * timerFactor, FontStyle.Bold, 20f, 400f);
-                AjustarFuenteConAjusteAutomatico(label1, pnSuperiorDerecha, factorEscala * segFactor, FontStyle.Bold, 10f, 120f);
+               // AjustarFuenteConAjusteAutomatico(label1, pnSuperiorDerecha, factorEscala * segFactor, FontStyle.Bold, 10f, 120f);
 
                 // Reposicionar controles
                 ConfigurarTamanos();
                 CentrarEnContenedor(lblTimer, pnSuperiorIzquierda,ContentAlignment.TopRight);
-                CentrarEnContenedor(label1, pnSuperiorDerecha, ContentAlignment.MiddleLeft);
+                CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleLeft);
 
             }
             finally
@@ -742,7 +742,7 @@ namespace WinContador
             // También ajustar factores de fuente para pantalla pequeña
             float factorEscala = CalcularFactorEscala();
             AjustarFuenteConAjusteAutomatico(lblTimer, pnSuperiorIzquierda, factorEscala * 0.20f, FontStyle.Bold, 20f, 400f);
-            AjustarFuenteConAjusteAutomatico(label1, pnSuperiorDerecha, factorEscala * 0.08f, FontStyle.Bold, 10f, 120f);
+            AjustarFuenteConAjusteAutomatico(lblResultado, pnSuperiorDerecha, factorEscala * 0.08f, FontStyle.Bold, 10f, 120f);
         }
 
         /// <summary>
@@ -755,7 +755,7 @@ namespace WinContador
             // También ajustar factores de fuente para pantalla grande
             float factorEscala = CalcularFactorEscala();
             AjustarFuenteConAjusteAutomatico(lblTimer, pnSuperiorIzquierda, factorEscala * 0.22f, FontStyle.Bold, 20f, 400f);
-            AjustarFuenteConAjusteAutomatico(label1, pnSuperiorDerecha, factorEscala * 0.06f, FontStyle.Bold, 10f, 120f);
+            AjustarFuenteConAjusteAutomatico(lblResultado, pnSuperiorDerecha, factorEscala * 0.06f, FontStyle.Bold, 10f, 120f);
         }
 
         /// <summary>
@@ -764,9 +764,9 @@ namespace WinContador
         public void EnsureTextFits()
         {
             ReajustarFuenteSiEsNecesario(lblTimer, pnSuperiorIzquierda);
-            ReajustarFuenteSiEsNecesario(label1, pnSuperiorDerecha);
-            ReajustarFuenteSiEsNecesario(label3, pnInferiorArriba);
-            ReajustarFuenteSiEsNecesario(lblResultado, pnInferiorAbajo);
+            ReajustarFuenteSiEsNecesario(lblResultado, pnSuperiorDerecha);
+           // ReajustarFuenteSiEsNecesario(label3, pnInferiorArriba);
+           // ReajustarFuenteSiEsNecesario(lblResultado, pnInferiorAbajo);
         }
 
         /// <summary>
@@ -796,9 +796,9 @@ namespace WinContador
             info.AppendLine();
             
             AddControlDebugInfo(info, "Timer", lblTimer, pnSuperiorIzquierda);
-            AddControlDebugInfo(info, "SEG", label1, pnSuperiorDerecha);
-            AddControlDebugInfo(info, "APUESTA", label3, pnInferiorArriba);
-            AddControlDebugInfo(info, "Resultado", lblResultado, pnInferiorAbajo);
+            //AddControlDebugInfo(info, "SEG", label1, pnSuperiorDerecha);
+          //  AddControlDebugInfo(info, "APUESTA", label3, pnInferiorArriba);
+           // AddControlDebugInfo(info, "Resultado", lblResultado, pnInferiorAbajo);
             
             return info.ToString();
         }
@@ -945,22 +945,22 @@ namespace WinContador
                 // If after rounding the value is an integer, show without decimals
                 if (rounded % 1 == 0)
                 {
-                    lblResultado.Text = "S/ " + rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text =  rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
                 }
                 else
                 {
                     // Show exactly two decimals
-                    lblResultado.Text = "S/ " + rounded.ToString("N2", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text =  rounded.ToString("N2", System.Globalization.CultureInfo.CurrentCulture);
                 }
             }
             else
             {
                 // Fallback: show the original text if parsing fails
-                lblResultado.Text = "S/ " + resultado;
+                lblResultado.Text = resultado;
             }
 
             // Reajustar la fuente si el texto cambió significativamente
-            ReajustarFuenteSiEsNecesario(lblResultado, pnInferiorAbajo);
+           // ReajustarFuenteSiEsNecesario(lblResultado, pnInferiorAbajo);
 
             // Reposicionar el resultado después de actualizar el texto
             CentrarYPosicionarResultado();
