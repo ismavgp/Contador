@@ -29,10 +29,10 @@ namespace WinContador
         private int currentProportionIndex = 0;
         private readonly int[][] timerProportions = new int[][]
         {
-            new int[] {8, 2}, // 80% : 20% (default)
-            new int[] {9, 1}, // 90% : 10%
-            new int[] {17, 3}, // 85% : 15%
-            new int[] {7, 3}   // 70% : 30%
+            new int[] {1, 1}, // 50% : 50% (default)
+            new int[] {3, 2}, // 60% : 40% 
+            new int[] {2, 3}, // 40% : 60%
+            new int[] {3, 1}   // 75% : 25%
         };
 
         public FrmSecondary()
@@ -86,42 +86,29 @@ namespace WinContador
                 EnsureTextFits();
                 e.Handled = true;
             }
+            // Ctrl + M: Maximize font size (Make text as large as possible)
+            else if (e.Control && e.KeyCode == Keys.M)
+            {
+                MaximizeFontSize();
+                e.Handled = true;
+            }
             // Ctrl + D: Show debug info
             else if (e.Control && e.KeyCode == Keys.D)
             {
                 string debugInfo = GetTextFitDebugInfo();
-                MessageBox.Show(debugInfo, "Debug: Ajuste de Texto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(debugInfo, "Debug: Layout 50:50", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 e.Handled = true;
             }
-            // Ctrl + T: Cycle timer proportions (80%, 85%, 90%, 70%, back to 80%)
+            // Ctrl + T: Cycle proportions
             else if (e.Control && e.KeyCode == Keys.T)
             {
                 CycleTimerProportions();
                 e.Handled = true;
             }
-            // Ctrl + S: Forzar layout pantalla pequeña (Small)
-            else if (e.Control && e.KeyCode == Keys.S)
+            // Ctrl + E: Aplicar layout 50:50 (Equal)
+            else if (e.Control && e.KeyCode == Keys.E)
             {
-                ForzarLayoutPantallaPequena();
-                MessageBox.Show("Layout forzado para pantalla pequeña (70%:30%)", "Layout Cambiado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                e.Handled = true;
-            }
-            // Ctrl + L: Forzar layout pantalla grande (Large)
-            else if (e.Control && e.KeyCode == Keys.L)
-            {
-                ForzarLayoutPantallaGrande();
-                MessageBox.Show("Layout forzado para pantalla grande (80%:20%)", "Layout Cambiado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                e.Handled = true;
-            }
-            // Ctrl + A: Aplicar layout automático (Auto)
-            else if (e.Control && e.KeyCode == Keys.A)
-            {
-                RefreshLayout(); // Esto aplicará la detección automática
-                bool isPantallaPequena = DetectarPantallaPequena();
-                string mensaje = isPantallaPequena ? 
-                    "Layout automático aplicado:\nPantalla pequeña detectada (70%:30%)" :
-                    "Layout automático aplicado:\nPantalla grande detectada (80%:20%)";
-                MessageBox.Show(mensaje, "Layout Automático", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ForzarLayout5050();
                 e.Handled = true;
             }
             // F11: Toggle fullscreen
@@ -141,11 +128,9 @@ namespace WinContador
             
             // Mostrar mensaje con la nueva proporción
             float timerPercent = (proportion[0] * 100.0f) / (proportion[0] + proportion[1]);
-            float segPercent = (proportion[1] * 100.0f) / (proportion[0] + proportion[1]);
+            float resultPercent = (proportion[1] * 100.0f) / (proportion[0] + proportion[1]);
             
-            string layoutType = DetectarPantallaPequena() ? "Pantalla Pequeña (Auto)" : "Pantalla Grande (Auto)";
-            
-            MessageBox.Show($"Proporción manual aplicada:\nTimer: {timerPercent:F1}%\nSEG: {segPercent:F1}%\n\nDetección automática: {layoutType}", 
+            MessageBox.Show($"Nueva proporción aplicada:\nTimer: {timerPercent:F1}%\nResultado: {resultPercent:F1}%", 
                           "Proporción Cambiada", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -212,9 +197,8 @@ namespace WinContador
 
         /// <summary>
         /// Aplica el layout responsivo completo con proporciones:
-        /// - Formulario: Superior 66% : Inferior 33%
-        /// - Superior: Automático según pantalla (70%:30% en pequeñas, 80%:20% en grandes)
-        /// - Inferior: Arriba 20% : Abajo 80%
+        /// - Pantalla dividida 50:50 - Timer izquierda : Resultado derecha
+        /// - Ambos con el mismo tamaño de fuente grande
         /// </summary>
         private void ApplyResponsiveLayout()
         {
@@ -225,31 +209,16 @@ namespace WinContador
             {
                 this.SuspendLayout();
 
-                // 1. Distribuir paneles principales (4:2 vertical = 66.6% : 33.3%)
-                //DistribuirVertical(this, pnSuperior, 4, pnInferior, 2);
+                // Hacer que pnSuperior ocupe toda la pantalla
+                pnSuperior.Dock = DockStyle.Fill;
 
-                //// 2. Distribuir paneles superiores con proporción inteligente según tamaño de pantalla
-                //bool isPantallaPequena = DetectarPantallaPequena();
-                //if (isPantallaPequena)
-                //{
-                //    // Pantallas pequeñas: 70% : 30% (más espacio para SEG)
-                //    DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 7, pnSuperiorDerecha, 3);
-                //}
-                //else
-                //{
-                //    // Pantallas grandes: 80% : 20% (timer más prominente)
-                //    DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 8, pnSuperiorDerecha, 2);
-                //}
+                // Distribuir paneles horizontalmente 50:50 (mitad y mitad)
+                DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 1, pnSuperiorDerecha, 1);
 
-                DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, 5, pnSuperiorDerecha, 4);
-
-                // 3. Distribuir paneles inferiores (1:4 vertical = 20% : 80%)
-               // DistribuirVertical(pnInferior, pnInferiorArriba, 1, pnInferiorAbajo, 4);
-
-                // 4. Ajustar fuentes de forma adaptativa y mejorada
+                // Ajustar fuentes de forma adaptativa y mejorada
                 AjustarFuentesInteligente();
 
-                // 5. Centrar y posicionar controles
+                // Centrar y posicionar controles
                 PosicionarControles();
 
             }
@@ -305,229 +274,159 @@ namespace WinContador
 
         private void AjustarFuentesInteligente()
         {
-            // Calcular factor base para el escalado
-            float factorEscala = CalcularFactorEscala();
+            // Calcular el tamaño de fuente máximo que funciona para AMBOS controles
+            float tamanoFuenteUnificado = CalcularTamanoFuenteUnificado();
 
-            // Detectar pantallas pequeñas para ajustar factores de fuente
-            bool isPantallaPequena = DetectarPantallaPequena();
-
-            // Ajustar cada control con factores mejorados para pantallas pequeñas
-            float timerFactor = isPantallaPequena ? 0.20f : 0.22f; // Reducir timer en pantallas pequeñas
-            float segFactor = isPantallaPequena ? 0.08f : 0.06f;   // Aumentar SEG en pantallas pequeñas
-
-            AjustarFuenteConAjusteAutomatico(lblTimer, pnSuperiorIzquierda, factorEscala * timerFactor, FontStyle.Bold, 20f, 400f);
-           // AjustarFuenteConAjusteAutomatico(label1, pnSuperiorDerecha, factorEscala * segFactor, FontStyle.Bold, 10f, 120f);
-           // AjustarFuenteConAjusteAutomatico(label3, pnInferiorArriba, factorEscala * 0.06f, FontStyle.Bold, 10f, 80f);
-           // AjustarFuenteConAjusteAutomatico(lblResultado, pnInferiorAbajo, factorEscala * 0.15f, FontStyle.Bold, 16f, 300f);
+            // Aplicar el MISMO tamaño de fuente a ambos controles
+            AplicarFuenteUnificada(lblTimer, tamanoFuenteUnificado);
+            AplicarFuenteUnificada(lblResultado, tamanoFuenteUnificado);
         }
 
-        private bool DetectarPantallaPequena()
+        private float CalcularTamanoFuenteUnificado()
         {
-            // Detectar si estamos en una pantalla pequeña (laptop 14" típicamente tiene ~1366x768 o 1920x1080)
-            Screen currentScreen = Screen.FromControl(this);
-            int screenWidth = currentScreen.WorkingArea.Width;
-            int screenHeight = currentScreen.WorkingArea.Height;
-            
-            // Considerar pantalla pequeña si:
-            // - Ancho menor a 1400px, o
-            // - Formulario actual menor a 900px de ancho, o  
-            // - Área de SEG menor a 120px
-            bool isScreenSmall = screenWidth < 1400;
-            bool isFormSmall = this.Width < 900;
-            bool isSegAreaTooSmall = pnSuperiorDerecha != null && pnSuperiorDerecha.Width < 120;
-            
-            return isScreenSmall || isFormSmall || isSegAreaTooSmall;
+            if (pnSuperiorIzquierda == null || pnSuperiorDerecha == null || 
+                string.IsNullOrEmpty(lblTimer?.Text) || string.IsNullOrEmpty(lblResultado?.Text))
+                return 50f; // Tamaño por defecto más grande
+
+            // Calcular el área disponible para cada panel con márgenes mínimos
+            Size areaTimer = new Size(
+                Math.Max(50, pnSuperiorIzquierda.ClientSize.Width - 20), // Solo 20px de margen total
+                Math.Max(50, pnSuperiorIzquierda.ClientSize.Height - 20)
+            );
+
+            Size areaResultado = new Size(
+                Math.Max(50, pnSuperiorDerecha.ClientSize.Width - 20), // Solo 20px de margen total
+                Math.Max(50, pnSuperiorDerecha.ClientSize.Height - 20)
+            );
+
+            // Calcular el tamaño máximo de fuente que funciona para cada texto en SU PROPIA área
+            float tamanoMaxTimer = CalcularTamanoMaximoPara(lblTimer.Text, areaTimer);
+            float tamanoMaxResultado = CalcularTamanoMaximoPara(lblResultado.Text, areaResultado);
+
+            // Usar el menor de los dos para garantizar que ambos quepan
+            float tamanoUnificado = Math.Min(tamanoMaxTimer, tamanoMaxResultado);
+
+            // Aplicar límites mínimos y máximos más generosos
+            return Math.Max(50f, Math.Min(800f, tamanoUnificado));
         }
 
-        private float CalcularFactorEscala()
+        private float CalcularTamanoMaximoPara(string texto, Size areaDisponible)
         {
-            if (_originalFormSize.Width <= 0 || _originalFormSize.Height <= 0)
-                return 1.0f;
-
-            // Usar el menor factor entre ancho y alto para mantener proporciones
-            float scaleX = (float)this.ClientSize.Width / _originalFormSize.Width;
-            float scaleY = (float)this.ClientSize.Height / _originalFormSize.Height;
-
-            return Math.Min(scaleX, scaleY);
-        }
-
-        private void AjustarFuenteConAjusteAutomatico(Control control, Control contenedor, float factor, FontStyle estilo = FontStyle.Regular, float minSize = 8f, float maxSize = 200f)
-        {
-            if (control?.Font == null || contenedor == null) return;
+            if (string.IsNullOrEmpty(texto))
+                return 50f;
 
             try
             {
-                // Calcular nuevo tamaño basado en el tamaño del contenedor
-                float baseSize = Math.Min(this.ClientSize.Width, this.ClientSize.Height);
-                float nuevoTamano = baseSize * factor;
-
-                // Aplicar límites iniciales
-                nuevoTamano = Math.Max(minSize, Math.Min(maxSize, nuevoTamano));
-
-                // Intentar usar la fuente original si es posible
-                string fontFamily = "Microsoft Sans Serif";
-                if (_originalFonts.ContainsKey(control))
+                using (Graphics g = this.CreateGraphics())
                 {
-                    fontFamily = _originalFonts[control].FontFamily.Name;
-                }
+                    // Empezar con un tamaño mucho más grande y escalar según el área disponible
+                    float tamanoInicial = Math.Min(areaDisponible.Width, areaDisponible.Height) * 0.8f; // 80% del área menor
+                    float tamanoActual = Math.Max(50f, tamanoInicial);
+                    Font fuentePrueba = null;
 
-                // Crear fuente inicial
-                Font nuevaFuente = new Font(fontFamily, nuevoTamano, estilo);
-                
-                // Ajustar el tamaño de la fuente para que el texto quepa en el contenedor
-                nuevaFuente = AjustarTamanoParaQueQuepa(control, contenedor, nuevaFuente, minSize);
-                
-                control.Font = nuevaFuente;
-                
-                // Desactivar AutoSize para evitar problemas de recorte
-                if (control is Label label)
-                {
-                    label.AutoSize = false;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                // Fallback a fuente segura
-                try
-                {
-                    control.Font = new Font("Microsoft Sans Serif", Math.Max(minSize, 12f), estilo);
-                    if (control is Label label)
+                    try
                     {
-                        label.AutoSize = false;
+                        fuentePrueba = new Font("Digital-7", tamanoActual, FontStyle.Bold);
                     }
-                }
-                catch
-                {
-                    // Último recurso
-                    System.Diagnostics.Debug.WriteLine($"Error ajustando fuente: {ex.Message}");
-                }
-            }
-        }
-
-        private Font AjustarTamanoParaQueQuepa(Control control, Control contenedor, Font fuenteInicial, float minSize)
-        {
-            if (string.IsNullOrEmpty(control.Text) || contenedor.Width <= 0 || contenedor.Height <= 0)
-                return fuenteInicial;
-
-            Font fuenteActual = fuenteInicial;
-            
-            using (Graphics g = control.CreateGraphics())
-            {
-                // Calcular el área disponible (con márgenes más agresivos para textos cortos)
-                int margen = control.Text.Length <= 3 ? 2 : 5; // Margen menor para textos cortos como "SEG"
-                Size areaDisponible = new Size(
-                    Math.Max(1, contenedor.Width - (margen * 2)),
-                    Math.Max(1, contenedor.Height - (margen * 2))
-                );
-
-                // Medir el tamaño del texto con la fuente actual
-                SizeF tamanoTexto = g.MeasureString(control.Text, fuenteActual);
-
-                // Para el control SEG, ser más agresivo en el ajuste
-                bool isSegControl = control.Text == "SEG";
-                float factorReduccion = isSegControl ? 0.85f : 0.9f; // Reducir más rápido para SEG
-
-                // Reducir la fuente hasta que quepa
-                int intentos = 0;
-                int maxIntentos = 50; // Evitar bucles infinitos
-                
-                while ((tamanoTexto.Width > areaDisponible.Width || tamanoTexto.Height > areaDisponible.Height) && 
-                       fuenteActual.Size > minSize && intentos < maxIntentos)
-                {
-                    float nuevoTamano = Math.Max(minSize, fuenteActual.Size * factorReduccion);
-                    
-                    Font nuevaFuente = new Font(fuenteActual.FontFamily, nuevoTamano, fuenteActual.Style);
-                    fuenteActual.Dispose();
-                    fuenteActual = nuevaFuente;
-                    
-                    tamanoTexto = g.MeasureString(control.Text, fuenteActual);
-                    intentos++;
-                }
-
-                // Si aún no cabe, intentar estrategias adicionales
-                if (tamanoTexto.Width > areaDisponible.Width && fuenteActual.Size <= minSize)
-                {
-                    // Estrategia 1: Intentar con Arial Narrow
-                    fuenteActual = TentarFuenteCondensada(control, areaDisponible, fuenteActual, g);
-                    
-                    // Estrategia 2: Si sigue sin caber, intentar con Arial Black (más compacta para números)
-                    if (control.Text.All(c => char.IsDigit(c) || char.IsWhiteSpace(c)))
+                    catch
                     {
-                        tamanoTexto = g.MeasureString(control.Text, fuenteActual);
-                        if (tamanoTexto.Width > areaDisponible.Width)
+                        // Si Digital-7 falla, usar fuente por defecto
+                        fuentePrueba = new Font("Microsoft Sans Serif", tamanoActual, FontStyle.Bold);
+                    }
+
+                    while (tamanoActual > 30f)
+                    {
+                        try
                         {
-                            fuenteActual = TentarFuenteCompacta(control, areaDisponible, fuenteActual, g);
+                            // Medir el texto sin limitar el ancho para evitar saltos de línea
+                            SizeF tamanoTexto = g.MeasureString(texto, fuentePrueba);
+
+                            // Verificar si cabe completamente en el área disponible
+                            if (tamanoTexto.Width <= areaDisponible.Width && 
+                                tamanoTexto.Height <= areaDisponible.Height)
+                            {
+                                fuentePrueba?.Dispose();
+                                return tamanoActual;
+                            }
+
+                            fuentePrueba?.Dispose();
+                            tamanoActual *= 0.95f; // Reducir más gradualmente
+                            
+                            try
+                            {
+                                fuentePrueba = new Font("Digital-7", tamanoActual, FontStyle.Bold);
+                            }
+                            catch
+                            {
+                                fuentePrueba = new Font("Microsoft Sans Serif", tamanoActual, FontStyle.Bold);
+                            }
+                        }
+                        catch
+                        {
+                            tamanoActual *= 0.9f;
+                            try
+                            {
+                                fuentePrueba?.Dispose();
+                                fuentePrueba = new Font("Digital-7", tamanoActual, FontStyle.Bold);
+                            }
+                            catch
+                            {
+                                try
+                                {
+                                    fuentePrueba = new Font("Microsoft Sans Serif", tamanoActual, FontStyle.Bold);
+                                }
+                                catch
+                                {
+                                    return 50f;
+                                }
+                            }
                         }
                     }
-                }
 
-                // Última validación: asegurar que al menos sea legible
-                if (fuenteActual.Size < 8f && isSegControl)
-                {
-                    // Para SEG, prefiere usar tamaño mínimo legible aunque se salga un poco
-                    Font nuevaFuente = new Font(fuenteActual.FontFamily, 8f, fuenteActual.Style);
-                    fuenteActual.Dispose();
-                    fuenteActual = nuevaFuente;
-                }
-            }
-
-            return fuenteActual;
-        }
-
-        private Font TentarFuenteCondensada(Control control, Size areaDisponible, Font fuenteActual, Graphics g)
-        {
-            try
-            {
-                Font fuenteCondensada = new Font("Arial Narrow", fuenteActual.Size, fuenteActual.Style);
-                SizeF tamanoCondensado = g.MeasureString(control.Text, fuenteCondensada);
-                
-                if (tamanoCondensado.Width <= areaDisponible.Width)
-                {
-                    fuenteActual.Dispose();
-                    return fuenteCondensada;
-                }
-                else
-                {
-                    fuenteCondensada.Dispose();
+                    fuentePrueba?.Dispose();
+                    return Math.Max(30f, tamanoActual); // Tamaño mínimo más grande
                 }
             }
             catch
             {
-                // Si falla Arial Narrow, continuar con la fuente actual
+                return 50f;
             }
-            
-            return fuenteActual;
         }
 
-        private Font TentarFuenteCompacta(Control control, Size areaDisponible, Font fuenteActual, Graphics g)
+        private void AplicarFuenteUnificada(Label label, float tamano)
         {
-            string[] fuentesCompactas = { "Tahoma", "Segoe UI", "Calibri" };
-            
-            foreach (string nombreFuente in fuentesCompactas)
+            if (label == null) return;
+
+            try
             {
+                // Crear la nueva fuente con el tamaño unificado
+                Font nuevaFuente = new Font("Digital-7", tamano, FontStyle.Bold);
+                
+                // Liberar la fuente anterior si existe
+                label.Font?.Dispose();
+                
+                // Aplicar la nueva fuente
+                label.Font = nuevaFuente;
+                label.AutoSize = false;
+
+                // Asegurar que el texto esté centrado y no tenga saltos de línea
+                label.TextAlign = ContentAlignment.MiddleCenter;
+                
+            }
+            catch (Exception ex)
+            {
+                // Fallback seguro
                 try
                 {
-                    Font fuenteCompacta = new Font(nombreFuente, fuenteActual.Size, fuenteActual.Style);
-                    SizeF tamanoCompacto = g.MeasureString(control.Text, fuenteCompacta);
-                    
-                    if (tamanoCompacto.Width <= areaDisponible.Width)
-                    {
-                        fuenteActual.Dispose();
-                        return fuenteCompacta;
-                    }
-                    else
-                    {
-                        fuenteCompacta.Dispose();
-                    }
+                    label.Font = new Font("Microsoft Sans Serif", Math.Max(24f, tamano), FontStyle.Bold);
+                    label.AutoSize = false;
+                    label.TextAlign = ContentAlignment.MiddleCenter;
                 }
                 catch
                 {
-                    continue;
+                    System.Diagnostics.Debug.WriteLine($"Error aplicando fuente unificada: {ex.Message}");
                 }
             }
-            
-            return fuenteActual;
         }
 
         #endregion
@@ -539,56 +438,30 @@ namespace WinContador
             // Asegurar que los labels ocupen todo el espacio disponible de sus contenedores
             ConfigurarTamanos();
 
-            // Centrar timer en panel izquierdo superior
-            CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleRight);
-
-            // Centrar "SEG" en panel derecho superior
-            //CentrarEnContenedor(label1, pnSuperiorDerecha, ContentAlignment.MiddleLeft);
-
-            // Centrar "APUESTA" en panel inferior arriba
-          //  CentrarEnContenedor(label3, pnInferiorArriba);
-
-            // Centrar resultado en panel inferior abajo
-           // CentrarEnContenedor(lblResultado, pnInferiorAbajo);
+            // Centrar ambos controles perfectamente en el centro de sus paneles
+            CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+            CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
         }
 
         private void ConfigurarTamanos()
         {
-            // Configurar lblTimer para que ocupe la mayor parte de su contenedor
+            // Configurar lblTimer para que ocupe casi todo el espacio de su contenedor
             if (lblTimer != null && pnSuperiorIzquierda != null)
             {
                 lblTimer.Size = new Size(
-                    pnSuperiorIzquierda.ClientSize.Width - 10, // 5px margen a cada lado
+                    pnSuperiorIzquierda.ClientSize.Width - 10, // Solo 5px margen a cada lado
                     pnSuperiorIzquierda.ClientSize.Height - 10
                 );
             }
 
-            // Configurar label1 (SEG) para que ocupe la mayor parte de su contenedor
-            //if (label1 != null && pnSuperiorDerecha != null)
-            //{
-            //    label1.Size = new Size(
-            //        pnSuperiorDerecha.ClientSize.Width - 10,
-            //        pnSuperiorDerecha.ClientSize.Height - 10
-            //    );
-            //}
-
-            // Configurar label3 (APUESTA) para que ocupe todo el panel superior del área inferior
-            //if (label3 != null && pnInferiorArriba != null)
-            //{
-            //    label3.Size = new Size(
-            //        pnInferiorArriba.ClientSize.Width - 10,
-            //        pnInferiorArriba.ClientSize.Height - 10
-            //    );
-            //}
-
-            // Configurar lblResultado para que ocupe todo el panel inferior del área inferior
-            //if (lblResultado != null && pnInferiorAbajo != null)
-            //{
-            //    lblResultado.Size = new Size(
-            //        pnInferiorAbajo.ClientSize.Width - 10,
-            //        pnInferiorAbajo.ClientSize.Height - 10
-            //    );
-            //}
+            // Configurar lblResultado para que ocupe casi todo el espacio de su contenedor
+            if (lblResultado != null && pnSuperiorDerecha != null)
+            {
+                lblResultado.Size = new Size(
+                    pnSuperiorDerecha.ClientSize.Width - 10, // Solo 5px margen a cada lado
+                    pnSuperiorDerecha.ClientSize.Height - 10
+                );
+            }
         }
 
         private void CentrarEnContenedor(Control control, Control contenedor, ContentAlignment alignment = ContentAlignment.MiddleCenter)
@@ -621,13 +494,6 @@ namespace WinContador
             }
         }
 
-        private void CentrarYPosicionarResultado()
-        {
-            // Este método ya no es necesario ya que el resultado tiene su propio panel
-            // Mantener por compatibilidad, pero usar CentrarEnContenedor directamente
-           // CentrarEnContenedor(lblResultado, pnInferiorAbajo);
-        }
-
         #endregion
 
         #region Eventos del Sistema
@@ -652,7 +518,22 @@ namespace WinContador
 
         private void FrmSecondary_Load(object sender, EventArgs e)
         {
+            // Forzar un recálculo completo del layout al cargar
+            this.WindowState = FormWindowState.Normal; // Asegurar estado normal primero
             ApplyResponsiveLayout();
+            
+            // Dar un pequeño retraso para que el formulario se estabilice y recalcular
+            Timer delayTimer = new Timer();
+            delayTimer.Interval = 100;
+            delayTimer.Tick += (s, ev) =>
+            {
+                delayTimer.Stop();
+                delayTimer.Dispose();
+                AjustarFuentesInteligente();
+                CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+                CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
+            };
+            delayTimer.Start();
         }
 
         #endregion
@@ -696,11 +577,11 @@ namespace WinContador
         }
 
         /// <summary>
-        /// Cambia la proporción del timer vs SEG en el área superior
+        /// Cambia la proporción del timer vs resultado en la pantalla
         /// </summary>
-        /// <param name="timerParts">Partes para el timer (por defecto 8 = 80%)</param>
-        /// <param name="segParts">Partes para SEG (por defecto 2 = 20%)</param>
-        public void SetTimerProportion(int timerParts = 8, int segParts = 2)
+        /// <param name="timerParts">Partes para el timer (por defecto 1 = 50%)</param>
+        /// <param name="resultParts">Partes para resultado (por defecto 1 = 50%)</param>
+        public void SetTimerProportion(int timerParts = 1, int resultParts = 1)
         {
             if (_isInitializing || this.Width <= 0 || this.Height <= 0)
                 return;
@@ -709,21 +590,16 @@ namespace WinContador
             {
                 this.SuspendLayout();
 
-                // Solo redistribuir la sección superior con las nuevas proporciones
-                DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, timerParts, pnSuperiorDerecha, segParts);
+                // Redistribuir con las nuevas proporciones
+                DistribuirHorizontal(pnSuperior, pnSuperiorIzquierda, timerParts, pnSuperiorDerecha, resultParts);
 
-                // Reajustar fuentes según las nuevas proporciones
-                float factorEscala = CalcularFactorEscala();
-                float timerFactor = 0.18f + (timerParts - 4) * 0.01f; // Ajustar según proporción
-                float segFactor = Math.Max(0.04f, 0.08f - (timerParts - 4) * 0.005f); // Reducir si timer es más grande
+                // Aplicar fuentes unificadas
+                AjustarFuentesInteligente();
 
-                AjustarFuenteConAjusteAutomatico(lblTimer, pnSuperiorIzquierda, factorEscala * timerFactor, FontStyle.Bold, 20f, 400f);
-               // AjustarFuenteConAjusteAutomatico(label1, pnSuperiorDerecha, factorEscala * segFactor, FontStyle.Bold, 10f, 120f);
-
-                // Reposicionar controles
+                // Reposicionar controles con centrado perfecto
                 ConfigurarTamanos();
-                CentrarEnContenedor(lblTimer, pnSuperiorIzquierda,ContentAlignment.TopRight);
-                CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleLeft);
+                CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+                CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
 
             }
             finally
@@ -733,29 +609,12 @@ namespace WinContador
         }
 
         /// <summary>
-        /// Fuerza el uso de proporciones para pantalla pequeña (70%:30%)
+        /// Fuerza el layout 50:50 con fuentes grandes iguales
         /// </summary>
-        public void ForzarLayoutPantallaPequena()
+        public void ForzarLayout5050()
         {
-            SetTimerProportion(7, 3);
-            
-            // También ajustar factores de fuente para pantalla pequeña
-            float factorEscala = CalcularFactorEscala();
-            AjustarFuenteConAjusteAutomatico(lblTimer, pnSuperiorIzquierda, factorEscala * 0.20f, FontStyle.Bold, 20f, 400f);
-            AjustarFuenteConAjusteAutomatico(lblResultado, pnSuperiorDerecha, factorEscala * 0.08f, FontStyle.Bold, 10f, 120f);
-        }
-
-        /// <summary>
-        /// Fuerza el uso de proporciones para pantalla grande (80%:20%)
-        /// </summary>
-        public void ForzarLayoutPantallaGrande()
-        {
-            SetTimerProportion(8, 2);
-            
-            // También ajustar factores de fuente para pantalla grande
-            float factorEscala = CalcularFactorEscala();
-            AjustarFuenteConAjusteAutomatico(lblTimer, pnSuperiorIzquierda, factorEscala * 0.22f, FontStyle.Bold, 20f, 400f);
-            AjustarFuenteConAjusteAutomatico(lblResultado, pnSuperiorDerecha, factorEscala * 0.06f, FontStyle.Bold, 10f, 120f);
+            SetTimerProportion(1, 1);
+            MessageBox.Show("Layout 50:50 aplicado\nTimer (Izquierda) : Resultado (Derecha)", "Layout Aplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -763,10 +622,12 @@ namespace WinContador
         /// </summary>
         public void EnsureTextFits()
         {
-            ReajustarFuenteSiEsNecesario(lblTimer, pnSuperiorIzquierda);
-            ReajustarFuenteSiEsNecesario(lblResultado, pnSuperiorDerecha);
-           // ReajustarFuenteSiEsNecesario(label3, pnInferiorArriba);
-           // ReajustarFuenteSiEsNecesario(lblResultado, pnInferiorAbajo);
+            // Usar el sistema unificado para garantizar el mismo tamaño
+            AjustarFuentesInteligente();
+            
+            // Recentrar ambos controles
+            CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+            CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
         }
 
         /// <summary>
@@ -775,30 +636,46 @@ namespace WinContador
         public string GetTextFitDebugInfo()
         {
             var info = new System.Text.StringBuilder();
-            info.AppendLine("=== DEBUG: Ajuste de Texto ===");
+            info.AppendLine("=== DEBUG: Layout 50:50 ===");
             
             // Información del sistema
             Screen currentScreen = Screen.FromControl(this);
-            bool isPantallaPequena = DetectarPantallaPequena();
             
             info.AppendLine($"Pantalla: {currentScreen.WorkingArea.Width}x{currentScreen.WorkingArea.Height}");
             info.AppendLine($"Formulario: {this.Width}x{this.Height}");
-            info.AppendLine($"Pantalla pequeña detectada: {(isPantallaPequena ? "SÍ" : "NO")}");
-            info.AppendLine($"Proporción automática: {(isPantallaPequena ? "70%:30%" : "80%:20%")}");
+            info.AppendLine("Layout: Timer (Izquierda) : Resultado (Derecha) = 50% : 50%");
             info.AppendLine();
             
-            info.AppendLine($"Proporción actual - Timer: {pnSuperiorIzquierda?.Width}px, SEG: {pnSuperiorDerecha?.Width}px");
+            info.AppendLine($"Distribución actual - Timer: {pnSuperiorIzquierda?.Width}px, Resultado: {pnSuperiorDerecha?.Width}px");
             if (pnSuperiorIzquierda?.Width > 0 && pnSuperiorDerecha?.Width > 0)
             {
                 float totalWidth = pnSuperiorIzquierda.Width + pnSuperiorDerecha.Width;
                 info.AppendLine($"Ratio real: {(pnSuperiorIzquierda.Width * 100.0 / totalWidth):F1}% : {(pnSuperiorDerecha.Width * 100.0 / totalWidth):F1}%");
+                
+                // Información de áreas disponibles
+                Size areaTimer = new Size(
+                    Math.Max(50, pnSuperiorIzquierda.ClientSize.Width - 20),
+                    Math.Max(50, pnSuperiorIzquierda.ClientSize.Height - 20)
+                );
+                Size areaResultado = new Size(
+                    Math.Max(50, pnSuperiorDerecha.ClientSize.Width - 20),
+                    Math.Max(50, pnSuperiorDerecha.ClientSize.Height - 20)
+                );
+                
+                info.AppendLine($"Área Timer: {areaTimer.Width}x{areaTimer.Height}");
+                info.AppendLine($"Área Resultado: {areaResultado.Width}x{areaResultado.Height}");
+                
+                float tamanoCalculadoTimer = CalcularTamanoMaximoPara(lblTimer?.Text ?? "00", areaTimer);
+                float tamanoCalculadoResultado = CalcularTamanoMaximoPara(lblResultado?.Text ?? "100", areaResultado);
+                
+                info.AppendLine($"Tamaño calculado Timer: {tamanoCalculadoTimer:F1}pt");
+                info.AppendLine($"Tamaño calculado Resultado: {tamanoCalculadoResultado:F1}pt");
+                info.AppendLine($"Tamaño final unificado: {Math.Min(tamanoCalculadoTimer, tamanoCalculadoResultado):F1}pt");
             }
             info.AppendLine();
             
             AddControlDebugInfo(info, "Timer", lblTimer, pnSuperiorIzquierda);
-            //AddControlDebugInfo(info, "SEG", label1, pnSuperiorDerecha);
-          //  AddControlDebugInfo(info, "APUESTA", label3, pnInferiorArriba);
-           // AddControlDebugInfo(info, "Resultado", lblResultado, pnInferiorAbajo);
+            AddControlDebugInfo(info, "Resultado", lblResultado, pnSuperiorDerecha);
             
             return info.ToString();
         }
@@ -830,6 +707,20 @@ namespace WinContador
             }
         }
 
+        /// <summary>
+        /// Maximiza el tamaño de fuente para ocupar toda la pantalla disponible
+        /// </summary>
+        public void MaximizeFontSize()
+        {
+            // Forzar recalcular con configuraciones más agresivas
+            ConfigurarTamanos();
+            AjustarFuentesInteligente();
+            CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+            CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
+            
+            MessageBox.Show("Fuente maximizada para ocupar toda la pantalla disponible", "Fuente Maximizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         #endregion
 
         #region Métodos Originales del Temporizador
@@ -846,19 +737,31 @@ namespace WinContador
         private async void CountdownTimer_Tick(object sender, EventArgs e)
         {
             currentCount--;
-            lblTimer.Text = currentCount.ToString("00");
+            string newText = currentCount.ToString("00");
             
-            // Reajustar fuente solo si el formato cambió (ej: de "99" a "9" o a "00")
-            string previousFormat = (currentCount + 1).ToString("00");
-            if (previousFormat.Length != lblTimer.Text.Length)
+            // Solo recalcular fuentes si el texto cambió de longitud o formato significativamente
+            bool shouldRecalculateFont = lblTimer.Text.Length != newText.Length ||
+                                       (currentCount <= 9 && lblTimer.Text.Length >= 2) ||
+                                       (currentCount >= 10 && lblTimer.Text.Length < 2);
+            
+            lblTimer.Text = newText;
+            
+            if (shouldRecalculateFont)
             {
-                ReajustarFuenteSiEsNecesario(lblTimer, pnSuperiorIzquierda);
+                AjustarFuentesInteligente();
+                CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+                CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
             }
 
             if (currentCount <= 0)
             {
                 countdownTimer.Stop();
                 lblTimer.Text = "00";
+                
+                // Recalcular fuentes cuando llega a 00
+                AjustarFuentesInteligente();
+                CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+                CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
 
                 ConfigRepository configRepository = new ConfigRepository();
                 configRepository.CrearBaseSiNoExiste();
@@ -890,8 +793,12 @@ namespace WinContador
             currentCount = contador;
             lblTimer.Text = currentCount.ToString("00");
             
-            // Reajustar fuente si es necesario
-            ReajustarFuenteSiEsNecesario(lblTimer, pnSuperiorIzquierda);
+            // Recalcular fuentes unificadas cuando el texto cambia
+            AjustarFuentesInteligente();
+            
+            // Recentrar ambos controles
+            CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+            CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
         }
 
         public void StartCountdown()
@@ -945,12 +852,12 @@ namespace WinContador
                 // If after rounding the value is an integer, show without decimals
                 if (rounded % 1 == 0)
                 {
-                    lblResultado.Text =  rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text = rounded.ToString("N0", System.Globalization.CultureInfo.CurrentCulture);
                 }
                 else
                 {
                     // Show exactly two decimals
-                    lblResultado.Text =  rounded.ToString("N2", System.Globalization.CultureInfo.CurrentCulture);
+                    lblResultado.Text = rounded.ToString("N2", System.Globalization.CultureInfo.CurrentCulture);
                 }
             }
             else
@@ -959,41 +866,12 @@ namespace WinContador
                 lblResultado.Text = resultado;
             }
 
-            // Reajustar la fuente si el texto cambió significativamente
-           // ReajustarFuenteSiEsNecesario(lblResultado, pnInferiorAbajo);
+            // Recalcular fuentes unificadas cuando el texto cambia
+            AjustarFuentesInteligente();
 
-            // Reposicionar el resultado después de actualizar el texto
-            CentrarYPosicionarResultado();
-        }
-
-        private void ReajustarFuenteSiEsNecesario(Control control, Control contenedor)
-        {
-            if (control?.Font == null || contenedor == null || string.IsNullOrEmpty(control.Text))
-                return;
-
-            try
-            {
-                using (Graphics g = control.CreateGraphics())
-                {
-                    // Medir el tamaño actual del texto
-                    SizeF tamanoTexto = g.MeasureString(control.Text, control.Font);
-                    
-                    // Verificar si el texto se sale del control
-                    if (tamanoTexto.Width > control.Width || tamanoTexto.Height > control.Height)
-                    {
-                        // Recalcular la fuente para que quepa
-                        Font nuevaFuente = AjustarTamanoParaQueQuepa(control, contenedor, control.Font, 8f);
-                        if (nuevaFuente != control.Font)
-                        {
-                            control.Font = nuevaFuente;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error reajustando fuente: {ex.Message}");
-            }
+            // Reposicionar ambos controles para mantener centrado perfecto
+            CentrarEnContenedor(lblTimer, pnSuperiorIzquierda, ContentAlignment.MiddleCenter);
+            CentrarEnContenedor(lblResultado, pnSuperiorDerecha, ContentAlignment.MiddleCenter);
         }
 
         private async Task ReproducirMp3(string nombreRecurso)

@@ -93,25 +93,25 @@ namespace WinContador
             }
 
             //Con i iniciar
-            if (e.KeyCode == Keys.I)
-            {
-                btnIniciar.Focus();
-                btnIniciar.PerformClick();
-            }
+            //if (e.KeyCode == Keys.I)
+            //{
+            //    btnIniciar.Focus();
+            //    btnIniciar.PerformClick();
+            //}
 
             //Con r resetear
-            if (e.KeyCode == Keys.R)
-            {
-                btnReset.Focus();
-                btnReset.PerformClick();
-            }
+            //if (e.KeyCode == Keys.R)
+            //{
+            //    btnReset.Focus();
+            //    btnReset.PerformClick();
+            //}
 
             //Con p pausar/reanudar
-            if (e.KeyCode == Keys.P)
-            {
-                btnPausa.Focus();
-                btnPausa.PerformClick();
-            }
+            //if (e.KeyCode == Keys.P)
+            //{
+            //    btnPausa.Focus();
+            //    btnPausa.PerformClick();
+            //}
 
             //guardar con g
             if (e.KeyCode == Keys.G)
@@ -133,7 +133,25 @@ namespace WinContador
                 frmHistorial.ShowDialog();
             }
 
+            // con * iniciar 
+            if (e.KeyCode == Keys.Multiply)
+            {
+                btnIniciar.Focus();
+                btnIniciar.PerformClick();
+            }
 
+            // con / resetear
+            if (e.KeyCode == Keys.Divide)
+            {
+                btnReset.Focus();
+                btnReset.PerformClick();
+            }
+            // con numlock pausar/reanudar
+            if (e.KeyCode == Keys.NumLock)
+            {
+                btnPausa.Focus();
+                btnPausa.PerformClick();
+            }
 
         }
 
